@@ -44,7 +44,6 @@ services:
   - type: web
     name: devget-learning-frontend
     env: static
-    region: oregon
     buildCommand: cd frontend && npm install && npm run build
     staticPublishPath: frontend/dist
     pullRequestPreviewsEnabled: true
