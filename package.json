@@ -10,6 +10,7 @@
         "dev": "echo 'Run: npm run dev:backend (in one terminal) and npm run dev:frontend (in another terminal)'",
         "dev:backend": "cd backend && npm run dev",
         "dev:frontend": "cd frontend && npm run dev",
+        "build": "npm install --prefix frontend && npm run build --prefix frontend",
         "build:frontend": "cd frontend && npm run build",
         "start:backend": "cd backend && npm start",
         "preview:frontend": "cd frontend && npm run preview"
