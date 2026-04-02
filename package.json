@@ -1,0 +1,31 @@
+{
+    "name": "devget-learning-platform",
+    "version": "1.0.0",
+    "description": "DEVGet Learning Platform - Full Stack Application",
+    "type": "module",
+    "scripts": {
+        "deploy-check": "node scripts/deploy-check.js",
+        "pre-deploy-test": "node scripts/pre-deploy-test.js",
+        "install-all": "cd backend && npm install && cd ../frontend && npm install",
+        "dev": "echo 'Run: npm run dev:backend (in one terminal) and npm run dev:frontend (in another terminal)'",
+        "dev:backend": "cd backend && npm run dev",
+        "dev:frontend": "cd frontend && npm run dev",
+        "build:frontend": "cd frontend && npm run build",
+        "start:backend": "cd backend && npm start",
+        "preview:frontend": "cd frontend && npm run preview"
+    },
+    "keywords": [
+        "learning-platform",
+        "education",
+        "react",
+        "nodejs",
+        "express",
+        "supabase"
+    ],
+    "author": "DEVGet Learning",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/yourusername/devget-learning"
+    }
+}

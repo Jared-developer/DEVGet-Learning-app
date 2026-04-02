@@ -1,0 +1,421 @@
+/* Mobile Responsiveness Enhancements */
+
+/* Ensure proper touch targets on mobile */
+@media (max-width: 768px) {
+
+    button,
+    a {
+        min-height: 44px;
+        min-width: 44px;
+    }
+}
+
+/* Improve text readability on mobile */
+@media (max-width: 640px) {
+    body {
+        font-size: 16px;
+        /* Prevents zoom on iOS */
+    }
+
+    input,
+    textarea,
+    select {
+        font-size: 16px;
+        /* Prevents zoom on iOS */
+    }
+}
+
+/* Better spacing for mobile cards */
+@media (max-width: 768px) {
+    .course-card {
+        padding: 1rem;
+    }
+
+    .modal-content {
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+}
+
+/* Improve table responsiveness */
+@media (max-width: 768px) {
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+}
+
+/* Better code block handling on mobile */
+@media (max-width: 640px) {
+    pre {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    code {
+        word-break: break-word;
+    }
+}
+
+/* Improve navigation on mobile */
+@media (max-width: 1024px) {
+    .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .sidebar.open {
+        transform: translateX(0);
+    }
+}
+
+/* Better modal handling on mobile */
+@media (max-width: 640px) {
+    .modal {
+        margin: 0;
+        border-radius: 1rem 1rem 0 0;
+        max-height: 95vh;
+    }
+}
+
+/* Improve form layouts on mobile */
+@media (max-width: 768px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Better video player on mobile */
+@media (max-width: 768px) {
+    .video-container {
+        position: relative;
+        padding-bottom: 56.25%;
+        /* 16:9 aspect ratio */
+        height: 0;
+        overflow: hidden;
+    }
+
+    .video-container iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+/* Improve AI Assistant on mobile */
+@media (max-width: 640px) {
+    .ai-assistant-window {
+        bottom: 0;
+        right: 0;
+        left: 0;
+        width: 100%;
+        border-radius: 1rem 1rem 0 0;
+    }
+}
+
+/* Better tab navigation on mobile */
+@media (max-width: 640px) {
+    .tab-navigation {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+
+    .tab-navigation::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+/* Improve dropdown menus on mobile */
+@media (max-width: 768px) {
+    .dropdown-menu {
+        position: fixed;
+        left: 1rem;
+        right: 1rem;
+        width: auto;
+    }
+}
+
+/* Better course curriculum on mobile */
+@media (max-width: 640px) {
+    .lesson-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .lesson-duration {
+        margin-top: 0.5rem;
+    }
+}
+
+/* Improve stats cards on mobile */
+@media (max-width: 640px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Better enrollment modal on mobile */
+@media (max-width: 640px) {
+    .enrollment-modal {
+        padding: 1rem;
+    }
+
+    .enrollment-modal h2 {
+        font-size: 1.25rem;
+    }
+}
+
+/* Improve quiz layout on mobile */
+@media (max-width: 640px) {
+    .quiz-option {
+        padding: 0.75rem;
+        font-size: 0.875rem;
+    }
+}
+
+/* Better community posts on mobile */
+@media (max-width: 640px) {
+    .community-post {
+        padding: 1rem;
+    }
+
+    .post-actions {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+}
+
+/* Improve assignment cards on mobile */
+@media (max-width: 640px) {
+    .assignment-card {
+        padding: 1rem;
+    }
+
+    .assignment-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+}
+
+/* Better certificate display on mobile */
+@media (max-width: 640px) {
+    .certificate-preview {
+        width: 100%;
+        height: auto;
+    }
+}
+
+/* Improve live class schedule on mobile */
+@media (max-width: 640px) {
+    .class-schedule-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .class-time {
+        margin-top: 0.5rem;
+    }
+}
+
+/* Better resource cards on mobile */
+@media (max-width: 640px) {
+    .resource-card {
+        padding: 1rem;
+    }
+
+    .resource-icon {
+        width: 2rem;
+        height: 2rem;
+    }
+}
+
+/* Improve pricing cards on mobile */
+@media (max-width: 768px) {
+    .pricing-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .pricing-card {
+        margin-bottom: 1.5rem;
+    }
+}
+
+/* Better contact form on mobile */
+@media (max-width: 640px) {
+    .contact-form {
+        padding: 1rem;
+    }
+
+    .form-field {
+        margin-bottom: 1rem;
+    }
+}
+
+/* Improve footer on mobile */
+@media (max-width: 768px) {
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+}
+
+/* Better ad banner on mobile */
+@media (max-width: 640px) {
+    .ad-banner {
+        padding: 0.5rem;
+        font-size: 0.75rem;
+    }
+
+    .ad-banner-close {
+        padding: 0.25rem;
+    }
+}
+
+/* Improve lesson notes on mobile */
+@media (max-width: 640px) {
+    .lesson-notes {
+        padding: 1rem;
+        font-size: 0.875rem;
+    }
+
+    .lesson-notes h1 {
+        font-size: 1.5rem;
+    }
+
+    .lesson-notes h2 {
+        font-size: 1.25rem;
+    }
+
+    .lesson-notes h3 {
+        font-size: 1.125rem;
+    }
+}
+
+/* Better progress indicators on mobile */
+@media (max-width: 640px) {
+    .progress-bar {
+        height: 0.5rem;
+    }
+
+    .progress-label {
+        font-size: 0.75rem;
+    }
+}
+
+/* Improve notification badges on mobile */
+@media (max-width: 640px) {
+    .notification-badge {
+        font-size: 0.625rem;
+        padding: 0.125rem 0.375rem;
+    }
+}
+
+/* Better avatar display on mobile */
+@media (max-width: 640px) {
+    .avatar-large {
+        width: 4rem;
+        height: 4rem;
+    }
+
+    .avatar-medium {
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+
+    .avatar-small {
+        width: 2rem;
+        height: 2rem;
+    }
+}
+
+/* Improve search bar on mobile */
+@media (max-width: 640px) {
+    .search-bar {
+        width: 100%;
+    }
+
+    .search-results {
+        position: fixed;
+        left: 1rem;
+        right: 1rem;
+        width: auto;
+    }
+}
+
+/* Better loading states on mobile */
+@media (max-width: 640px) {
+    .loading-spinner {
+        width: 2rem;
+        height: 2rem;
+    }
+}
+
+/* Improve error messages on mobile */
+@media (max-width: 640px) {
+    .error-message {
+        padding: 0.75rem;
+        font-size: 0.875rem;
+    }
+}
+
+/* Better success messages on mobile */
+@media (max-width: 640px) {
+    .success-message {
+        padding: 0.75rem;
+        font-size: 0.875rem;
+    }
+}
+
+/* Improve breadcrumbs on mobile */
+@media (max-width: 640px) {
+    .breadcrumbs {
+        font-size: 0.75rem;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+}
+
+/* Better pagination on mobile */
+@media (max-width: 640px) {
+    .pagination {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .pagination-button {
+        min-width: 2.5rem;
+        padding: 0.5rem;
+    }
+}
+
+/* Improve tooltips on mobile */
+@media (max-width: 768px) {
+    .tooltip {
+        display: none;
+        /* Hide tooltips on touch devices */
+    }
+}
+
+/* Better skeleton loaders on mobile */
+@media (max-width: 640px) {
+    .skeleton {
+        height: 3rem;
+    }
+}
+
+/* Improve empty states on mobile */
+@media (max-width: 640px) {
+    .empty-state {
+        padding: 2rem 1rem;
+    }
+
+    .empty-state-icon {
+        width: 3rem;
+        height: 3rem;
+    }
+}
