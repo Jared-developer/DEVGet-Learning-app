@@ -111,26 +111,26 @@ const StudentRegistration = () => {
     // Show success screen with credentials
     if (registeredStudent) {
         return (
-            <div className="max-w-2xl mx-auto p-6">
-                <div className="bg-success-50 border-2 border-success-500 rounded-xl p-6 mb-6">
+            <div className="max-w-2xl mx-auto p-4 sm:p-6">
+                <div className="bg-success-50 border-2 border-success-500 rounded-xl p-4 sm:p-6 mb-4 sm:mb-6">
                     <div className="flex items-center gap-3 mb-4">
-                        <CheckCircle className="h-8 w-8 text-success-600" />
-                        <h2 className="text-2xl font-bold text-success-900">Student Registered Successfully!</h2>
+                        <CheckCircle className="h-6 w-6 sm:h-8 sm:w-8 text-success-600 flex-shrink-0" />
+                        <h2 className="text-lg sm:text-2xl font-bold text-success-900">Student Registered Successfully!</h2>
                     </div>
 
-                    <div className="bg-white rounded-lg p-4 space-y-4">
+                    <div className="bg-white rounded-lg p-3 sm:p-4 space-y-3 sm:space-y-4">
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-1">Student Name</label>
-                            <div className="flex items-center gap-2">
+                            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
                                 <input
                                     type="text"
                                     value={registeredStudent.fullName}
                                     readOnly
-                                    className="flex-1 px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg"
+                                    className="flex-1 px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg text-base"
                                 />
                                 <button
                                     onClick={() => copyToClipboard(registeredStudent.fullName)}
-                                    className="px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm"
+                                    className="w-full sm:w-auto px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm font-medium"
                                 >
                                     Copy
                                 </button>
@@ -139,16 +139,16 @@ const StudentRegistration = () => {
 
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                            <div className="flex items-center gap-2">
+                            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
                                 <input
                                     type="text"
                                     value={registeredStudent.email}
                                     readOnly
-                                    className="flex-1 px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg"
+                                    className="flex-1 px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg text-base break-all"
                                 />
                                 <button
                                     onClick={() => copyToClipboard(registeredStudent.email)}
-                                    className="px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm"
+                                    className="w-full sm:w-auto px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm font-medium"
                                 >
                                     Copy
                                 </button>
@@ -157,25 +157,25 @@ const StudentRegistration = () => {
 
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
-                            <div className="flex items-center gap-2">
+                            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
                                 <input
                                     type="text"
                                     value={registeredStudent.password}
                                     readOnly
-                                    className="flex-1 px-3 py-2 bg-yellow-50 border-2 border-yellow-400 rounded-lg font-mono"
+                                    className="flex-1 px-3 py-2 bg-yellow-50 border-2 border-yellow-400 rounded-lg font-mono text-sm sm:text-base break-all"
                                 />
                                 <button
                                     onClick={() => copyToClipboard(registeredStudent.password)}
-                                    className="px-3 py-2 bg-yellow-100 hover:bg-yellow-200 rounded-lg text-sm font-medium"
+                                    className="w-full sm:w-auto px-3 py-2 bg-yellow-100 hover:bg-yellow-200 rounded-lg text-sm font-medium"
                                 >
                                     Copy
                                 </button>
                             </div>
                         </div>
 
-                        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mt-4">
-                            <h3 className="font-semibold text-blue-900 mb-2">Next Steps:</h3>
-                            <ol className="text-sm text-blue-800 space-y-1 list-decimal list-inside">
+                        <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 sm:p-4 mt-4">
+                            <h3 className="font-semibold text-blue-900 mb-2 text-sm sm:text-base">Next Steps:</h3>
+                            <ol className="text-xs sm:text-sm text-blue-800 space-y-1 list-decimal list-inside">
                                 {registeredStudent.needsVerification ? (
                                     <>
                                         <li>Student will receive a verification email at {registeredStudent.email}</li>
@@ -197,7 +197,7 @@ const StudentRegistration = () => {
 
                     <button
                         onClick={handleNewRegistration}
-                        className="mt-6 w-full px-4 py-3 bg-accent-600 text-white rounded-lg hover:bg-accent-700 transition-all font-medium"
+                        className="mt-4 sm:mt-6 w-full px-4 py-3 bg-accent-600 text-white rounded-lg hover:bg-accent-700 transition-all font-medium"
                     >
                         Register Another Student
                     </button>
@@ -207,14 +207,14 @@ const StudentRegistration = () => {
     }
 
     return (
-        <div className="max-w-2xl mx-auto p-6">
+        <div className="max-w-2xl mx-auto p-4 sm:p-6">
             {/* Header */}
-            <div className="mb-6">
-                <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
-                    <UserPlus className="h-7 w-7 text-accent-600" />
+            <div className="mb-4 sm:mb-6">
+                <h2 className="text-xl sm:text-2xl font-bold text-gray-900 flex items-center gap-2">
+                    <UserPlus className="h-6 w-6 sm:h-7 sm:w-7 text-accent-600" />
                     Register New Student
                 </h2>
-                <p className="text-gray-600 mt-1">Create a new student account (Admin Only)</p>
+                <p className="text-sm sm:text-base text-gray-600 mt-1">Create a new student account (Admin Only)</p>
             </div>
 
             {/* Message */}
@@ -227,7 +227,7 @@ const StudentRegistration = () => {
             )}
 
             {/* Registration Form */}
-            <form onSubmit={handleSubmit} className="bg-white border border-gray-200 rounded-xl p-6 space-y-4">
+            <form onSubmit={handleSubmit} className="bg-white border border-gray-200 rounded-xl p-4 sm:p-6 space-y-4">
                 {/* Full Name */}
                 <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -240,7 +240,7 @@ const StudentRegistration = () => {
                         required
                         value={formData.fullName}
                         onChange={handleChange}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-500 focus:border-transparent"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-500 focus:border-transparent text-base"
                         placeholder="John Doe"
                     />
                 </div>
@@ -257,7 +257,7 @@ const StudentRegistration = () => {
                         required
                         value={formData.email}
                         onChange={handleChange}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-500 focus:border-transparent"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-500 focus:border-transparent text-base"
                         placeholder="student@example.com"
                     />
                 </div>
@@ -268,22 +268,22 @@ const StudentRegistration = () => {
                         <Lock className="h-4 w-4 inline mr-1" />
                         Password *
                     </label>
-                    <div className="flex gap-2">
+                    <div className="flex flex-col sm:flex-row gap-2">
                         <input
                             type="text"
                             name="password"
                             required
                             value={formData.password}
                             onChange={handleChange}
-                            className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-500 focus:border-transparent"
+                            className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-500 focus:border-transparent text-base"
                             placeholder="Enter password"
                         />
                         <button
                             type="button"
                             onClick={generatePassword}
-                            className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-all"
+                            className="w-full sm:w-auto px-4 py-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-all font-medium whitespace-nowrap"
                         >
-                            Generate
+                            Generate Password
                         </button>
                     </div>
                     <p className="text-xs text-gray-500 mt-1">
@@ -302,7 +302,7 @@ const StudentRegistration = () => {
                         name="phone"
                         value={formData.phone}
                         onChange={handleChange}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-500 focus:border-transparent"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-500 focus:border-transparent text-base"
                         placeholder="+1234567890"
                     />
                 </div>
@@ -318,7 +318,7 @@ const StudentRegistration = () => {
                         name="dateOfBirth"
                         value={formData.dateOfBirth}
                         onChange={handleChange}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-500 focus:border-transparent"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-500 focus:border-transparent text-base"
                     />
                 </div>
 

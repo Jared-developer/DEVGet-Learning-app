@@ -8,20 +8,25 @@ const Footer = () => {
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
                     {/* Brand Section */}
                     <div className="md:col-span-2">
-                        <div className="flex items-center mb-4">
+                        <Link to="/" className="flex items-center justify-start mb-4 -my-6 -ml-4 md:-ml-6">
                             <img
-                                src="/images/logos/devget-learning-logo.png"
+                                src="/images/logos/devget-logo.png"
                                 alt="DEVGet Learning"
-                                className="h-36 md:h-40 w-auto"
+                                className="h-28 md:h-32 w-auto"
                                 onError={(e) => {
                                     e.target.style.display = 'none';
-                                    e.target.nextSibling.style.display = 'block';
+                                    e.target.nextSibling.style.display = 'flex';
                                 }}
                             />
-                            <div className="text-white text-2xl font-bold tracking-tight hidden">
-                                DEVGet Learning
+                            <div className="hidden items-center gap-3">
+                                <div className="bg-gradient-to-br from-yellow-400 to-orange-500 rounded-lg p-3">
+                                    <span className="text-white font-bold text-2xl">DG</span>
+                                </div>
+                                <div className="text-white text-2xl font-bold tracking-tight">
+                                    DEVGet Learning
+                                </div>
                             </div>
-                        </div>
+                        </Link>
                         <p className="text-gray-300 mb-6 max-w-md leading-relaxed">
                             Empowering African youth through free, world-class Tech & AI education. Building the next generation of tech leaders.
                         </p>

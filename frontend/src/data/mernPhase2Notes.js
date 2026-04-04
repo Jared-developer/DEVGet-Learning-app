@@ -36,7 +36,6 @@ console.log(add(2, 3));
 // Note: To use ES Modules, add "type": "module" to package.json`
 };
 
-
 export const phase2Week3Lesson2 = {
   title: 'NPM (Node Package Manager)',
   videoUrl: 'https://www.youtube.com/embed/P3aKRdUyr0s',
@@ -87,7 +86,6 @@ async function writeData(newData) {
   }
 }`
 };
-
 
 export const phase2Week3Lesson4 = {
   title: 'Creating a Basic HTTP Server',
@@ -145,7 +143,6 @@ app.listen(PORT, () => {
 });`
 };
 
-
 export const phase2Week4Lesson2 = {
   title: 'RESTful API Design',
   videoUrl: 'https://www.youtube.com/embed/Q-BpqyOT3a8',
@@ -182,7 +179,6 @@ app.delete('/api/books/:id', (req, res) => {
   // Delete a book
 });`
 };
-
 
 export const phase2Week5Lesson1 = {
   title: 'MongoDB & Mongoose ODM',

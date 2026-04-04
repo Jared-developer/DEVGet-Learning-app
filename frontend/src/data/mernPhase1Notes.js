@@ -423,3 +423,195 @@ export const phase1Week2Quiz = {
     }
   ]
 };
+
+
+// Week 1 End of Module Assignment
+export const phase1Week1Assignment = {
+  title: 'Week 1 Assignment: Personal Portfolio Landing Page',
+  description: 'Create a personal portfolio landing page using HTML5 semantic tags and Git version control',
+  dueDate: 'End of Week 1',
+  points: 100,
+  tasks: [
+    {
+      id: 1,
+      title: 'Setup Git Repository',
+      description: 'Initialize a Git repository and make your first commit',
+      points: 15,
+      requirements: [
+        'Create a new folder called "portfolio-project"',
+        'Initialize Git with git init',
+        'Create a .gitignore file',
+        'Make your first commit with message "Initial commit"',
+        'Create a GitHub repository and push your code'
+      ]
+    },
+    {
+      id: 2,
+      title: 'Create HTML Structure',
+      description: 'Build a semantic HTML5 structure for your portfolio',
+      points: 40,
+      requirements: [
+        'Create an index.html file with proper DOCTYPE and meta tags',
+        'Use semantic tags: <header>, <nav>, <main>, <section>, <footer>',
+        'Include a navigation menu with at least 3 links (Home, About, Contact)',
+        'Create an "About Me" section with a brief introduction',
+        'Add a "Skills" section listing at least 5 technical skills',
+        'Include a "Contact" section with a form (name, email, message fields)',
+        'All form inputs must have proper labels and validation attributes'
+      ]
+    },
+    {
+      id: 3,
+      title: 'Content & Accessibility',
+      description: 'Add meaningful content and ensure accessibility',
+      points: 25,
+      requirements: [
+        'Add a profile photo or placeholder image with alt text',
+        'Write a 2-3 paragraph bio about yourself',
+        'Include at least 3 social media links (GitHub, LinkedIn, etc.)',
+        'Ensure all images have descriptive alt attributes',
+        'Use proper heading hierarchy (h1, h2, h3)',
+        'Add a page title in the <title> tag'
+      ]
+    },
+    {
+      id: 4,
+      title: 'Git Workflow',
+      description: 'Demonstrate proper Git workflow with multiple commits',
+      points: 20,
+      requirements: [
+        'Make at least 5 meaningful commits throughout the project',
+        'Use descriptive commit messages (e.g., "Add navigation menu", "Create contact form")',
+        'Push all commits to GitHub',
+        'Include a README.md file with project description'
+      ]
+    }
+  ],
+  submissionGuidelines: [
+    'Submit your GitHub repository URL',
+    'Ensure your repository is public',
+    'Your index.html should open and display correctly in a browser',
+    'All HTML should be valid (test at validator.w3.org)',
+    'Include a README.md with setup instructions'
+  ],
+  rubric: {
+    excellent: '90-100 points: All requirements met, clean code, excellent commit history, creative design',
+    good: '80-89 points: All requirements met, good code structure, adequate commits',
+    satisfactory: '70-79 points: Most requirements met, basic functionality works',
+    needsImprovement: 'Below 70: Missing requirements, poor code structure, or incomplete'
+  },
+  resources: [
+    'HTML5 Semantic Elements: https://www.w3schools.com/html/html5_semantic_elements.asp',
+    'Git Basics: https://git-scm.com/book/en/v2/Getting-Started-Git-Basics',
+    'GitHub Guide: https://guides.github.com/activities/hello-world/',
+    'HTML Validator: https://validator.w3.org/'
+  ],
+  hints: [
+    'Start with the HTML structure before worrying about styling',
+    'Commit after completing each major section',
+    'Test your form validation by trying to submit empty fields',
+    'Use meaningful class names even though we haven\'t learned CSS yet',
+    'Don\'t forget to add alt text to all images for accessibility'
+  ]
+};
+
+
+// Week 2 End of Module Assignment
+export const phase1Week2Assignment = {
+  title: 'Week 2 Assignment: Interactive Task Manager',
+  description: 'Build an interactive task manager using vanilla JavaScript with array methods and DOM manipulation',
+  dueDate: 'End of Week 2',
+  points: 100,
+  tasks: [
+    {
+      id: 1,
+      title: 'HTML Structure & Form',
+      description: 'Create the HTML structure for the task manager',
+      points: 20,
+      requirements: [
+        'Create a form with input field for task name and "Add Task" button',
+        'Add a container div to display the task list',
+        'Include filter buttons: "All", "Active", "Completed"',
+        'Add a "Clear Completed" button',
+        'Use semantic HTML tags'
+      ]
+    },
+    {
+      id: 2,
+      title: 'JavaScript Core Functionality',
+      description: 'Implement task management using JavaScript',
+      points: 40,
+      requirements: [
+        'Create an array to store tasks (each task should be an object with id, text, completed properties)',
+        'Implement addTask() function that adds new tasks to the array',
+        'Implement deleteTask() function to remove tasks',
+        'Implement toggleTask() function to mark tasks as complete/incomplete',
+        'Use array methods (map, filter) to manage and display tasks',
+        'Generate unique IDs for each task (use Date.now() or a counter)'
+      ]
+    },
+    {
+      id: 3,
+      title: 'DOM Manipulation',
+      description: 'Dynamically update the UI based on task data',
+      points: 25,
+      requirements: [
+        'Render tasks dynamically using JavaScript (not hardcoded HTML)',
+        'Each task should have a checkbox, text, and delete button',
+        'Update the DOM whenever the tasks array changes',
+        'Add visual indication for completed tasks (strikethrough or different color)',
+        'Display task count (e.g., "5 tasks remaining")',
+        'Clear the input field after adding a task'
+      ]
+    },
+    {
+      id: 4,
+      title: 'Filtering & Local Storage',
+      description: 'Add filtering functionality and data persistence',
+      points: 15,
+      requirements: [
+        'Implement filter functionality (All, Active, Completed)',
+        'Save tasks to localStorage whenever the array changes',
+        'Load tasks from localStorage when the page loads',
+        'Implement "Clear Completed" button to remove all completed tasks',
+        'Handle edge cases (empty input, no tasks to display)'
+      ]
+    }
+  ],
+  submissionGuidelines: [
+    'Submit your GitHub repository URL',
+    'Include index.html, script.js, and optional style.css',
+    'Ensure the app works without errors in the browser console',
+    'Test all functionality before submitting',
+    'Include a README.md with features and how to use the app'
+  ],
+  rubric: {
+    excellent: '90-100 points: All features work perfectly, clean code, excellent use of array methods, localStorage implemented',
+    good: '80-89 points: Core functionality works, good code structure, minor bugs',
+    satisfactory: '70-79 points: Basic add/delete works, some features missing',
+    needsImprovement: 'Below 70: Major features missing or not working'
+  },
+  resources: [
+    'Array Methods: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array',
+    'DOM Manipulation: https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model',
+    'localStorage: https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage',
+    'Event Listeners: https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener'
+  ],
+  hints: [
+    'Start by getting add and display working before adding other features',
+    'Use template literals to create HTML strings for tasks',
+    'Remember to use event.preventDefault() on form submission',
+    'Test localStorage in the browser DevTools (Application tab)',
+    'Use arrow functions with array methods for cleaner code'
+  ],
+  bonusChallenge: {
+    description: 'Add edit functionality to modify existing tasks',
+    points: 10,
+    requirements: [
+      'Add an "Edit" button to each task',
+      'Allow inline editing or use a prompt/modal',
+      'Update the task text in the array and re-render',
+      'Save changes to localStorage'
+    ]
+  }
+};

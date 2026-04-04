@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Menu, X, ChevronDown, FileText, BookOpen, Newspaper, Zap, Heart } from 'lucide-react'
+import { Menu, X, ChevronDown, FileText, BookOpen, Newspaper, Zap, Heart, Code } from 'lucide-react'
 import { useState } from 'react'
 import { useAuth } from '../contexts/AuthContext'
 
@@ -13,17 +13,22 @@ const Navigation = ({ currentPage = '' }) => {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16">
                     {/* Logo */}
-                    <Link to="/" className="flex items-center flex-shrink-0 -my-10 md:-my-12">
+                    <Link to="/" className="flex items-center justify-start flex-shrink-0 -my-10 md:-my-12 -ml-4 md:-ml-6">
                         <img
-                            src="/images/logos/devget-learning-logo.png"
+                            src="/images/logos/devget-logo.png"
                             alt="DEVGet Learning"
                             className="h-32 md:h-40 w-auto"
                             onError={(e) => {
                                 e.target.style.display = 'none';
-                                e.target.nextSibling.style.display = 'block';
+                                e.target.nextSibling.style.display = 'flex';
                             }}
                         />
-                        <span className="text-white text-xl font-bold ml-2 hidden">DEVGet</span>
+                        <div className="hidden items-center gap-2">
+                            <div className="bg-gradient-to-br from-yellow-400 to-orange-500 rounded-lg p-2">
+                                <span className="text-white font-bold text-xl">DG</span>
+                            </div>
+                            <span className="text-white text-xl font-bold">DEVGet Learning</span>
+                        </div>
                     </Link>
 
                     {/* Desktop Menu */}
@@ -103,6 +108,13 @@ const Navigation = ({ currentPage = '' }) => {
 
                     {/* CTA Buttons */}
                     <div className="hidden md:flex items-center gap-2">
+                        <Link
+                            to="/developer-console"
+                            className="flex items-center gap-1 px-2 py-1 text-white/90 hover:text-yellow-300 transition-colors"
+                        >
+                            <Code className="h-3 w-3" />
+                            <span className="text-xs font-medium">Developers</span>
+                        </Link>
                         <a
                             href="https://wa.me/265994790967?text=Hi%2C%20I%20would%20like%20to%20support%20DEVGet%20Learning%20with%20a%20donation.%20How%20can%20I%20help%3F"
                             target="_blank"
@@ -155,6 +167,14 @@ const Navigation = ({ currentPage = '' }) => {
                                 Contact
                             </Link>
                             <div className="px-4 pt-3 border-t border-white/10 space-y-2">
+                                <Link
+                                    to="/developer-console"
+                                    className="flex items-center justify-center gap-2 px-4 py-2 bg-white/10 text-white rounded-lg"
+                                    onClick={() => setMobileMenuOpen(false)}
+                                >
+                                    <Code className="h-4 w-4" />
+                                    Developer Console
+                                </Link>
                                 <a
                                     href="https://wa.me/265994790967?text=Hi%2C%20I%20would%20like%20to%20support%20DEVGet%20Learning%20with%20a%20donation.%20How%20can%20I%20help%3F"
                                     target="_blank"

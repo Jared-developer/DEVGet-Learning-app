@@ -209,8 +209,8 @@ const LessonNotes = ({ lesson, onQuizAnswer, quizAnswers, onSubmitQuiz, showQuiz
 
                     {showQuizResults && (
                         <div className={`mb-6 p-4 rounded-xl ${quizScore.percentage >= 70
-                                ? 'bg-green-50 border border-green-200'
-                                : 'bg-red-50 border border-red-200'
+                            ? 'bg-green-50 border border-green-200'
+                            : 'bg-red-50 border border-red-200'
                             }`}>
                             <div className="flex items-center gap-3">
                                 {quizScore.percentage >= 70 ? (
@@ -252,22 +252,22 @@ const LessonNotes = ({ lesson, onQuizAnswer, quizAnswers, onSubmitQuiz, showQuiz
                                                 onClick={() => !showQuizResults && onQuizAnswer(qIdx, oIdx)}
                                                 disabled={showQuizResults}
                                                 className={`w-full text-left p-3 rounded-lg border-2 transition-all ${showResult && isCorrect
-                                                        ? 'border-green-500 bg-green-50'
-                                                        : showResult && isSelected && !isCorrect
-                                                            ? 'border-red-500 bg-red-50'
-                                                            : isSelected
-                                                                ? 'border-accent-500 bg-accent-50'
-                                                                : 'border-gray-200 hover:border-gray-300'
+                                                    ? 'border-green-500 bg-green-50'
+                                                    : showResult && isSelected && !isCorrect
+                                                        ? 'border-red-500 bg-red-50'
+                                                        : isSelected
+                                                            ? 'border-accent-500 bg-accent-50'
+                                                            : 'border-gray-200 hover:border-gray-300'
                                                     }`}
                                             >
                                                 <div className="flex items-center gap-3">
                                                     <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${showResult && isCorrect
-                                                            ? 'border-green-500 bg-green-500'
-                                                            : showResult && isSelected && !isCorrect
-                                                                ? 'border-red-500 bg-red-500'
-                                                                : isSelected
-                                                                    ? 'border-accent-500 bg-accent-500'
-                                                                    : 'border-gray-300'
+                                                        ? 'border-green-500 bg-green-500'
+                                                        : showResult && isSelected && !isCorrect
+                                                            ? 'border-red-500 bg-red-500'
+                                                            : isSelected
+                                                                ? 'border-accent-500 bg-accent-500'
+                                                                : 'border-gray-300'
                                                         }`}>
                                                         {(showResult && isCorrect) || (isSelected && !showResult) ? (
                                                             <div className="w-2 h-2 bg-white rounded-full"></div>
@@ -301,11 +301,155 @@ const LessonNotes = ({ lesson, onQuizAnswer, quizAnswers, onSubmitQuiz, showQuiz
             )}
 
             {/* Assignment Section */}
-            {lesson.assignment && (
-                <div className="bg-purple-50 border border-purple-200 rounded-2xl p-6 mt-8">
-                    <h2 className="text-2xl font-bold text-purple-900 mb-4">Assignment</h2>
-                    <p className="text-purple-800 mb-4">{lesson.assignment}</p>
-                    <button className="px-6 py-3 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-700 transition-all">
+            {(lesson.type === 'assignment' || lesson.assignment) && (
+                <div className="bg-gradient-to-br from-purple-50 to-indigo-50 border-2 border-purple-200 rounded-2xl p-8 mt-8">
+                    <div className="flex items-center gap-3 mb-6">
+                        <div className="w-12 h-12 bg-purple-600 rounded-xl flex items-center justify-center">
+                            <CheckCircle className="h-6 w-6 text-white" />
+                        </div>
+                        <div>
+                            <h2 className="text-2xl font-bold text-purple-900">{lesson.title}</h2>
+                            {lesson.dueDate && (
+                                <p className="text-purple-700 text-sm">Due: {lesson.dueDate}</p>
+                            )}
+                        </div>
+                    </div>
+
+                    {lesson.description && (
+                        <div className="bg-white rounded-xl p-4 mb-6">
+                            <p className="text-gray-700 leading-relaxed">{lesson.description}</p>
+                            {lesson.points && (
+                                <p className="text-purple-700 font-semibold mt-2">Total Points: {lesson.points}</p>
+                            )}
+                        </div>
+                    )}
+
+                    {lesson.tasks && lesson.tasks.length > 0 && (
+                        <div className="space-y-4 mb-6">
+                            <h3 className="text-xl font-bold text-purple-900">Tasks</h3>
+                            {lesson.tasks.map((task, idx) => (
+                                <div key={task.id || idx} className="bg-white rounded-xl p-5 border border-purple-100">
+                                    <div className="flex items-start gap-3 mb-3">
+                                        <div className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                                            <span className="text-purple-700 font-bold">{idx + 1}</span>
+                                        </div>
+                                        <div className="flex-1">
+                                            <h4 className="font-bold text-gray-900 mb-1">{task.title}</h4>
+                                            <p className="text-gray-600 text-sm mb-2">{task.description}</p>
+                                            {task.points && (
+                                                <span className="inline-block px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-semibold">
+                                                    {task.points} points
+                                                </span>
+                                            )}
+                                        </div>
+                                    </div>
+                                    {task.requirements && task.requirements.length > 0 && (
+                                        <div className="ml-11 mt-3">
+                                            <p className="text-sm font-semibold text-gray-700 mb-2">Requirements:</p>
+                                            <ul className="space-y-1">
+                                                {task.requirements.map((req, rIdx) => (
+                                                    <li key={rIdx} className="text-sm text-gray-600 flex items-start gap-2">
+                                                        <span className="text-purple-500 mt-1">•</span>
+                                                        <span>{req}</span>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    )}
+                                </div>
+                            ))}
+                        </div>
+                    )}
+
+                    {lesson.submissionGuidelines && lesson.submissionGuidelines.length > 0 && (
+                        <div className="bg-blue-50 rounded-xl p-5 mb-6 border border-blue-200">
+                            <h3 className="text-lg font-bold text-blue-900 mb-3 flex items-center gap-2">
+                                <Info className="h-5 w-5" />
+                                Submission Guidelines
+                            </h3>
+                            <ul className="space-y-2">
+                                {lesson.submissionGuidelines.map((guideline, idx) => (
+                                    <li key={idx} className="text-sm text-blue-800 flex items-start gap-2">
+                                        <CheckCircle className="h-4 w-4 text-blue-600 mt-0.5 flex-shrink-0" />
+                                        <span>{guideline}</span>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
+
+                    {lesson.rubric && (
+                        <div className="bg-green-50 rounded-xl p-5 mb-6 border border-green-200">
+                            <h3 className="text-lg font-bold text-green-900 mb-3">Grading Rubric</h3>
+                            <div className="space-y-2">
+                                {Object.entries(lesson.rubric).map(([key, value]) => (
+                                    <div key={key} className="text-sm">
+                                        <span className="font-semibold text-green-800 capitalize">{key.replace(/([A-Z])/g, ' $1').trim()}: </span>
+                                        <span className="text-green-700">{value}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+
+                    {lesson.hints && lesson.hints.length > 0 && (
+                        <div className="bg-yellow-50 rounded-xl p-5 mb-6 border border-yellow-200">
+                            <h3 className="text-lg font-bold text-yellow-900 mb-3 flex items-center gap-2">
+                                <Lightbulb className="h-5 w-5" />
+                                Helpful Hints
+                            </h3>
+                            <ul className="space-y-2">
+                                {lesson.hints.map((hint, idx) => (
+                                    <li key={idx} className="text-sm text-yellow-800 flex items-start gap-2">
+                                        <span className="text-yellow-600 mt-1">💡</span>
+                                        <span>{hint}</span>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
+
+                    {lesson.resources && lesson.resources.length > 0 && (
+                        <div className="bg-indigo-50 rounded-xl p-5 mb-6 border border-indigo-200">
+                            <h3 className="text-lg font-bold text-indigo-900 mb-3">Resources</h3>
+                            <ul className="space-y-2">
+                                {lesson.resources.map((resource, idx) => (
+                                    <li key={idx} className="text-sm text-indigo-700">
+                                        <a href={resource.split(': ')[1]} target="_blank" rel="noopener noreferrer" className="hover:underline">
+                                            {resource}
+                                        </a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
+
+                    {lesson.bonusChallenge && (
+                        <div className="bg-gradient-to-r from-orange-50 to-red-50 rounded-xl p-5 mb-6 border-2 border-orange-300">
+                            <h3 className="text-lg font-bold text-orange-900 mb-2 flex items-center gap-2">
+                                <AlertTriangle className="h-5 w-5" />
+                                Bonus Challenge
+                            </h3>
+                            <p className="text-orange-800 mb-2">{lesson.bonusChallenge.description}</p>
+                            {lesson.bonusChallenge.points && (
+                                <span className="inline-block px-3 py-1 bg-orange-200 text-orange-900 rounded-full text-xs font-bold">
+                                    +{lesson.bonusChallenge.points} bonus points
+                                </span>
+                            )}
+                            {lesson.bonusChallenge.requirements && (
+                                <ul className="mt-3 space-y-1">
+                                    {lesson.bonusChallenge.requirements.map((req, idx) => (
+                                        <li key={idx} className="text-sm text-orange-700 flex items-start gap-2">
+                                            <span className="text-orange-500 mt-1">•</span>
+                                            <span>{req}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
+                        </div>
+                    )}
+
+                    <button className="w-full px-6 py-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-xl font-semibold hover:from-purple-700 hover:to-indigo-700 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
                         Submit Assignment
                     </button>
                 </div>

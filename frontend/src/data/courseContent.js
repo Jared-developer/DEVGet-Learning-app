@@ -1,4 +1,6 @@
 // Course content data for all basic courses
+import { htmlAbsoluteBeginners } from './htmlAbsoluteBeginners.js';
+
 import {
   phase1Week1Lesson1,
   phase1Week1Lesson2,
@@ -8,7 +10,9 @@ import {
   phase1Week2Lesson3,
   phase1Week2Lesson4,
   phase1Week1Quiz,
-  phase1Week2Quiz
+  phase1Week2Quiz,
+  phase1Week1Assignment,
+  phase1Week2Assignment
 } from './mernPhase1Notes.js';
 
 // AI/ML Phase 1 imports
@@ -272,6 +276,12 @@ import {
 } from './mernPhase2Notes.js';
 
 import {
+  phase2Week3Assignment,
+  phase2Week4Assignment,
+  phase2Week6Assignment
+} from './mernPhase2Assignments.js';
+
+import {
   phase3Week7Lesson1,
   phase3Week7Lesson2,
   phase3Week7Lesson3,
@@ -299,6 +309,12 @@ import {
 } from './mernPhase3Notes.js';
 
 import {
+  phase3Week7Assignment,
+  phase3Week8Assignment,
+  phase3Week10Assignment
+} from './mernPhase3Assignments.js';
+
+import {
   phase4Week12Lesson1,
   phase4Week12Lesson2,
   phase4Week12Lesson3,
@@ -318,6 +334,11 @@ import {
 } from './mernPhase4Notes.js';
 
 import {
+  phase4Week12Assignment,
+  phase4Week14Assignment
+} from './mernPhase4Assignments.js';
+
+import {
   phase5Week15Lesson1,
   phase5Week15Lesson2,
   phase5Week15Lesson3,
@@ -329,6 +350,11 @@ import {
   phase5Week15Quiz,
   phase5Week16Quiz
 } from './mernPhase5Notes.js';
+
+import {
+  phase5Week15Assignment,
+  phase5Week16Assignment
+} from './mernPhase5Assignments.js';
 
 export const courseContent = {
   'mern-stack': {
@@ -408,35 +434,25 @@ Make your site look good on all devices.`,
 }`
           },
           {
-            id: 5,
-            title: 'Mini-Project: Responsive Portfolio',
-            type: 'project',
-            duration: '3 hours',
-            instructions: `# Build a Responsive Personal Portfolio
-
-Build and deploy a responsive portfolio page using HTML5 and CSS3.
-
-## Requirements:
-- Use semantic HTML
-- Implement Flexbox and Grid
-- Add responsive design with media queries
-- Include a contact form with validation
-- Deploy to GitHub Pages
-
-## Sections:
-- Header with navigation
-- About Me
-- Projects (at least 3)
-- Skills
-- Contact form
-- Footer with social links`
-          },
-          {
             id: 5.1,
             title: phase1Week1Quiz.title,
             type: 'quiz',
             duration: '15 min',
             questions: phase1Week1Quiz.questions
+          },
+          {
+            id: 5.2,
+            title: phase1Week1Assignment.title,
+            type: 'assignment',
+            duration: '5-8 hours',
+            description: phase1Week1Assignment.description,
+            dueDate: phase1Week1Assignment.dueDate,
+            points: phase1Week1Assignment.points,
+            tasks: phase1Week1Assignment.tasks,
+            submissionGuidelines: phase1Week1Assignment.submissionGuidelines,
+            rubric: phase1Week1Assignment.rubric,
+            resources: phase1Week1Assignment.resources,
+            hints: phase1Week1Assignment.hints
           }
         ]
       },
@@ -512,6 +528,28 @@ Function \`removeBook(id)\` that removes a book from the library.
 
 ## Stretch Goal
 Use \`readline-sync\` NPM package to create an interactive menu.`
+          },
+          {
+            id: 10.1,
+            title: phase1Week2Quiz.title,
+            type: 'quiz',
+            duration: '15 min',
+            questions: phase1Week2Quiz.questions
+          },
+          {
+            id: 10.2,
+            title: phase1Week2Assignment.title,
+            type: 'assignment',
+            duration: '6-10 hours',
+            description: phase1Week2Assignment.description,
+            dueDate: phase1Week2Assignment.dueDate,
+            points: phase1Week2Assignment.points,
+            tasks: phase1Week2Assignment.tasks,
+            submissionGuidelines: phase1Week2Assignment.submissionGuidelines,
+            rubric: phase1Week2Assignment.rubric,
+            resources: phase1Week2Assignment.resources,
+            hints: phase1Week2Assignment.hints,
+            bonusChallenge: phase1Week2Assignment.bonusChallenge
           }
         ]
       },
@@ -632,6 +670,20 @@ Test all commands and edge cases:
 - Reading non-existent notes
 - Empty file handling
 - Invalid commands`
+          },
+          {
+            id: 15.1,
+            title: phase2Week3Assignment.title,
+            type: 'assignment',
+            duration: '8-12 hours',
+            description: phase2Week3Assignment.description,
+            dueDate: phase2Week3Assignment.dueDate,
+            points: phase2Week3Assignment.points,
+            tasks: phase2Week3Assignment.tasks,
+            submissionGuidelines: phase2Week3Assignment.submissionGuidelines,
+            rubric: phase2Week3Assignment.rubric,
+            resources: phase2Week3Assignment.resources,
+            hints: phase2Week3Assignment.hints
           }
         ]
       },
@@ -707,45 +759,6 @@ app.use((err, req, res, next) => {
     error: err.message || 'Internal Server Error'
   });
 });`
-          },
-          {
-            id: 19,
-            title: 'Mini-Project: Quotes API',
-            type: 'project',
-            duration: '4 hours',
-            instructions: `# Week 4 Mini-Project: Quotes API
-
-## Objective
-Build a RESTful API for managing inspirational quotes.
-
-## Requirements
-
-### Endpoints
-1. **GET /api/quotes** - Get all quotes
-2. **GET /api/quotes/:id** - Get single quote by ID
-3. **POST /api/quotes** - Create new quote
-4. **PUT /api/quotes/:id** - Update quote
-5. **DELETE /api/quotes/:id** - Delete quote
-6. **GET /api/quotes/random** - Get random quote
-
-### Data Structure
-Each quote should have:
-- id (auto-generated)
-- text (required)
-- author (required)
-- category (optional)
-- createdAt (timestamp)
-
-### Validation
-- Text must be at least 10 characters
-- Author must be provided
-- Return 400 for invalid data
-- Return 404 for non-existent quotes
-
-### Bonus
-- Add filtering by author or category
-- Add pagination (limit & skip)
-- Add search functionality`
           }
         ]
       },
@@ -839,47 +852,19 @@ const Post = mongoose.model('Post', postSchema);
 const posts = await Post.find().populate('author', 'firstName lastName email');`
           },
           {
-            id: 23,
-            title: 'Mini-Project: Blog API with MongoDB',
-            type: 'project',
-            duration: '5 hours',
-            instructions: `# Week 5 Mini-Project: Blog API with MongoDB
-
-## Objective
-Refactor the Quotes API to use MongoDB Atlas for data persistence.
-
-## Requirements
-
-### Setup
-1. Create MongoDB Atlas account
-2. Create a cluster and database
-3. Get connection string
-4. Install mongoose
-5. Connect Express to MongoDB
-
-### Models
-Create Mongoose schemas for:
-- **Quote Model**: text, author, category, tags[], createdAt, updatedAt
-
-### Endpoints (Update from Week 4)
-- GET /api/quotes - Get all quotes (with filtering)
-- GET /api/quotes/:id - Get single quote
-- POST /api/quotes - Create quote
-- PUT /api/quotes/:id - Update quote
-- DELETE /api/quotes/:id - Delete quote
-- GET /api/quotes/search?q=term - Search quotes
-
-### Features
-- Use Mongoose validation
-- Add timestamps
-- Implement error handling
-- Add query filters (by author, category)
-- Add pagination
-
-### Bonus
-- Add tags array to quotes
-- Implement full-text search
-- Add quote likes/favorites count`
+            id: 23.1,
+            title: phase2Week4Assignment.title,
+            type: 'assignment',
+            duration: '12-16 hours',
+            description: phase2Week4Assignment.description,
+            dueDate: phase2Week4Assignment.dueDate,
+            points: phase2Week4Assignment.points,
+            tasks: phase2Week4Assignment.tasks,
+            submissionGuidelines: phase2Week4Assignment.submissionGuidelines,
+            rubric: phase2Week4Assignment.rubric,
+            resources: phase2Week4Assignment.resources,
+            hints: phase2Week4Assignment.hints,
+            bonusChallenge: phase2Week4Assignment.bonusChallenge
           }
         ]
       },
@@ -1078,58 +1063,19 @@ app.post('/api/auth/reset-password/:token', async (req, res) => {
 });`
           },
           {
-            id: 28,
-            title: 'Mini-Project: Task Manager API',
-            type: 'project',
-            duration: '6 hours',
-            instructions: `# Week 6 Mini-Project: Task Manager API
-
-## Objective
-Build a secure REST API where users can manage their personal tasks.
-
-## Requirements
-
-### Models
-1. **User Model**: 
-   - name, email (unique), password (hashed)
-   - role (user/admin)
-   - createdAt, updatedAt
-
-2. **Task Model**: 
-   - title, description, completed (boolean)
-   - priority (low/medium/high)
-   - dueDate
-   - user (reference to User)
-   - createdAt, updatedAt
-
-### Authentication Endpoints
-- POST /api/auth/register - Create account
-- POST /api/auth/login - Get JWT token
-- GET /api/auth/me - Get current user (protected)
-- POST /api/auth/logout - Logout user
-
-### Task Endpoints (All Protected)
-- GET /api/tasks - Get all tasks for logged-in user
-- GET /api/tasks/:id - Get single task
-- POST /api/tasks - Create a task
-- PUT /api/tasks/:id - Update a task (only if user owns it)
-- DELETE /api/tasks/:id - Delete a task (only if user owns it)
-- PATCH /api/tasks/:id/complete - Toggle task completion
-
-### Features
-- JWT authentication
-- Password hashing with bcrypt
-- Protected routes middleware
-- Users can only access their own tasks
-- Input validation
-- Error handling
-
-### Bonus
-- Add task filtering (completed, priority, date range)
-- Add task search
-- Implement pagination
-- Add password reset functionality
-- Add task categories/tags`
+            id: 28.1,
+            title: phase2Week6Assignment.title,
+            type: 'assignment',
+            duration: '10-14 hours',
+            description: phase2Week6Assignment.description,
+            dueDate: phase2Week6Assignment.dueDate,
+            points: phase2Week6Assignment.points,
+            tasks: phase2Week6Assignment.tasks,
+            submissionGuidelines: phase2Week6Assignment.submissionGuidelines,
+            rubric: phase2Week6Assignment.rubric,
+            resources: phase2Week6Assignment.resources,
+            hints: phase2Week6Assignment.hints,
+            securityChecklist: phase2Week6Assignment.securityChecklist
           }
         ]
       },
@@ -1256,6 +1202,20 @@ src/
 - Add badge component
 - Create a Storybook setup
 - Add animations/transitions`
+          },
+          {
+            id: 35.1,
+            title: phase3Week7Assignment.title,
+            type: 'assignment',
+            duration: '10-12 hours',
+            description: phase3Week7Assignment.description,
+            dueDate: phase3Week7Assignment.dueDate,
+            points: phase3Week7Assignment.points,
+            tasks: phase3Week7Assignment.tasks,
+            submissionGuidelines: phase3Week7Assignment.submissionGuidelines,
+            rubric: phase3Week7Assignment.rubric,
+            resources: phase3Week7Assignment.resources,
+            hints: phase3Week7Assignment.hints
           }
         ]
       },
@@ -1505,6 +1465,21 @@ src/
 - Create an admin page to add/edit posts (mock)
 - Add tags in addition to categories
 - Implement infinite scroll`
+          },
+          {
+            id: 45.1,
+            title: phase3Week8Assignment.title,
+            type: 'assignment',
+            duration: '15-18 hours',
+            description: phase3Week8Assignment.description,
+            dueDate: phase3Week8Assignment.dueDate,
+            points: phase3Week8Assignment.points,
+            tasks: phase3Week8Assignment.tasks,
+            submissionGuidelines: phase3Week8Assignment.submissionGuidelines,
+            rubric: phase3Week8Assignment.rubric,
+            resources: phase3Week8Assignment.resources,
+            hints: phase3Week8Assignment.hints,
+            bonusChallenge: phase3Week8Assignment.bonusChallenge
           }
         ]
       },
@@ -1695,76 +1670,6 @@ function App() {
     </ThemeProvider>
   );
 }`
-          },
-          {
-            id: 50,
-            title: 'Mini-Project: Shopping Cart with Context',
-            type: 'project',
-            duration: '5 hours',
-            instructions: `# Week 10 Mini-Project: Shopping Cart with Context API
-
-## Objective
-Build a shopping cart application using Context API for state management.
-
-## Requirements
-
-### Context Setup
-- Create CartContext for managing cart state
-- Create ThemeContext for light/dark mode
-- Implement useCart and useTheme custom hooks
-
-### Features
-1. **Product List**
-   - Display products with image, name, price
-   - Add to cart button
-   - Show product count in cart
-
-2. **Shopping Cart**
-   - View all items in cart
-   - Increase/decrease quantity
-   - Remove items
-   - Calculate total price
-   - Clear cart button
-
-3. **Theme Toggle**
-   - Light/dark mode switch
-   - Persist theme preference in localStorage
-   - Apply theme to all components
-
-4. **Cart Persistence**
-   - Save cart to localStorage
-   - Load cart on app mount
-   - Sync across browser tabs
-
-### Components
-- ProductList
-- ProductCard
-- Cart
-- CartItem
-- ThemeToggle
-- Navbar (with cart count badge)
-
-### Styling
-Choose one:
-- Styled Components with theme
-- CSS Modules
-- Tailwind CSS
-
-### Bonus Features
-- Add product search/filter
-- Add product categories
-- Implement wishlist
-- Add checkout page
-- Add animations for cart updates
-- Add toast notifications
-
-### Technical Requirements
-- Use Context API (no Redux)
-- Use useReducer for complex state
-- Implement custom hooks
-- Handle loading states
-- Error handling
-- Responsive design`
           }
         ]
       },
@@ -1809,58 +1714,19 @@ Choose one:
             codeSnippet: phase3Week11Lesson4.codeSnippet
           },
           {
-            id: 55,
-            title: 'Mini-Project: Full-Stack Task Manager',
-            type: 'project',
-            duration: '8 hours',
-            instructions: `# Week 11 Mini-Project: Full-Stack Task Manager
-
-## Objective
-Connect the Task Manager API from Phase 2 with a React frontend.
-
-## Requirements
-
-### Authentication Pages
-- Login form that connects to your backend
-- Register form for new users
-- Store JWT token in localStorage
-- Redirect to dashboard after login
-
-### Protected Dashboard
-- Only accessible to authenticated users
-- Display user information
-- Navigation to tasks page
-
-### Task CRUD Operations
-- Display all tasks for the logged-in user
-- Form to create new tasks
-- Checkbox to mark tasks as complete/incomplete
-- Edit button to update task details
-- Delete button to remove tasks
-
-### UI/UX Requirements
-- Loading states while fetching data
-- Error messages for failed operations
-- Success messages for completed actions
-- Responsive design (mobile-friendly)
-- Clean, intuitive interface
-
-### Technical Requirements
-- Use Axios for API calls
-- Implement Context API for auth state
-- Use React Router for navigation
-- Protected routes for authenticated pages
-- Form validation
-- Error handling
-
-### Stretch Goals
-- Add task categories/tags
-- Implement task filtering (All, Active, Completed)
-- Add due dates and sort tasks by date
-- Add task priority levels
-- Implement search functionality
-- Add pagination for large task lists
-- Dark mode toggle`
+            id: 55.1,
+            title: phase3Week10Assignment.title,
+            type: 'assignment',
+            duration: '15-20 hours',
+            description: phase3Week10Assignment.description,
+            dueDate: phase3Week10Assignment.dueDate,
+            points: phase3Week10Assignment.points,
+            tasks: phase3Week10Assignment.tasks,
+            submissionGuidelines: phase3Week10Assignment.submissionGuidelines,
+            rubric: phase3Week10Assignment.rubric,
+            resources: phase3Week10Assignment.resources,
+            hints: phase3Week10Assignment.hints,
+            securityReminders: phase3Week10Assignment.securityReminders
           }
         ]
       },
@@ -2159,6 +2025,21 @@ POST   /api/habits/:id/entries - Toggle habit entry (protected)
 - Postman collection for testing
 - Environment variables documented
 - All tests passing`
+          },
+          {
+            id: 62.1,
+            title: phase4Week12Assignment.title,
+            type: 'assignment',
+            duration: '20-25 hours',
+            description: phase4Week12Assignment.description,
+            dueDate: phase4Week12Assignment.dueDate,
+            points: phase4Week12Assignment.points,
+            tasks: phase4Week12Assignment.tasks,
+            submissionGuidelines: phase4Week12Assignment.submissionGuidelines,
+            rubric: phase4Week12Assignment.rubric,
+            resources: phase4Week12Assignment.resources,
+            hints: phase4Week12Assignment.hints,
+            bonusChallenge: phase4Week12Assignment.bonusChallenge
           }
         ]
       },
@@ -2338,129 +2219,6 @@ const ProgressChart = ({ habits }) => {
     </ResponsiveContainer>
   );
 };`
-          },
-          {
-            id: 69,
-            title: 'Week 13 Project: Complete Habit Tracker Frontend',
-            type: 'project',
-            duration: '10 hours',
-            instructions: `# Week 13 Final Project: Complete Habit Tracker Frontend
-
-## Objective
-Build the complete frontend for the Habit Tracker application, connecting to the backend API from Week 12.
-
-## Requirements
-
-### 1. Authentication Pages
-- **Login Page**
-  - Email and password inputs
-  - Form validation
-  - Error handling
-  - Redirect to dashboard on success
-  
-- **Register Page**
-  - Name, email, password inputs
-  - Password confirmation
-  - Form validation
-  - Auto-login after registration
-
-### 2. Dashboard Page
-- **Header**
-  - User greeting
-  - Logout button
-  - Current date display
-  
-- **Habit List**
-  - Display all user habits
-  - Color-coded habit cards
-  - Completion status for today
-  - Quick toggle for today's completion
-  
-- **Add Habit Button**
-  - Opens habit creation form
-  - Modal or inline form
-
-### 3. Habit Management
-- **Create Habit**
-  - Name (required)
-  - Description (optional)
-  - Color picker
-  - Form validation
-  
-- **Edit Habit**
-  - Update name, description, color
-  - Save changes
-  
-- **Delete Habit**
-  - Confirmation dialog
-  - Remove from list
-
-### 4. Habit Tracking
-- **Daily Tracking**
-  - Mark habits complete/incomplete
-  - Visual feedback
-  - Update streak counter
-  
-- **Calendar View**
-  - Show last 7-30 days
-  - Visual indicators for completed days
-  - Click to view specific date
-
-### 5. Progress Visualization
-- **Statistics Dashboard**
-  - Total habits
-  - Completion rate
-  - Current streaks
-  
-- **Charts**
-  - Line chart: 30-day progress
-  - Bar chart: Habits by completion rate
-  - Pie chart: Today's completion
-
-### 6. UI/UX Features
-- **Loading States**
-  - Skeleton loaders
-  - Spinner for API calls
-  
-- **Error Handling**
-  - Toast notifications
-  - Error messages
-  - Retry buttons
-  
-- **Responsive Design**
-  - Mobile-friendly
-  - Tablet layout
-  - Desktop layout
-
-### Technical Requirements
-- Use React with Vite
-- Implement Context API for auth
-- Use Axios for API calls
-- Add Recharts for visualization
-- Use Tailwind CSS or styled-components
-- Implement protected routes
-- Handle token expiration
-- Add loading and error states
-
-### Bonus Features
-- Dark mode toggle
-- Habit categories
-- Notes for each completion
-- Export data to CSV
-- Habit reminders (mock)
-- Social sharing (mock)
-- Animations and transitions
-- Offline support with localStorage
-
-### Submission Checklist
-- ✅ All authentication flows work
-- ✅ Can create, read, update, delete habits
-- ✅ Can mark habits complete/incomplete
-- ✅ Charts display correctly
-- ✅ Responsive on all devices
-- ✅ No console errors
-- ✅ Clean, organized code
-- ✅ README with setup instructions`
           }
         ]
       },
@@ -2505,71 +2263,19 @@ Build the complete frontend for the Habit Tracker application, connecting to the
             codeSnippet: phase4Week14Lesson4.codeSnippet
           },
           {
-            id: 74,
-            title: 'Final Project: Deploy Habit Tracker',
-            type: 'project',
-            duration: '8 hours',
-            instructions: `# Week 14 Final Project: Deployed Habit Tracker
-
-## Objective
-Deploy the complete Habit Tracker application to production.
-
-## Requirements
-
-### Backend Deployment (Render)
-- Deploy Express API to Render
-- Connect to MongoDB Atlas
-- Configure environment variables
-- Test all API endpoints in production
-
-### Frontend Deployment (Vercel)
-- Deploy React app to Vercel
-- Connect to production API
-- Configure environment variables
-- Test all features
-
-### Features Working in Production
-- User registration and login
-- JWT authentication
-- Create, read, update, delete habits
-- Toggle daily habit completion
-- View habit streaks and progress
-- Responsive design on all devices
-
-### Documentation
-- Professional README with:
-  - Project description
-  - Live demo links
-  - Screenshots
-  - Setup instructions
-  - Technologies used
-  - API documentation
-
-### Testing Checklist
-- ✅ User can register
-- ✅ User can login
-- ✅ Authentication persists after refresh
-- ✅ User can create habits
-- ✅ User can mark habits complete
-- ✅ User can delete habits
-- ✅ Mobile responsive
-- ✅ No console errors
-
-### Stretch Goals
-- Custom domain name
-- GitHub Actions CI/CD
-- Error tracking with Sentry
-- Analytics integration
-- Performance optimization
-- SEO optimization
-
-### Submission
-Provide:
-1. Live frontend URL
-2. Live backend URL
-3. GitHub repository link
-4. 2-3 minute demo video
-5. Post-deployment reflection (challenges, solutions, next steps)`
+            id: 74.1,
+            title: phase4Week14Assignment.title,
+            type: 'assignment',
+            duration: '15-20 hours',
+            description: phase4Week14Assignment.description,
+            dueDate: phase4Week14Assignment.dueDate,
+            points: phase4Week14Assignment.points,
+            tasks: phase4Week14Assignment.tasks,
+            submissionGuidelines: phase4Week14Assignment.submissionGuidelines,
+            rubric: phase4Week14Assignment.rubric,
+            resources: phase4Week14Assignment.resources,
+            hints: phase4Week14Assignment.hints,
+            bonusChallenge: phase4Week14Assignment.bonusChallenge
           }
         ]
       },
@@ -2619,6 +2325,20 @@ Provide:
             type: 'quiz',
             duration: '20 min',
             questions: phase5Week15Quiz.questions
+          },
+          {
+            id: 78.2,
+            title: phase5Week15Assignment.title,
+            type: 'assignment',
+            duration: '10-15 hours',
+            description: phase5Week15Assignment.description,
+            dueDate: phase5Week15Assignment.dueDate,
+            points: phase5Week15Assignment.points,
+            tasks: phase5Week15Assignment.tasks,
+            submissionGuidelines: phase5Week15Assignment.submissionGuidelines,
+            rubric: phase5Week15Assignment.rubric,
+            resources: phase5Week15Assignment.resources,
+            hints: phase5Week15Assignment.hints
           }
         ]
       },
@@ -2670,211 +2390,21 @@ Provide:
             questions: phase5Week16Quiz.questions
           },
           {
-            id: 83,
-            title: 'Final Capstone Project',
-            type: 'project',
-            duration: '80 hours',
-            instructions: `# Week 16 Final Capstone Project
-
-## Objective
-Build and deploy a complete full-stack MERN application of your choice. This will be your portfolio centerpiece.
-
-## Project Options
-Choose one of the following or propose your own:
-
-### 1. E-commerce Platform
-- Product catalog with categories and search
-- Shopping cart and checkout process
-- User reviews and ratings
-- Order management system
-- Payment integration (Stripe/PayPal)
-- Admin dashboard for inventory
-
-### 2. Social Media Dashboard
-- User profiles with avatars
-- Posts with images and videos
-- Like and comment functionality
-- Friend/follow system
-- Real-time notifications
-- News feed algorithm
-
-### 3. Task Management Tool
-- Projects and team collaboration
-- Task assignment and tracking
-- Comments and file attachments
-- Activity logs and notifications
-- Progress tracking with charts
-- Time tracking features
-
-### 4. Blog Platform
-- Rich text editor for posts
-- Categories and tags system
-- Comments and discussions
-- User roles (admin, author, reader)
-- SEO optimization
-- Newsletter subscription
-
-### 5. Real Estate Listing Platform
-- Property listings with image galleries
-- Advanced search and filtering
-- Map integration (Google Maps)
-- Favorites and saved searches
-- Contact agents functionality
-- Property comparison tool
-
-## Technical Requirements
-
-### Backend (Required)
-- Node.js/Express with TypeScript
-- MongoDB with Mongoose
-- JWT authentication system
-- File upload functionality
-- Input validation and error handling
-- API documentation (Swagger/Postman)
-- Unit tests for critical functions
-
-### Frontend (Required)
-- React with TypeScript
-- State management (Context API or Redux)
-- React Router for navigation
-- Responsive design (mobile-first)
-- Form validation
-- Loading states and error boundaries
-- Accessibility compliance (WCAG basics)
-
-### Additional Features (Choose 2)
-- Real-time features with Socket.io
-- Payment integration (Stripe)
-- Email notifications (SendGrid/Nodemailer)
-- Charts/data visualization (Recharts)
-- Dark mode toggle
-- Internationalization (i18n)
-- Progressive Web App (PWA) features
-- Search functionality (Elasticsearch/Algolia)
-
-## Project Timeline (14 Days)
-
-### Days 1-2: Planning & Setup
-- Choose project idea and create wireframes
-- Design database schema and API endpoints
-- Set up monorepo structure
-- Initialize Git repository
-- Create project board (GitHub Projects/Trello)
-
-### Days 3-5: Backend Development
-- Set up Express server with TypeScript
-- Connect to MongoDB Atlas
-- Create data models with Mongoose
-- Implement authentication system
-- Build core API endpoints
-- Add input validation and error handling
-- Test with Postman
-
-### Days 6-8: Frontend Development
-- Set up React with TypeScript
-- Create authentication pages
-- Build main dashboard/homepage
-- Implement core features
-- Connect to backend API
-- Add loading and error states
-- Ensure responsive design
-
-### Days 9-10: Advanced Features & Polish
-- Implement chosen additional features
-- Add comprehensive form validation
-- Improve UI/UX with animations
-- Optimize performance
-- Write unit tests
-- Fix bugs and edge cases
-
-### Days 11-12: Deployment
-- Deploy backend to Render
-- Deploy frontend to Vercel
-- Set up environment variables
-- Configure custom domain (optional)
-- Test production build thoroughly
-- Set up monitoring and error tracking
-
-### Days 13-14: Documentation & Presentation
-- Write comprehensive README
-- Create project demo video (3-5 minutes)
-- Prepare presentation slides
-- Conduct peer code review
-- Submit final project
-
-## Deliverables
-
-### 1. Live Application
-- Frontend URL (Vercel)
-- Backend API URL (Render)
-- Admin/demo credentials (if applicable)
-
-### 2. Source Code
-- GitHub repository with clean commit history
-- Organized folder structure
-- Comprehensive README
-- API documentation
-
-### 3. Demo Video (3-5 minutes)
-- Project overview and problem it solves
-- Live demonstration of key features
-- Technical architecture explanation
-- Challenges faced and solutions
-- Future improvements planned
-
-### 4. Presentation (10 minutes)
-- Problem statement and solution
-- Technical stack and architecture
-- Key features demonstration
-- Code quality highlights
-- Lessons learned
-- Q&A session
-
-## Evaluation Criteria
-
-### Functionality (30%)
-- All core features work correctly
-- User authentication and authorization
-- CRUD operations function properly
-- Error handling and edge cases
-- Responsive design on all devices
-
-### Code Quality (25%)
-- Clean, readable, and well-organized code
-- Proper TypeScript usage
-- Consistent coding standards
-- Appropriate comments and documentation
-- Efficient algorithms and data structures
-
-### Technical Implementation (25%)
-- Proper use of MERN stack technologies
-- Database design and optimization
-- API design and RESTful principles
-- Security best practices
-- Performance optimization
-
-### User Experience (10%)
-- Intuitive and user-friendly interface
-- Consistent design system
-- Accessibility considerations
-- Loading states and error messages
-- Mobile responsiveness
-
-### Presentation & Documentation (10%)
-- Clear and comprehensive README
-- Well-structured demo video
-- Professional presentation
-- Thoughtful reflection on challenges
-
-## Submission
-Submit via the course platform:
-1. GitHub repository link
-2. Live frontend URL
-3. Live backend URL
-4. Demo video link (YouTube/Loom)
-5. Presentation slides (optional)
-
-Good luck! This is your chance to showcase everything you've learned. 🚀`
+            id: 83.1,
+            title: phase5Week16Assignment.title,
+            type: 'assignment',
+            duration: '80-100 hours',
+            description: phase5Week16Assignment.description,
+            dueDate: phase5Week16Assignment.dueDate,
+            points: phase5Week16Assignment.points,
+            tasks: phase5Week16Assignment.tasks,
+            projectIdeas: phase5Week16Assignment.projectIdeas,
+            submissionGuidelines: phase5Week16Assignment.submissionGuidelines,
+            rubric: phase5Week16Assignment.rubric,
+            evaluationCriteria: phase5Week16Assignment.evaluationCriteria,
+            resources: phase5Week16Assignment.resources,
+            hints: phase5Week16Assignment.hints,
+            presentationGuidelines: phase5Week16Assignment.presentationGuidelines
           }
         ]
       }
@@ -2884,8 +2414,8 @@ Good luck! This is your chance to showcase everything you've learned. 🚀`
     title: 'HTML for Absolute Beginners',
     description: 'Your first step into web development. Learn HTML from scratch with no prior experience needed.',
     instructor: 'DEVGet Learning Team',
-    duration: '4 weeks',
-    lessons: 7,
+    duration: 'Self-paced',
+    lessons: 8,
     level: 'Beginner',
     modules: [
       {
@@ -3137,8 +2667,8 @@ Your journey has just begun. Keep practicing by building small projects—a pers
     title: 'CSS Styling',
     description: 'Master styling and responsive design',
     instructor: 'DEVGet Learning Team',
-    duration: '5 weeks',
-    lessons: 30,
+    duration: 'Self-paced',
+    lessons: 3,
     level: 'Beginner',
     modules: [
       {
@@ -3286,8 +2816,8 @@ input[type="text"] {
     title: 'JavaScript Essentials',
     description: 'Programming fundamentals and DOM manipulation',
     instructor: 'DEVGet Learning Team',
-    duration: '8 weeks',
-    lessons: 48,
+    duration: 'Self-paced',
+    lessons: 3,
     level: 'Beginner',
     modules: [
       {
@@ -3588,8 +3118,8 @@ button.addEventListener("click", function() {
     title: 'Python Basics',
     description: 'Learn Python programming from scratch',
     instructor: 'DEVGet Learning Team',
-    duration: '6 weeks',
-    lessons: 36,
+    duration: 'Self-paced',
+    lessons: 6,
     level: 'Beginner',
     modules: [
       {
@@ -3848,8 +3378,8 @@ while count < 3:
     title: 'Database Fundamentals',
     description: 'SQL and database design principles',
     instructor: 'DEVGet Learning Team',
-    duration: '4 weeks',
-    lessons: 28,
+    duration: 'Self-paced',
+    lessons: 5,
     level: 'Beginner',
     modules: [
       {

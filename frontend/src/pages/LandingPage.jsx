@@ -95,9 +95,9 @@ const LandingPage = () => {
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="flex items-center justify-between h-16">
                             {/* Logo */}
-                            <Link to="/" className="flex items-center flex-shrink-0 -my-10 md:-my-12">
+                            <Link to="/" className="flex items-center justify-start flex-shrink-0 -my-10 md:-my-12">
                                 <img
-                                    src="/images/logos/devget-learning-logo.png"
+                                    src="/images/logos/devget-logo.png"
                                     alt="DEVGet Learning"
                                     className="h-32 md:h-40 w-auto"
                                     onError={(e) => {
@@ -176,6 +176,23 @@ const LandingPage = () => {
 
                             {/* CTA Buttons */}
                             <div className="hidden md:flex items-center gap-2">
+                                {!user ? (
+                                    <Link
+                                        to="/developer-signin"
+                                        className="flex items-center gap-1 px-2 py-1 text-white/90 hover:text-yellow-300 transition-colors"
+                                    >
+                                        <Code className="h-3 w-3" />
+                                        <span className="text-xs font-medium">Developers</span>
+                                    </Link>
+                                ) : (
+                                    <Link
+                                        to="/developer-console"
+                                        className="flex items-center gap-1 px-2 py-1 text-white/90 hover:text-yellow-300 transition-colors"
+                                    >
+                                        <Code className="h-3 w-3" />
+                                        <span className="text-xs font-medium">Developers</span>
+                                    </Link>
+                                )}
                                 <a
                                     href="https://wa.me/265994790967?text=Hi%2C%20I%20would%20like%20to%20support%20DEVGet%20Learning%20with%20a%20donation.%20How%20can%20I%20help%3F"
                                     target="_blank"
@@ -228,6 +245,25 @@ const LandingPage = () => {
                                         Contact
                                     </Link>
                                     <div className="px-4 pt-3 border-t border-white/10 space-y-2">
+                                        {!user ? (
+                                            <Link
+                                                to="/developer-signin"
+                                                className="flex items-center justify-center gap-2 px-4 py-2 bg-white/10 text-white rounded-lg"
+                                                onClick={() => setMobileMenuOpen(false)}
+                                            >
+                                                <Code className="h-4 w-4" />
+                                                Developer Console
+                                            </Link>
+                                        ) : (
+                                            <Link
+                                                to="/developer-console"
+                                                className="flex items-center justify-center gap-2 px-4 py-2 bg-white/10 text-white rounded-lg"
+                                                onClick={() => setMobileMenuOpen(false)}
+                                            >
+                                                <Code className="h-4 w-4" />
+                                                Developer Console
+                                            </Link>
+                                        )}
                                         <a
                                             href="https://wa.me/265994790967?text=Hi%2C%20I%20would%20like%20to%20support%20DEVGet%20Learning%20with%20a%20donation.%20How%20can%20I%20help%3F"
                                             target="_blank"
@@ -290,7 +326,7 @@ const LandingPage = () => {
                             {!user ? (
                                 <a
                                     href="#admissions"
-                                    className="w-full sm:w-auto flex items-center justify-center gap-1.5 px-4 py-2 bg-accent-600 hover:bg-accent-700 text-white rounded-lg text-sm font-semibold transition-all shadow-xl hover:shadow-accent-500/50 transform hover:-translate-y-1"
+                                    className="inline-flex sm:w-auto items-center justify-center gap-1.5 px-6 py-2.5 bg-accent-600 hover:bg-accent-700 text-white rounded-lg text-sm font-semibold transition-all shadow-xl hover:shadow-accent-500/50 transform hover:-translate-y-1"
                                     onClick={(e) => {
                                         e.preventDefault();
                                         document.getElementById('admissions')?.scrollIntoView({ behavior: 'smooth' });
@@ -303,7 +339,7 @@ const LandingPage = () => {
                             ) : (
                                 <Link
                                     to="/dashboard"
-                                    className="w-full sm:w-auto flex items-center justify-center gap-1.5 px-4 py-2 bg-accent-600 hover:bg-accent-700 text-white rounded-lg text-sm font-semibold transition-all shadow-xl hover:shadow-accent-500/50 transform hover:-translate-y-1"
+                                    className="inline-flex sm:w-auto items-center justify-center gap-1.5 px-6 py-2.5 bg-accent-600 hover:bg-accent-700 text-white rounded-lg text-sm font-semibold transition-all shadow-xl hover:shadow-accent-500/50 transform hover:-translate-y-1"
                                 >
                                     <GraduationCap className="h-3.5 w-3.5" />
                                     Go to Dashboard
@@ -312,7 +348,7 @@ const LandingPage = () => {
                             )}
                             <Link
                                 to="/about"
-                                className="w-full sm:w-auto px-4 py-2 bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white border border-white/30 rounded-lg text-sm font-semibold transition-all hover:scale-105"
+                                className="inline-flex sm:w-auto items-center justify-center px-6 py-2.5 bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white border border-white/30 rounded-lg text-sm font-semibold transition-all hover:scale-105"
                             >
                                 Learn Our Mission
                             </Link>

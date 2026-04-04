@@ -241,15 +241,18 @@ const AboutUs = () => {
             <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-accent-50">
                 <div className="max-w-4xl mx-auto text-center">
                     <h2 className="text-4xl font-bold text-gray-900 mb-4">Ready to Start Learning?</h2>
-                    <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-                        Join our community and start your journey to becoming a skilled developer today - completely free!
+                    <p className="text-xl text-gray-600 mb-4 max-w-2xl mx-auto">
+                        Our courses are offered on a scholarship basis to ensure quality education reaches those who need it most.
+                    </p>
+                    <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+                        Apply today to join our community and start your journey to becoming a skilled developer - completely free!
                     </p>
                     <Link
                         to="/signin"
                         className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-accent-600 to-primary-600 text-white rounded-xl text-lg font-semibold hover:from-accent-700 hover:to-primary-700 hover:scale-105 transition-all shadow-lg transform duration-300"
                     >
                         <GraduationCap className="h-5 w-5" />
-                        Get Started Free
+                        Apply for Scholarship
                         <ArrowRight className="h-5 w-5" />
                     </Link>
                 </div>
