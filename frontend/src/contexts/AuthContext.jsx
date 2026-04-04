@@ -9,7 +9,47 @@ export const useAuth = () => {
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null)
+    const [userRoles, setUserRoles] = useState([])
     const [loading, setLoading] = useState(true)
+
+    const fetchUserRoles = async (currentUser) => {
+        if (!currentUser) {
+            setUserRoles([])
+            return
+        }
+
+        try {
+            console.log('Fetching roles for user:', currentUser.id)
+
+            // Add a timeout to prevent infinite hanging
+            const timeoutPromise = new Promise((_, reject) =>
+                setTimeout(() => reject(new Error('Timeout')), 5000)
+            )
+
+            const queryPromise = supabase
+                .from('user_roles')
+                .select('role')
+                .eq('user_id', currentUser.id)
+
+            const { data: roles, error } = await Promise.race([queryPromise, timeoutPromise])
+
+            if (error) {
+                console.error('Error fetching user roles:', error)
+                // If table doesn't exist or other error, set empty roles but don't block
+                setUserRoles([])
+                return
+            }
+
+            console.log('Fetched roles:', roles)
+            const rolesList = roles ? roles.map(r => r.role) : []
+            console.log('Roles list:', rolesList)
+            setUserRoles(rolesList)
+        } catch (error) {
+            console.error('Error fetching user roles:', error)
+            // On timeout or error, set empty array to unblock the UI
+            setUserRoles([])
+        }
+    }
 
     useEffect(() => {
         let mounted = true
@@ -19,13 +59,18 @@ export const AuthProvider = ({ children }) => {
             try {
                 const { data: { session } } = await supabase.auth.getSession()
                 if (mounted) {
-                    setUser(session?.user ?? null)
+                    const currentUser = session?.user ?? null
+                    setUser(currentUser)
+                    if (currentUser) {
+                        await fetchUserRoles(currentUser)
+                    }
                     setLoading(false)
                 }
             } catch (error) {
                 console.error('Error getting session:', error)
                 if (mounted) {
                     setUser(null)
+                    setUserRoles([])
                     setLoading(false)
                 }
             }
@@ -37,7 +82,13 @@ export const AuthProvider = ({ children }) => {
         const { data: { subscription } } = supabase.auth.onAuthStateChange(
             async (event, session) => {
                 if (mounted) {
-                    setUser(session?.user ?? null)
+                    const currentUser = session?.user ?? null
+                    setUser(currentUser)
+                    if (currentUser) {
+                        await fetchUserRoles(currentUser)
+                    } else {
+                        setUserRoles([])
+                    }
                     setLoading(false)
                 }
             }
@@ -105,25 +156,42 @@ export const AuthProvider = ({ children }) => {
         }
     }
 
-    const signUp = async (email, password, userDetails = {}) => {
+    const signUp = async (email, password, userDetails = {}, role = 'student') => {
         try {
             const { data, error } = await supabase.auth.signUp({
                 email,
                 password,
                 options: {
-                    emailRedirectTo: `${window.location.origin}/dashboard`,
+                    emailRedirectTo: role === 'developer'
+                        ? `${window.location.origin}/developer-console`
+                        : `${window.location.origin}/dashboard`,
                     data: {
                         first_name: userDetails.firstName || '',
                         last_name: userDetails.lastName || '',
                         phone: userDetails.phone || '',
                         learning_goals: userDetails.learningGoals || '',
-                        experience_level: userDetails.experienceLevel || 'beginner'
+                        experience_level: userDetails.experienceLevel || 'beginner',
+                        role: role
                     }
                 }
             })
+
             if (error) {
                 console.error('Sign up error:', error)
+                return { data, error }
             }
+
+            // Assign role to user
+            if (data.user) {
+                try {
+                    await supabase
+                        .from('user_roles')
+                        .insert([{ user_id: data.user.id, role: role }])
+                } catch (roleError) {
+                    console.error('Error assigning role:', roleError)
+                }
+            }
+
             return { data, error }
         } catch (err) {
             console.error('Network error during sign up:', err)
@@ -176,6 +244,9 @@ export const AuthProvider = ({ children }) => {
             const { data: { user: freshUser }, error } = await supabase.auth.getUser()
             if (error) throw error
             setUser(freshUser)
+            if (freshUser) {
+                await fetchUserRoles(freshUser)
+            }
             return { user: freshUser, error: null }
         } catch (err) {
             console.error('Error refreshing user:', err)
@@ -183,8 +254,14 @@ export const AuthProvider = ({ children }) => {
         }
     }
 
+    const hasRole = (role) => {
+        return userRoles.includes(role)
+    }
+
     const value = {
         user,
+        userRoles,
+        hasRole,
         signIn,
         signInWithGoogle,
         signUp,

@@ -170,7 +170,7 @@ const Resources = () => {
             <Navigation currentPage="resources" />
 
             {/* Hero Section */}
-            <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-r from-accent-600 via-accent-500 to-primary-600 text-white">
+            <section className="pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 md:pb-20 bg-gradient-to-r from-accent-600 via-accent-500 to-primary-600 text-white">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                     <div className="inline-flex items-center px-3 sm:px-4 py-1.5 sm:py-2 bg-white/20 backdrop-blur-sm border border-white/30 rounded-full text-white text-xs sm:text-sm font-medium mb-4 sm:mb-6">
                         <Bookmark className="h-3 w-3 sm:h-4 sm:w-4 mr-1.5 sm:mr-2" />
@@ -201,19 +201,25 @@ const Resources = () => {
 
             {/* Section Navigation */}
             <section className="bg-white border-b border-gray-200 sticky top-0 z-40 shadow-md">
-                <div className="max-w-7xl mx-auto px-4 lg:px-8">
-                    <nav className="flex overflow-x-auto py-4 gap-3 scrollbar-hide">
+                <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8 relative">
+                    {/* Scroll indicator gradient on left */}
+                    <div className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-white to-transparent pointer-events-none z-10 sm:hidden"></div>
+                    {/* Scroll indicator gradient on right */}
+                    <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-white to-transparent pointer-events-none z-10 sm:hidden"></div>
+
+                    <nav className="flex overflow-x-auto py-3 sm:py-4 gap-2 sm:gap-3 scrollbar-hide -mx-2 px-2 sm:mx-0 sm:px-0">
                         {sections.map((section) => (
                             <button
                                 key={section.id}
                                 onClick={() => setActiveSection(section.id)}
-                                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-medium text-sm whitespace-nowrap transition-all transform hover:scale-105 ${activeSection === section.id
+                                className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg sm:rounded-xl font-medium text-xs sm:text-sm whitespace-nowrap transition-all transform active:scale-95 sm:hover:scale-105 flex-shrink-0 ${activeSection === section.id
                                     ? 'bg-gradient-to-r from-accent-600 to-primary-600 text-white shadow-lg'
-                                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                                    : 'bg-gray-100 text-gray-700 active:bg-gray-200 sm:hover:bg-gray-200'
                                     }`}
                             >
-                                {section.icon}
-                                {section.label}
+                                <span className="flex-shrink-0">{section.icon}</span>
+                                <span className="hidden min-[400px]:inline">{section.label}</span>
+                                <span className="min-[400px]:hidden">{section.label.split(' ')[0]}</span>
                             </button>
                         ))}
                     </nav>

@@ -11,6 +11,7 @@ import Contact from './pages/Contact'
 import Resources from './pages/Resources'
 import DeveloperConsole from './pages/DeveloperConsole'
 import ProtectedRoute from './components/ProtectedRoute'
+import RoleProtectedRoute from './components/RoleProtectedRoute'
 import InstructorDashboard from './components/InstructorDashboard'
 
 function App() {
@@ -23,32 +24,39 @@ function App() {
                         <Route path="/about" element={<AboutUs />} />
                         <Route path="/contact" element={<Contact />} />
                         <Route path="/resources" element={<Resources />} />
-                        <Route path="/developer-console" element={<DeveloperConsole />} />
                         <Route path="/signin" element={<SignIn />} />
                         <Route path="/developer-signin" element={<DeveloperSignIn />} />
                         <Route path="/developer-signup" element={<DeveloperSignUp />} />
                         <Route
+                            path="/developer-console"
+                            element={
+                                <RoleProtectedRoute requiredRole="developer" redirectTo="/developer-signin">
+                                    <DeveloperConsole />
+                                </RoleProtectedRoute>
+                            }
+                        />
+                        <Route
                             path="/dashboard"
                             element={
-                                <ProtectedRoute>
+                                <RoleProtectedRoute requiredRole="student" redirectTo="/signin">
                                     <Dashboard />
-                                </ProtectedRoute>
+                                </RoleProtectedRoute>
                             }
                         />
                         <Route
                             path="/course/:courseId"
                             element={
-                                <ProtectedRoute>
+                                <RoleProtectedRoute requiredRole="student" redirectTo="/signin">
                                     <CoursePage />
-                                </ProtectedRoute>
+                                </RoleProtectedRoute>
                             }
                         />
                         <Route
                             path="/instructor/dashboard"
                             element={
-                                <ProtectedRoute>
+                                <RoleProtectedRoute requiredRole="instructor" redirectTo="/signin">
                                     <InstructorDashboard />
-                                </ProtectedRoute>
+                                </RoleProtectedRoute>
                             }
                         />
                     </Routes>

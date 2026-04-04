@@ -57,19 +57,35 @@ const Contact = () => {
     const faqs = [
         {
             question: "Is DEVGet Learning really free?",
-            answer: "Yes! All courses, features, certificates, and resources are 100% free for students. We're a youth-led project providing scholarships to underserved youth in Africa."
+            answer: "Yes! DEVGet Learning operates on a 100% scholarship basis. All courses, materials, certificates, and resources are completely free. There are no hidden fees, tuition costs, or charges of any kind. We're committed to making quality Tech & AI education accessible to all."
+        },
+        {
+            question: "How do I apply for a scholarship?",
+            answer: "Visit our homepage and navigate to the Admissions section to download the application form. Fill it out and submit it according to the instructions. All applications are reviewed on a rolling basis, and we prioritize underserved youth in Malawi and across Africa."
+        },
+        {
+            question: "Who is eligible for the scholarship program?",
+            answer: "Our scholarship program is open to all motivated youth in Malawi and across Africa who are passionate about learning Tech & AI. We especially focus on supporting underserved communities. No prior technical experience is required - just a willingness to learn!"
+        },
+        {
+            question: "What does the scholarship cover?",
+            answer: "Your scholarship covers everything: full access to all courses (MERN Stack, AI/ML, Agentic AI, and more), learning materials, assignments, projects, mentorship, community support, certificates upon completion, and career guidance. Absolutely no costs to you."
+        },
+        {
+            question: "How can I support DEVGet Learning's mission?",
+            answer: "You can support our scholarship program by making a donation. Your contribution directly funds scholarships for underserved youth, helping us provide free education to more students across Africa. Visit our About page or contact us to learn more about supporting our mission."
         },
         {
             question: "How do I reset my password?",
-            answer: "Click on 'Forgot Password' on the sign-in page and follow the instructions sent to your email."
+            answer: "Click on 'Forgot Password' on the sign-in page and follow the instructions sent to your email. If you don't receive the email, check your spam folder or contact our support team."
         },
         {
-            question: "How can I support DEVGet Learning?",
-            answer: "You can support our mission by making a donation through the Donate button. Your contribution helps us provide free education to more students across Africa."
+            question: "Can I take multiple courses at once?",
+            answer: "Yes! As a scholarship recipient, you have full access to all our courses. You can enroll in multiple courses and learn at your own pace. We recommend starting with foundational courses if you're new to programming."
         },
         {
-            question: "Who can access the courses?",
-            answer: "Anyone can sign up and access all our courses for free. We especially focus on supporting underserved youth in Malawi and across Africa."
+            question: "Will I receive a certificate?",
+            answer: "Yes! Upon successful completion of any course, you'll receive a certificate at no cost. These certificates demonstrate your skills and can be shared with potential employers or added to your professional profiles."
         }
     ]
 

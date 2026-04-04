@@ -410,16 +410,31 @@ const LessonNotes = ({ lesson, onQuizAnswer, quizAnswers, onSubmitQuiz, showQuiz
                     )}
 
                     {lesson.resources && lesson.resources.length > 0 && (
-                        <div className="bg-indigo-50 rounded-xl p-5 mb-6 border border-indigo-200">
-                            <h3 className="text-lg font-bold text-indigo-900 mb-3">Resources</h3>
-                            <ul className="space-y-2">
-                                {lesson.resources.map((resource, idx) => (
-                                    <li key={idx} className="text-sm text-indigo-700">
-                                        <a href={resource.split(': ')[1]} target="_blank" rel="noopener noreferrer" className="hover:underline">
-                                            {resource}
-                                        </a>
-                                    </li>
-                                ))}
+                        <div className="bg-indigo-50 rounded-xl p-4 sm:p-5 mb-6 border border-indigo-200">
+                            <h3 className="text-base sm:text-lg font-bold text-indigo-900 mb-3 flex items-center gap-2">
+                                <span className="text-lg">📚</span>
+                                Resources
+                            </h3>
+                            <ul className="space-y-3">
+                                {lesson.resources.map((resource, idx) => {
+                                    const [title, url] = resource.split(': ')
+                                    return (
+                                        <li key={idx} className="group">
+                                            <a
+                                                href={url}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="flex items-start gap-2 sm:gap-3 p-3 bg-white rounded-lg border border-indigo-200 hover:border-indigo-400 hover:shadow-md transition-all text-sm sm:text-base text-indigo-700 hover:text-indigo-900"
+                                            >
+                                                <span className="text-indigo-500 mt-0.5 flex-shrink-0">🔗</span>
+                                                <span className="flex-1 break-words">{title}</span>
+                                                <svg className="w-4 h-4 flex-shrink-0 mt-0.5 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                                </svg>
+                                            </a>
+                                        </li>
+                                    )
+                                })}
                             </ul>
                         </div>
                     )}

@@ -51,7 +51,7 @@ const DeveloperSignUp = () => {
             const { error } = await signUp(formData.email, formData.password, {
                 full_name: formData.fullName,
                 user_type: 'developer'
-            })
+            }, 'developer')
 
             if (error) {
                 if (error.message.includes('already registered')) {

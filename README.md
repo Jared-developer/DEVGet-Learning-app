@@ -4,16 +4,48 @@ A modern, full-stack learning management system built with React, Node.js, Expre
 
 ## Features
 
-- 🎓 Course Management (MERN Stack, AI/ML, Agentic AI)
+- 🎓 Course Management (MERN Stack, AI/ML, Agentic AI, HTML, CSS, JavaScript, Python, Database Fundamentals)
 - 👥 User Authentication & Authorization
+- 🔐 **Role-Based Access Control** (Students, Developers, Instructors, Admins)
 - 📝 Assignment Submission & Grading
 - 🎖️ Certificate Generation
 - 💬 Community Discussion Forums
 - 📢 Announcements & Updates
 - 👨‍🏫 Instructor Management
 - 🤖 AI Assistant Integration
-- 📱 Fully Responsive Design
+- 📱 Fully Responsive Design (Mobile-optimized)
 - 🔐 Secure with Row Level Security (RLS)
+- 👨‍💼 Admin Dashboard for Student Registration
+- 📊 Developer Console for Platform Management
+
+## Role-Based Access Control
+
+The platform implements a comprehensive role-based access control system:
+
+- **Students**: Access to learning dashboard, courses, and assignments
+- **Developers**: Access to developer console, API keys, and documentation
+- **Instructors**: Access to course management and student progress
+- **Admins**: Full system access and user management
+
+**Key Features:**
+- Automatic role assignment during sign-up
+- Secure separation between developer and student portals
+- Multi-layer security (database, backend, frontend)
+- Easy role management with CLI tools
+
+**Quick Setup:**
+```bash
+cd backend
+npm run setup:roles        # Verify role system
+npm run migrate:users      # Migrate existing users
+npm run assign:role email@example.com admin  # Assign roles
+```
+
+📚 **Documentation:**
+- [Quick Start Guide](QUICK-START-ROLES.md) - 5-minute setup
+- [Complete Setup Guide](USER-ROLES-SETUP.md) - Detailed instructions
+- [Implementation Details](ROLE-BASED-ACCESS-IMPLEMENTATION.md) - Technical overview
+- [Visual Diagrams](ROLE-ACCESS-DIAGRAM.md) - Flow charts and diagrams
 
 ## Tech Stack
 

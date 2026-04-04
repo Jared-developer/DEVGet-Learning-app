@@ -1,5 +1,24 @@
 /* Mobile Responsiveness Enhancements */
 
+/* Hide scrollbar but keep functionality */
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+    /* Chrome, Safari and Opera */
+}
+
+/* Smooth scrolling for horizontal navigation */
+.scrollbar-hide {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}
+
 /* Ensure proper touch targets on mobile */
 @media (max-width: 768px) {
 
