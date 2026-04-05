@@ -51,18 +51,10 @@ const AIAssistant = ({ courseId, lessonTitle }) => {
                 const noCourseMessage = {
                     id: Date.now(),
                     type: 'ai',
-                    content: `👋 Hi! I'm Get.AI, your learning assistant.\n\nTo use me, please open a Pro course (MERN Stack, AI & Machine Learning, or Agentic AI). I'll provide personalized help with course concepts and answer your questions!`,
+                    content: `👋 Hi! I'm Get.AI, your learning assistant.\n\nTo use me, please open any course. I'll provide personalized help with course concepts and answer your questions!`,
                     timestamp: new Date()
                 };
                 setMessages([noCourseMessage]);
-            } else if (!isAdvancedCourse && accessError) {
-                const restrictionMessage = {
-                    id: Date.now(),
-                    type: 'ai',
-                    content: `🔒 ${accessError}\n\nGet.AI assistant provides personalized help with course concepts, answers your questions, and guides you through challenging topics. Upgrade to Pro to unlock this feature!`,
-                    timestamp: new Date()
-                };
-                setMessages([restrictionMessage]);
             } else {
                 const welcomeMessage = {
                     id: Date.now(),
@@ -73,7 +65,7 @@ const AIAssistant = ({ courseId, lessonTitle }) => {
                 setMessages([welcomeMessage]);
             }
         }
-    }, [isOpen, isAdvancedCourse, accessError, courseId]);
+    }, [isOpen, courseId]);
 
     const loadSuggestions = async () => {
         try {
@@ -83,10 +75,7 @@ const AIAssistant = ({ courseId, lessonTitle }) => {
             setAccessError(null);
         } catch (error) {
             console.error('Failed to load suggestions:', error);
-            if (error.response?.status === 403) {
-                setIsAdvancedCourse(false);
-                setAccessError(error.response?.data?.message || 'Get.AI is only available for Pro courses');
-            }
+            // Suggestions are optional, so we don't show errors to users
         }
     };
 
@@ -98,19 +87,7 @@ const AIAssistant = ({ courseId, lessonTitle }) => {
             const errorMessage = {
                 id: Date.now() + 1,
                 type: 'ai',
-                content: "Please open a course to use Get.AI assistant. The AI assistant provides course-specific help and is available in Pro courses.",
-                timestamp: new Date()
-            };
-            setMessages(prev => [...prev, errorMessage]);
-            return;
-        }
-
-        // Check if user has access
-        if (!isAdvancedCourse) {
-            const errorMessage = {
-                id: Date.now() + 1,
-                type: 'ai',
-                content: "🔒 Get.AI assistant is only available for Pro courses. Please upgrade your plan to access AI assistance!",
+                content: "Please open a course to use Get.AI assistant. The AI assistant provides course-specific help for all courses.",
                 timestamp: new Date()
             };
             setMessages(prev => [...prev, errorMessage]);
@@ -154,8 +131,7 @@ const AIAssistant = ({ courseId, lessonTitle }) => {
             let errorContent = "I'm sorry, I'm having trouble responding right now. Please try again in a moment.";
 
             if (error.response?.status === 403) {
-                errorContent = "🔒 " + (error.response?.data?.message || "Get.AI is only available for Pro courses. Please upgrade to continue!");
-                setIsAdvancedCourse(false);
+                errorContent = error.response?.data?.message || "You need to be enrolled in this course to use Get.AI assistant.";
             }
 
             const errorMessage = {
@@ -332,44 +308,26 @@ const AIAssistant = ({ courseId, lessonTitle }) => {
 
                             {/* Input */}
                             <div className="p-3 sm:p-4 border-t border-primary-200 bg-white">
-                                {!isAdvancedCourse && accessError ? (
-                                    <div className="bg-accent-50 border border-accent-200 rounded-xl p-3 text-center">
-                                        <div className="flex items-center justify-center gap-2 mb-2">
-                                            <span className="text-2xl">🔒</span>
-                                            <span className="font-semibold text-accent-700 text-sm">Pro Feature</span>
-                                        </div>
-                                        <p className="text-xs text-primary-600 mb-3">
-                                            Upgrade to Pro to unlock Get.AI assistant
-                                        </p>
-                                        <a
-                                            href="/pricing"
-                                            className="inline-block bg-accent-600 text-white px-4 py-2 rounded-lg text-xs font-semibold hover:bg-accent-700 transition-colors touch-manipulation"
-                                        >
-                                            View Plans
-                                        </a>
-                                    </div>
-                                ) : (
-                                    <div className="flex items-end space-x-2">
-                                        <textarea
-                                            ref={inputRef}
-                                            value={inputMessage}
-                                            onChange={(e) => setInputMessage(e.target.value)}
-                                            onKeyPress={handleKeyPress}
-                                            placeholder="Ask me anything..."
-                                            rows="1"
-                                            className="flex-1 px-3 py-2.5 sm:py-3 border border-primary-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-transparent text-sm resize-none max-h-24 overflow-y-auto"
-                                            disabled={isLoading}
-                                            style={{ minHeight: '42px' }}
-                                        />
-                                        <button
-                                            onClick={() => sendMessage()}
-                                            disabled={!inputMessage.trim() || isLoading}
-                                            className="p-3 bg-accent-600 text-white rounded-xl hover:bg-accent-700 active:bg-accent-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex-shrink-0 touch-manipulation"
-                                        >
-                                            <Send className="h-5 w-5" />
-                                        </button>
-                                    </div>
-                                )}
+                                <div className="flex items-end space-x-2">
+                                    <textarea
+                                        ref={inputRef}
+                                        value={inputMessage}
+                                        onChange={(e) => setInputMessage(e.target.value)}
+                                        onKeyPress={handleKeyPress}
+                                        placeholder="Ask me anything..."
+                                        rows="1"
+                                        className="flex-1 px-3 py-2.5 sm:py-3 border border-primary-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-transparent text-sm resize-none max-h-24 overflow-y-auto"
+                                        disabled={isLoading}
+                                        style={{ minHeight: '42px' }}
+                                    />
+                                    <button
+                                        onClick={() => sendMessage()}
+                                        disabled={!inputMessage.trim() || isLoading}
+                                        className="p-3 bg-accent-600 text-white rounded-xl hover:bg-accent-700 active:bg-accent-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex-shrink-0 touch-manipulation"
+                                    >
+                                        <Send className="h-5 w-5" />
+                                    </button>
+                                </div>
                             </div>
                         </>
                     )}

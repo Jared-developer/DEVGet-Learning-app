@@ -254,16 +254,8 @@ router.post('/chat', supabaseProtect, async (req, res) => {
 
         console.log('✅ Course found:', { title: course.title, is_free: course.is_free });
 
-        // Check if course is advanced (not free)
-        if (course.is_free) {
-            console.log('🔒 Course is free - access denied');
-            return res.status(403).json({
-                status: 'error',
-                message: 'Get.AI assistant is only available for advanced (Pro) courses. Upgrade to Pro to access AI assistance!'
-            });
-        }
-
-        console.log('✅ Course is Pro - generating response with Groq...');
+        // AI assistant is now available for all courses
+        console.log('✅ Generating response with Groq...');
 
         // Get course context
         const courseContext = await getCourseContext(courseId);
@@ -372,13 +364,7 @@ router.post('/suggestions', supabaseProtect, async (req, res) => {
             });
         }
 
-        if (course.is_free) {
-            return res.status(403).json({
-                status: 'error',
-                message: 'Get.AI assistant is only available for advanced (Pro) courses'
-            });
-        }
-
+        // AI assistant is now available for all courses
         // Get course context
         const courseContext = await getCourseContext(courseId);
 
