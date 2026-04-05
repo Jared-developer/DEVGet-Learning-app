@@ -97,7 +97,7 @@ const LandingPage = () => {
                             {/* Logo */}
                             <Link to="/" className="flex items-center justify-start flex-shrink-0 -my-10 md:-my-12">
                                 <img
-                                    src="/images/logos/devget-logo.png"
+                                    src="/images/logos/updatedLogo.jpg"
                                     alt="DEVGet Learning"
                                     className="h-32 md:h-40 w-auto"
                                     onError={(e) => {

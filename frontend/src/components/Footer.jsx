@@ -10,7 +10,7 @@ const Footer = () => {
                     <div className="md:col-span-2">
                         <Link to="/" className="flex items-center justify-start mb-4 -my-6 -ml-4 md:-ml-6">
                             <img
-                                src="/images/logos/devget-logo.png"
+                                src="/images/logos/updatedLogo.jpg"
                                 alt="DEVGet Learning"
                                 className="h-28 md:h-32 w-auto"
                                 onError={(e) => {
