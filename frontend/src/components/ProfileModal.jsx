@@ -301,7 +301,7 @@ const ProfileModal = ({ isOpen, onClose, user, onSave }) => {
                                 value={profileData.phone}
                                 onChange={(e) => setProfileData({ ...profileData, phone: e.target.value })}
                                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                                placeholder="+1 (555) 123-4567"
+                                placeholder="+265 991 234 567"
                             />
                         </div>
                     </div>
