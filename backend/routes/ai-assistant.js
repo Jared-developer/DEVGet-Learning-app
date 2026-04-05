@@ -1,133 +1,195 @@
 import express from 'express';
+import Groq from 'groq-sdk';
 import { supabase } from '../config/supabase.js';
 import { supabaseProtect } from '../middleware/supabaseAuth.js';
 
 const router = express.Router();
 
-// Mock AI responses for different course topics
-const aiResponses = {
-    'javascript': {
-        keywords: ['javascript', 'js', 'function', 'variable', 'array', 'object', 'dom', 'event'],
-        responses: [
-            "JavaScript is a versatile programming language! What specific concept would you like me to explain?",
-            "I can help you with JavaScript fundamentals like variables, functions, arrays, and DOM manipulation.",
-            "JavaScript can be tricky at first, but with practice it becomes second nature. What's challenging you?"
-        ]
+// Initialize Groq client
+const groq = new Groq({
+    apiKey: process.env.GROQ_API_KEY
+});
+
+// Course context data for AI understanding
+const courseContexts = {
+    'mern-stack': {
+        title: 'MERN Stack Development',
+        description: 'Full-stack web development using MongoDB, Express.js, React, and Node.js',
+        topics: [
+            'MongoDB database design and operations',
+            'Express.js API development and middleware',
+            'React component architecture and hooks',
+            'Node.js backend development',
+            'RESTful API design',
+            'Authentication and authorization',
+            'State management with Redux',
+            'Full-stack application deployment'
+        ],
+        level: 'Advanced'
     },
-    'react': {
-        keywords: ['react', 'component', 'jsx', 'state', 'props', 'hook', 'usestate', 'useeffect'],
-        responses: [
-            "React is a powerful library for building user interfaces! Components are the building blocks.",
-            "React hooks like useState and useEffect make managing state and side effects much easier.",
-            "JSX allows you to write HTML-like syntax in JavaScript. It's compiled to regular JavaScript."
-        ]
+    'ai-ml': {
+        title: 'AI & Machine Learning',
+        description: 'Comprehensive AI and ML from fundamentals to deep learning',
+        topics: [
+            'Machine learning fundamentals',
+            'Supervised and unsupervised learning',
+            'Neural networks and deep learning',
+            'TensorFlow and PyTorch',
+            'Natural Language Processing',
+            'Computer Vision',
+            'Model training and evaluation',
+            'AI project deployment'
+        ],
+        level: 'Intermediate to Advanced'
     },
-    'python': {
-        keywords: ['python', 'list', 'dictionary', 'function', 'class', 'import', 'pandas', 'numpy'],
-        responses: [
-            "Python is great for beginners! Its syntax is clean and readable.",
-            "Python has powerful libraries like pandas for data analysis and numpy for numerical computing.",
-            "Python functions are defined with 'def' and classes with 'class'. Indentation is important!"
-        ]
+    'agentic-ai': {
+        title: 'Agentic AI Development',
+        description: 'Building autonomous AI agents and intelligent systems',
+        topics: [
+            'Autonomous agent architectures',
+            'LangChain framework',
+            'Tool integration and function calling',
+            'Multi-agent systems',
+            'Agent memory and context management',
+            'RAG (Retrieval Augmented Generation)',
+            'Agent orchestration',
+            'Production AI agent deployment'
+        ],
+        level: 'Expert'
     },
-    'ai': {
-        keywords: ['ai', 'machine learning', 'ml', 'neural network', 'tensorflow', 'pytorch', 'model', 'training'],
-        responses: [
-            "AI and Machine Learning are fascinating fields! Are you working on a specific algorithm?",
-            "Machine learning models learn patterns from data. What type of problem are you trying to solve?",
-            "Neural networks are inspired by the human brain and are great for complex pattern recognition."
-        ]
+    'html-fundamentals': {
+        title: 'HTML Fundamentals',
+        description: 'Building blocks of web development with HTML5',
+        topics: [
+            'HTML5 semantic elements',
+            'Document structure',
+            'Forms and input types',
+            'Multimedia elements',
+            'Accessibility best practices',
+            'SEO fundamentals',
+            'HTML validation',
+            'Modern HTML features'
+        ],
+        level: 'Beginner'
     },
-    'mern': {
-        keywords: ['mern', 'mongodb', 'express', 'node', 'fullstack', 'api', 'database'],
-        responses: [
-            "MERN stack combines MongoDB, Express, React, and Node.js for full-stack development!",
-            "The MERN stack is perfect for building modern web applications with JavaScript everywhere.",
-            "Each part of MERN has its role: MongoDB for data, Express for APIs, React for UI, Node for server."
-        ]
+    'css-styling': {
+        title: 'CSS Styling',
+        description: 'Master styling and responsive design',
+        topics: [
+            'CSS selectors and specificity',
+            'Flexbox layout',
+            'CSS Grid',
+            'Responsive design',
+            'CSS animations',
+            'Modern CSS features',
+            'CSS preprocessors',
+            'Design systems'
+        ],
+        level: 'Beginner to Intermediate'
     },
-    'general': {
-        keywords: ['help', 'stuck', 'confused', 'error', 'bug', 'problem'],
-        responses: [
-            "I'm here to help! Can you tell me more about what you're working on?",
-            "Don't worry, everyone gets stuck sometimes. What specific topic or concept is challenging you?",
-            "Let's break down the problem step by step. What are you trying to accomplish?"
-        ]
+    'javascript-essentials': {
+        title: 'JavaScript Essentials',
+        description: 'Programming fundamentals and DOM manipulation',
+        topics: [
+            'JavaScript syntax and data types',
+            'Functions and scope',
+            'Arrays and objects',
+            'DOM manipulation',
+            'Event handling',
+            'Asynchronous JavaScript',
+            'ES6+ features',
+            'Modern JavaScript patterns'
+        ],
+        level: 'Beginner to Intermediate'
+    },
+    'python-basics': {
+        title: 'Python Basics',
+        description: 'Learn Python programming from scratch',
+        topics: [
+            'Python syntax and data types',
+            'Control flow and loops',
+            'Functions and modules',
+            'Object-oriented programming',
+            'File handling',
+            'Error handling',
+            'Popular libraries (pandas, numpy)',
+            'Python best practices'
+        ],
+        level: 'Beginner'
     }
 };
 
-// Get AI response based on user message and course context
-const generateAIResponse = (message, courseId, enrollment) => {
-    const lowerMessage = message.toLowerCase();
-    const courseTitle = enrollment?.course?.title?.toLowerCase() || '';
-    const courseCategory = enrollment?.course?.category?.toLowerCase() || '';
-
-    // Find matching topic based on keywords
-    let matchedTopic = 'general';
-    let maxMatches = 0;
-
-    for (const [topic, data] of Object.entries(aiResponses)) {
-        const matches = data.keywords.filter(keyword =>
-            lowerMessage.includes(keyword)
-        ).length;
-
-        if (matches > maxMatches) {
-            maxMatches = matches;
-            matchedTopic = topic;
-        }
+// Generate system prompt based on course context
+const generateSystemPrompt = (courseContext) => {
+    if (!courseContext) {
+        return `You are Get.AI, a helpful and knowledgeable learning assistant for DEVGet Learning Platform. 
+You help students understand programming concepts, debug code, and provide guidance on their learning journey.
+Be encouraging, clear, and provide practical examples when explaining concepts.`;
     }
 
-    // Get random response from matched topic
-    const responses = aiResponses[matchedTopic].responses;
-    const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+    return `You are Get.AI, a specialized learning assistant for the "${courseContext.title}" course on DEVGet Learning Platform.
 
-    // Add course-specific context based on actual enrollment
-    let contextualResponse = randomResponse;
+Course Description: ${courseContext.description}
+Course Level: ${courseContext.level}
 
-    if (enrollment?.course) {
-        const courseName = enrollment.course.title;
+Key Topics Covered:
+${courseContext.topics.map((topic, i) => `${i + 1}. ${topic}`).join('\n')}
 
-        // MERN Stack Course
-        if (courseTitle.includes('mern') || courseCategory.includes('mern')) {
-            contextualResponse += ` Since you're enrolled in "${courseName}", I can help you with MongoDB database design, Express.js API development, React component architecture, Node.js backend logic, and full-stack integration. What specific aspect would you like to explore?`;
-        }
-        // AI/ML Course
-        else if (courseTitle.includes('ai') || courseTitle.includes('machine learning') || courseCategory.includes('ai')) {
-            contextualResponse += ` As you're taking "${courseName}", I can assist with machine learning algorithms, neural networks, data preprocessing, model training and evaluation, TensorFlow/PyTorch, and AI project implementation. What would you like to dive into?`;
-        }
-        // Agentic AI Course
-        else if (courseTitle.includes('agentic') || courseCategory.includes('agentic')) {
-            contextualResponse += ` In your "${courseName}" course, I can help with autonomous agents, LangChain, agent architectures, tool integration, multi-agent systems, and building intelligent AI applications. What topic interests you?`;
-        }
-        // HTML/CSS Course
-        else if (courseTitle.includes('html') || courseTitle.includes('css') || courseCategory.includes('web')) {
-            contextualResponse += ` For "${courseName}", I can explain HTML5 semantic elements, CSS layouts (Flexbox, Grid), responsive design, accessibility, and modern web development practices. What would you like to learn?`;
-        }
-        // Python Course
-        else if (courseTitle.includes('python') || courseCategory.includes('python')) {
-            contextualResponse += ` In "${courseName}", I can help with Python syntax, data structures (lists, dictionaries, sets), functions, OOP concepts, popular libraries (pandas, numpy), and best practices. What's your question?`;
-        }
-        // JavaScript Course
-        else if (courseTitle.includes('javascript') || courseCategory.includes('javascript')) {
-            contextualResponse += ` For your "${courseName}" course, I can explain JavaScript fundamentals, ES6+ features, async/await, promises, DOM manipulation, closures, and modern JS patterns. What would you like to understand better?`;
-        }
-        // Blockchain Course
-        else if (courseTitle.includes('blockchain') || courseCategory.includes('blockchain')) {
-            contextualResponse += ` In "${courseName}", I can help with blockchain fundamentals, smart contracts, Solidity, Web3, DeFi concepts, and decentralized application development. What aspect interests you?`;
-        }
-        // Generic advanced course
-        else {
-            contextualResponse += ` I'm here to help you succeed in "${courseName}". Feel free to ask me anything about the course content, concepts, or projects!`;
-        }
-    }
+Your role is to:
+- Help students understand course concepts deeply
+- Provide clear explanations with practical examples
+- Debug code and explain errors
+- Suggest best practices and industry standards
+- Encourage students and build their confidence
+- Stay focused on topics relevant to this course
+- Provide code examples when helpful
+- Break down complex topics into digestible parts
 
-    return contextualResponse;
+Always be supportive, patient, and educational. If a question is outside the course scope, gently guide the student back to relevant topics while still being helpful.`;
 };
 
-// Chat with AI assistant
+// Get course context by ID or title
+const getCourseContext = async (courseId) => {
+    try {
+        // First try to get from database
+        const { data: course, error } = await supabase
+            .from('courses')
+            .select('id, title, description, category, difficulty')
+            .eq('id', courseId)
+            .single();
+
+        if (error || !course) {
+            return null;
+        }
+
+        // Map course title to context
+        const courseTitle = course.title.toLowerCase();
+
+        if (courseTitle.includes('mern')) return courseContexts['mern-stack'];
+        if (courseTitle.includes('ai') && courseTitle.includes('machine learning')) return courseContexts['ai-ml'];
+        if (courseTitle.includes('agentic')) return courseContexts['agentic-ai'];
+        if (courseTitle.includes('html')) return courseContexts['html-fundamentals'];
+        if (courseTitle.includes('css')) return courseContexts['css-styling'];
+        if (courseTitle.includes('javascript')) return courseContexts['javascript-essentials'];
+        if (courseTitle.includes('python')) return courseContexts['python-basics'];
+
+        // Return generic context if no match
+        return {
+            title: course.title,
+            description: course.description || 'A comprehensive programming course',
+            topics: ['Programming fundamentals', 'Best practices', 'Project development'],
+            level: course.difficulty || 'Intermediate'
+        };
+    } catch (error) {
+        console.error('Error getting course context:', error);
+        return null;
+    }
+};
+
+// Chat with AI assistant using Groq
 router.post('/chat', supabaseProtect, async (req, res) => {
     try {
-        const { message, courseId, conversationId } = req.body;
+        const { message, courseId, conversationHistory = [] } = req.body;
         const userId = req.user.id;
 
         console.log('🤖 AI Chat Request:', { userId, courseId, message: message?.substring(0, 50) });
@@ -146,6 +208,15 @@ router.post('/chat', supabaseProtect, async (req, res) => {
             });
         }
 
+        // Check Groq API key
+        if (!process.env.GROQ_API_KEY) {
+            console.error('❌ GROQ_API_KEY not configured');
+            return res.status(500).json({
+                status: 'error',
+                message: 'AI service is not configured. Please contact support.'
+            });
+        }
+
         // Check if user is enrolled in the course
         console.log('📝 Checking enrollment...');
         const { data: enrollment, error: enrollmentError } = await supabase
@@ -155,14 +226,8 @@ router.post('/chat', supabaseProtect, async (req, res) => {
             .eq('course_id', courseId)
             .single();
 
-        if (enrollmentError) {
-            console.error('❌ Enrollment error:', enrollmentError);
-        }
-        if (!enrollment) {
-            console.log('❌ No enrollment found');
-        }
-
         if (enrollmentError || !enrollment) {
+            console.log('❌ No enrollment found');
             return res.status(403).json({
                 status: 'error',
                 message: 'You must be enrolled in this course to use the AI assistant'
@@ -171,7 +236,7 @@ router.post('/chat', supabaseProtect, async (req, res) => {
 
         console.log('✅ Enrollment found:', enrollment);
 
-        // Get course details to check if it's advanced (paid)
+        // Get course details
         console.log('📚 Fetching course details...');
         const { data: course, error: courseError } = await supabase
             .from('courses')
@@ -179,14 +244,8 @@ router.post('/chat', supabaseProtect, async (req, res) => {
             .eq('id', courseId)
             .single();
 
-        if (courseError) {
-            console.error('❌ Course error:', courseError);
-        }
-        if (!course) {
-            console.log('❌ No course found');
-        }
-
         if (courseError || !course) {
+            console.log('❌ No course found');
             return res.status(404).json({
                 status: 'error',
                 message: 'Course not found'
@@ -204,73 +263,69 @@ router.post('/chat', supabaseProtect, async (req, res) => {
             });
         }
 
-        console.log('✅ Course is Pro - generating response...');
+        console.log('✅ Course is Pro - generating response with Groq...');
 
-        // Create enrollment object with course data for context
-        const enrollmentWithCourse = {
-            ...enrollment,
-            course: course
-        };
+        // Get course context
+        const courseContext = await getCourseContext(courseId);
+        const systemPrompt = generateSystemPrompt(courseContext);
 
-        // Generate AI response with course context
-        const aiResponse = generateAIResponse(message, courseId, enrollmentWithCourse);
+        // Build conversation messages
+        const messages = [
+            { role: 'system', content: systemPrompt }
+        ];
 
-        console.log('✅ AI response generated');
+        // Add conversation history (limit to last 10 messages for context)
+        const recentHistory = conversationHistory.slice(-10);
+        messages.push(...recentHistory);
 
-        // Store conversation in database (optional - for future conversation history)
-        const conversationData = {
-            user_id: userId,
-            course_id: courseId,
-            conversation_id: conversationId || `conv_${Date.now()}_${userId}`,
-            user_message: message,
-            ai_response: aiResponse,
-            created_at: new Date().toISOString()
-        };
+        // Add current user message
+        messages.push({ role: 'user', content: message });
 
-        // For now, we'll just return the response without storing
-        // In a real implementation, you might want to store conversations
+        // Call Groq API
+        const chatCompletion = await groq.chat.completions.create({
+            messages: messages,
+            model: 'llama-3.1-70b-versatile', // Fast and capable model
+            temperature: 0.7,
+            max_tokens: 1024,
+            top_p: 1,
+            stream: false
+        });
+
+        const aiResponse = chatCompletion.choices[0]?.message?.content || 'I apologize, but I could not generate a response. Please try again.';
+
+        console.log('✅ AI response generated via Groq');
 
         res.json({
             status: 'success',
             data: {
                 response: aiResponse,
-                conversationId: conversationData.conversation_id,
-                timestamp: conversationData.created_at
+                model: 'llama-3.1-70b-versatile',
+                timestamp: new Date().toISOString()
             }
         });
 
     } catch (error) {
         console.error('❌ AI Assistant error:', error);
+
+        // Handle Groq-specific errors
+        if (error.status === 401) {
+            return res.status(500).json({
+                status: 'error',
+                message: 'AI service authentication failed. Please contact support.'
+            });
+        }
+
+        if (error.status === 429) {
+            return res.status(429).json({
+                status: 'error',
+                message: 'AI service is currently busy. Please try again in a moment.'
+            });
+        }
+
         res.status(500).json({
             status: 'error',
             message: 'Failed to get AI response',
-            error: error.message
-        });
-    }
-});
-
-// Get conversation history (optional feature)
-router.get('/conversations', supabaseProtect, async (req, res) => {
-    try {
-        const userId = req.user.id;
-        const { courseId, limit = 50 } = req.query;
-
-        // For now, return empty array since we're not storing conversations
-        // In a real implementation, you would query the conversations table
-
-        res.json({
-            status: 'success',
-            data: {
-                conversations: [],
-                total: 0
-            }
-        });
-
-    } catch (error) {
-        console.error('Get conversations error:', error);
-        res.status(500).json({
-            status: 'error',
-            message: 'Failed to get conversation history'
+            error: process.env.NODE_ENV === 'development' ? error.message : undefined
         });
     }
 });
@@ -278,7 +333,7 @@ router.get('/conversations', supabaseProtect, async (req, res) => {
 // Get AI assistant suggestions based on current lesson
 router.post('/suggestions', supabaseProtect, async (req, res) => {
     try {
-        const { courseId, lessonId, lessonTitle } = req.body;
+        const { courseId, lessonTitle } = req.body;
         const userId = req.user.id;
 
         if (!courseId) {
@@ -303,7 +358,7 @@ router.post('/suggestions', supabaseProtect, async (req, res) => {
             });
         }
 
-        // Get course details to check if it's advanced
+        // Get course details
         const { data: course, error: courseError } = await supabase
             .from('courses')
             .select('id, title, is_free')
@@ -324,80 +379,49 @@ router.post('/suggestions', supabaseProtect, async (req, res) => {
             });
         }
 
-        // Generate contextual suggestions based on lesson
-        const suggestions = [];
+        // Get course context
+        const courseContext = await getCourseContext(courseId);
 
-        if (lessonTitle) {
-            const lowerTitle = lessonTitle.toLowerCase();
+        // Generate contextual suggestions using Groq
+        if (process.env.GROQ_API_KEY && lessonTitle) {
+            try {
+                const prompt = `Based on the lesson "${lessonTitle}" in the ${courseContext?.title || course.title} course, generate 3 helpful questions a student might ask. Return only the questions, one per line, without numbering.`;
 
-            if (lowerTitle.includes('javascript') || lowerTitle.includes('js')) {
-                suggestions.push(
-                    "Can you explain JavaScript closures?",
-                    "How do I handle asynchronous operations?",
-                    "What's the difference between let, const, and var?"
-                );
-            } else if (lowerTitle.includes('react')) {
-                suggestions.push(
-                    "How do React hooks work?",
-                    "What's the difference between state and props?",
-                    "How do I handle forms in React?"
-                );
-            } else if (lowerTitle.includes('python')) {
-                suggestions.push(
-                    "How do I work with lists and dictionaries?",
-                    "Can you explain Python decorators?",
-                    "What are the best practices for error handling?"
-                );
-            } else if (lowerTitle.includes('ai') || lowerTitle.includes('machine learning')) {
-                suggestions.push(
-                    "What's the difference between supervised and unsupervised learning?",
-                    "How do I choose the right algorithm?",
-                    "Can you explain neural network basics?"
-                );
-            } else if (lowerTitle.includes('mongodb') || lowerTitle.includes('database')) {
-                suggestions.push(
-                    "How do I design a MongoDB schema?",
-                    "What's the difference between SQL and NoSQL?",
-                    "How do I optimize database queries?"
-                );
-            } else if (lowerTitle.includes('express') || lowerTitle.includes('api')) {
-                suggestions.push(
-                    "How do I create RESTful APIs?",
-                    "What's middleware in Express?",
-                    "How do I handle errors in Express?"
-                );
-            } else if (lowerTitle.includes('node')) {
-                suggestions.push(
-                    "How does Node.js event loop work?",
-                    "What are streams in Node.js?",
-                    "How do I handle async operations?"
-                );
-            } else if (lowerTitle.includes('agentic') || lowerTitle.includes('agent')) {
-                suggestions.push(
-                    "How do autonomous agents work?",
-                    "What is LangChain used for?",
-                    "How do I build a multi-agent system?"
-                );
-            } else {
-                suggestions.push(
-                    "I'm stuck on this concept, can you help?",
-                    "Can you give me a practical example?",
-                    "What are the key points I should remember?"
-                );
+                const chatCompletion = await groq.chat.completions.create({
+                    messages: [
+                        { role: 'system', content: 'You are a helpful learning assistant that generates relevant questions students might ask.' },
+                        { role: 'user', content: prompt }
+                    ],
+                    model: 'llama-3.1-70b-versatile',
+                    temperature: 0.8,
+                    max_tokens: 200
+                });
+
+                const response = chatCompletion.choices[0]?.message?.content || '';
+                const suggestions = response.split('\n').filter(s => s.trim()).slice(0, 3);
+
+                if (suggestions.length > 0) {
+                    return res.json({
+                        status: 'success',
+                        data: { suggestions }
+                    });
+                }
+            } catch (error) {
+                console.error('Error generating suggestions with Groq:', error);
+                // Fall through to default suggestions
             }
-        } else {
-            suggestions.push(
-                "I need help understanding this topic",
-                "Can you explain this in simpler terms?",
-                "What should I focus on learning next?"
-            );
         }
+
+        // Default suggestions if Groq fails or no API key
+        const defaultSuggestions = [
+            "Can you explain this concept in simpler terms?",
+            "What are some practical examples of this?",
+            "What should I focus on learning next?"
+        ];
 
         res.json({
             status: 'success',
-            data: {
-                suggestions: suggestions.slice(0, 3) // Return top 3 suggestions
-            }
+            data: { suggestions: defaultSuggestions }
         });
 
     } catch (error) {
@@ -405,6 +429,25 @@ router.post('/suggestions', supabaseProtect, async (req, res) => {
         res.status(500).json({
             status: 'error',
             message: 'Failed to get suggestions'
+        });
+    }
+});
+
+// Get conversation history (optional feature)
+router.get('/conversations', supabaseProtect, async (req, res) => {
+    try {
+        res.json({
+            status: 'success',
+            data: {
+                conversations: [],
+                total: 0
+            }
+        });
+    } catch (error) {
+        console.error('Get conversations error:', error);
+        res.status(500).json({
+            status: 'error',
+            message: 'Failed to get conversation history'
         });
     }
 });

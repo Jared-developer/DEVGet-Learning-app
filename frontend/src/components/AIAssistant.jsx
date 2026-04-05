@@ -109,15 +109,17 @@ const AIAssistant = ({ courseId, lessonTitle }) => {
         setIsLoading(true);
 
         try {
+            // Build conversation history for context
+            const conversationHistory = messages.map(msg => ({
+                role: msg.type === 'user' ? 'user' : 'assistant',
+                content: msg.content
+            }));
+
             const data = await aiService.sendMessage(
                 messageText.trim(),
                 courseId,
-                conversationId
+                conversationHistory
             );
-
-            if (!conversationId) {
-                setConversationId(data.data.conversationId);
-            }
 
             const aiMessage = {
                 id: Date.now() + 1,

@@ -8,7 +8,7 @@ class AIService {
         return session?.access_token;
     }
 
-    async sendMessage(message, courseId, conversationId) {
+    async sendMessage(message, courseId, conversationHistory = []) {
         const token = await this.getAuthToken();
 
         const response = await fetch(`${API_BASE_URL}/api/ai-assistant/chat`, {
@@ -20,7 +20,7 @@ class AIService {
             body: JSON.stringify({
                 message,
                 courseId,
-                conversationId
+                conversationHistory
             })
         });
 
