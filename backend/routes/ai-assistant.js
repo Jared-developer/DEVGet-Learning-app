@@ -10,6 +10,8 @@ const groq = new Groq({
     apiKey: process.env.GROQ_API_KEY
 });
 
+console.log('🤖 Groq AI initialized:', process.env.GROQ_API_KEY ? 'API key found' : 'API key missing');
+
 // Course context data for AI understanding
 const courseContexts = {
     'mern-stack': {
