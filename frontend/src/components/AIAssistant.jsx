@@ -47,7 +47,15 @@ const AIAssistant = ({ courseId, lessonTitle }) => {
     // Initialize conversation with welcome message
     useEffect(() => {
         if (isOpen && messages.length === 0) {
-            if (!isAdvancedCourse && accessError) {
+            if (!courseId) {
+                const noCourseMessage = {
+                    id: Date.now(),
+                    type: 'ai',
+                    content: `👋 Hi! I'm Get.AI, your learning assistant.\n\nTo use me, please open a Pro course (MERN Stack, AI & Machine Learning, or Agentic AI). I'll provide personalized help with course concepts and answer your questions!`,
+                    timestamp: new Date()
+                };
+                setMessages([noCourseMessage]);
+            } else if (!isAdvancedCourse && accessError) {
                 const restrictionMessage = {
                     id: Date.now(),
                     type: 'ai',
@@ -65,7 +73,7 @@ const AIAssistant = ({ courseId, lessonTitle }) => {
                 setMessages([welcomeMessage]);
             }
         }
-    }, [isOpen, isAdvancedCourse, accessError]);
+    }, [isOpen, isAdvancedCourse, accessError, courseId]);
 
     const loadSuggestions = async () => {
         try {
@@ -84,6 +92,18 @@ const AIAssistant = ({ courseId, lessonTitle }) => {
 
     const sendMessage = async (messageText = inputMessage) => {
         if (!messageText.trim() || isLoading) return;
+
+        // Check if courseId is provided
+        if (!courseId) {
+            const errorMessage = {
+                id: Date.now() + 1,
+                type: 'ai',
+                content: "Please open a course to use Get.AI assistant. The AI assistant provides course-specific help and is available in Pro courses.",
+                timestamp: new Date()
+            };
+            setMessages(prev => [...prev, errorMessage]);
+            return;
+        }
 
         // Check if user has access
         if (!isAdvancedCourse) {

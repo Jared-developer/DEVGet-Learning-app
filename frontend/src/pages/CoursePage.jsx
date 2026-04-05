@@ -501,7 +501,7 @@ const CoursePage = () => {
                 </div>
             </div>
 
-            <AIAssistant />
+            <AIAssistant courseId={courseDbId} lessonTitle={course.title} />
         </div>
     )
 }
