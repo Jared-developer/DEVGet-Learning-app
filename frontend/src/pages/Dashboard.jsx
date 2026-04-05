@@ -41,17 +41,24 @@ const Dashboard = () => {
     const [selectedCourse, setSelectedCourse] = useState(null)
     const [enrolledCourses, setEnrolledCourses] = useState([])
     const [enrollmentLoading, setEnrollmentLoading] = useState(false)
+    const [dashboardLoading, setDashboardLoading] = useState(true)
 
     useEffect(() => {
         if (user) {
             loadEnrolledCourses()
+        } else {
+            setDashboardLoading(false)
         }
     }, [user])
 
     const loadEnrolledCourses = async () => {
-        if (!user) return
+        if (!user) {
+            setDashboardLoading(false)
+            return
+        }
 
         try {
+            console.log('Loading enrolled courses for user:', user.id)
             const { data: enrollments, error } = await supabase
                 .from('enrollments')
                 .select(`
@@ -75,11 +82,14 @@ const Dashboard = () => {
             if (error) {
                 console.error('Error loading enrolled courses:', error)
                 setEnrolledCourses([])
+                setDashboardLoading(false)
                 return
             }
 
             if (!enrollments || enrollments.length === 0) {
+                console.log('No enrollments found')
                 setEnrolledCourses([])
+                setDashboardLoading(false)
                 return
             }
 
@@ -112,10 +122,13 @@ const Dashboard = () => {
                     }
                 })
 
+            console.log('Formatted courses:', formattedCourses)
             setEnrolledCourses(formattedCourses)
+            setDashboardLoading(false)
         } catch (error) {
             console.error('Error loading enrolled courses:', error)
             setEnrolledCourses([])
+            setDashboardLoading(false)
         }
     }
 
@@ -328,144 +341,153 @@ const Dashboard = () => {
                 onOpenModal={setActiveModal}
             />
 
-            <div className="flex-1 w-full">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8">
-                    {/* Welcome Section */}
-                    <div className="mb-6 sm:mb-8 pt-12 sm:pt-0">
-                        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
-                            Welcome back, {user?.user_metadata?.first_name || 'Student'}!
-                        </h1>
-                        <p className="text-base sm:text-lg text-gray-600">Continue your learning journey</p>
-                    </div>
-
-                    {/* Stats Cards */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
-                        <div className="bg-white p-4 sm:p-6 rounded-2xl shadow-sm border border-gray-200">
-                            <div className="flex items-center gap-3 sm:gap-4">
-                                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-accent-500 to-accent-600 rounded-xl flex items-center justify-center text-white flex-shrink-0">
-                                    <BookOpen className="h-5 w-5 sm:h-6 sm:w-6" />
-                                </div>
-                                <div>
-                                    <div className="text-xl sm:text-2xl font-bold text-gray-900">{enrolledCourses.length}</div>
-                                    <div className="text-xs sm:text-sm text-gray-600">Enrolled Courses</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="bg-white p-4 sm:p-6 rounded-2xl shadow-sm border border-gray-200">
-                            <div className="flex items-center gap-3 sm:gap-4">
-                                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center text-white flex-shrink-0">
-                                    <TrendingUp className="h-5 w-5 sm:h-6 sm:w-6" />
-                                </div>
-                                <div>
-                                    <div className="text-xl sm:text-2xl font-bold text-gray-900">0%</div>
-                                    <div className="text-xs sm:text-sm text-gray-600">Avg Progress</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="bg-white p-4 sm:p-6 rounded-2xl shadow-sm border border-gray-200">
-                            <div className="flex items-center gap-3 sm:gap-4">
-                                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center text-white flex-shrink-0">
-                                    <Award className="h-5 w-5 sm:h-6 sm:w-6" />
-                                </div>
-                                <div>
-                                    <div className="text-xl sm:text-2xl font-bold text-gray-900">0</div>
-                                    <div className="text-xs sm:text-sm text-gray-600">Certificates</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Category Tabs */}
-                    <div className="mb-6 sm:mb-8">
-                        <div className="flex gap-2 sm:gap-4 border-b border-gray-200 overflow-x-auto scrollbar-hide">
-                            {Object.entries(courseCategories).map(([key, category]) => (
-                                <button
-                                    key={key}
-                                    onClick={() => setActiveCategory(key)}
-                                    className={`flex items-center gap-2 px-3 sm:px-4 py-2 sm:py-3 border-b-2 font-medium transition-all whitespace-nowrap text-sm sm:text-base ${activeCategory === key
-                                        ? 'border-accent-600 text-accent-600'
-                                        : 'border-transparent text-gray-600 hover:text-gray-900'
-                                        }`}
-                                >
-                                    {category.icon}
-                                    <span>{category.title}</span>
-                                </button>
-                            ))}
-                        </div>
-                    </div>
-
-                    {/* Course Grid */}
-                    <div>
-                        <div className="mb-4 sm:mb-6">
-                            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">
-                                {courseCategories[activeCategory].title}
-                            </h2>
-                            <p className="text-sm sm:text-base text-gray-600">{courseCategories[activeCategory].description}</p>
-                        </div>
-
-                        {activeCategory === 'enrolled' && enrolledCourses.length === 0 ? (
-                            <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-8 sm:p-12 text-center">
-                                <BookOpen className="h-12 w-12 sm:h-16 sm:w-16 text-gray-300 mx-auto mb-4" />
-                                <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2">No Enrolled Courses</h3>
-                                <p className="text-sm sm:text-base text-gray-600 mb-6">Start your learning journey by enrolling in a course</p>
-                                <button
-                                    onClick={() => setActiveCategory('basics')}
-                                    className="inline-flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-3 bg-accent-600 text-white rounded-lg font-medium hover:bg-accent-700 transition-all text-sm sm:text-base"
-                                >
-                                    Browse Courses
-                                    <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5" />
-                                </button>
-                            </div>
-                        ) : (
-                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-                                {courseCategories[activeCategory].courses.map((course) => (
-                                    <div
-                                        key={course.id}
-                                        className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition-all group"
-                                    >
-                                        <div className={`h-24 sm:h-32 bg-gradient-to-br ${course.gradient} flex items-center justify-center text-white`}>
-                                            <div className="transform group-hover:scale-110 transition-transform">
-                                                {course.icon}
-                                            </div>
-                                        </div>
-                                        <div className="p-4 sm:p-6">
-                                            <div className="flex items-center gap-2 mb-3 flex-wrap">
-                                                <span className="px-2 py-1 bg-gray-100 text-gray-700 text-xs font-medium rounded">
-                                                    {course.level}
-                                                </span>
-                                                <span className="flex items-center gap-1 text-gray-600 text-xs">
-                                                    <Clock className="h-3 w-3" />
-                                                    {course.duration}
-                                                </span>
-                                            </div>
-                                            <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-2">{course.title}</h3>
-                                            <p className="text-xs sm:text-sm text-gray-600 mb-4 line-clamp-2">{course.description}</p>
-
-                                            {isEnrolled(course.id) ? (
-                                                <Link
-                                                    to={`/course/${course.id}`}
-                                                    className="flex items-center justify-center gap-2 w-full px-4 py-2 bg-accent-600 text-white rounded-lg font-medium hover:bg-accent-700 transition-all text-sm"
-                                                >
-                                                    <Play className="h-4 w-4" />
-                                                    Continue Learning
-                                                </Link>
-                                            ) : (
-                                                <button
-                                                    onClick={() => handleEnrollClick(course)}
-                                                    className="flex items-center justify-center gap-2 w-full px-4 py-2 bg-gray-100 text-gray-900 rounded-lg font-medium hover:bg-gray-200 transition-all text-sm"
-                                                >
-                                                    Enroll Now
-                                                    <ArrowRight className="h-4 w-4" />
-                                                </button>
-                                            )}
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        )}
+            {dashboardLoading ? (
+                <div className="flex-1 flex items-center justify-center">
+                    <div className="text-center">
+                        <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-accent-600 mx-auto mb-4"></div>
+                        <p className="text-gray-600">Loading your dashboard...</p>
                     </div>
                 </div>
-            </div>
+            ) : (
+                <div className="flex-1 w-full">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8">
+                        {/* Welcome Section */}
+                        <div className="mb-6 sm:mb-8 pt-12 sm:pt-0">
+                            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
+                                Welcome back, {user?.user_metadata?.first_name || 'Student'}!
+                            </h1>
+                            <p className="text-base sm:text-lg text-gray-600">Continue your learning journey</p>
+                        </div>
+
+                        {/* Stats Cards */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
+                            <div className="bg-white p-4 sm:p-6 rounded-2xl shadow-sm border border-gray-200">
+                                <div className="flex items-center gap-3 sm:gap-4">
+                                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-accent-500 to-accent-600 rounded-xl flex items-center justify-center text-white flex-shrink-0">
+                                        <BookOpen className="h-5 w-5 sm:h-6 sm:w-6" />
+                                    </div>
+                                    <div>
+                                        <div className="text-xl sm:text-2xl font-bold text-gray-900">{enrolledCourses.length}</div>
+                                        <div className="text-xs sm:text-sm text-gray-600">Enrolled Courses</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="bg-white p-4 sm:p-6 rounded-2xl shadow-sm border border-gray-200">
+                                <div className="flex items-center gap-3 sm:gap-4">
+                                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center text-white flex-shrink-0">
+                                        <TrendingUp className="h-5 w-5 sm:h-6 sm:w-6" />
+                                    </div>
+                                    <div>
+                                        <div className="text-xl sm:text-2xl font-bold text-gray-900">0%</div>
+                                        <div className="text-xs sm:text-sm text-gray-600">Avg Progress</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="bg-white p-4 sm:p-6 rounded-2xl shadow-sm border border-gray-200">
+                                <div className="flex items-center gap-3 sm:gap-4">
+                                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center text-white flex-shrink-0">
+                                        <Award className="h-5 w-5 sm:h-6 sm:w-6" />
+                                    </div>
+                                    <div>
+                                        <div className="text-xl sm:text-2xl font-bold text-gray-900">0</div>
+                                        <div className="text-xs sm:text-sm text-gray-600">Certificates</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Category Tabs */}
+                        <div className="mb-6 sm:mb-8">
+                            <div className="flex gap-2 sm:gap-4 border-b border-gray-200 overflow-x-auto scrollbar-hide">
+                                {Object.entries(courseCategories).map(([key, category]) => (
+                                    <button
+                                        key={key}
+                                        onClick={() => setActiveCategory(key)}
+                                        className={`flex items-center gap-2 px-3 sm:px-4 py-2 sm:py-3 border-b-2 font-medium transition-all whitespace-nowrap text-sm sm:text-base ${activeCategory === key
+                                            ? 'border-accent-600 text-accent-600'
+                                            : 'border-transparent text-gray-600 hover:text-gray-900'
+                                            }`}
+                                    >
+                                        {category.icon}
+                                        <span>{category.title}</span>
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Course Grid */}
+                        <div>
+                            <div className="mb-4 sm:mb-6">
+                                <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">
+                                    {courseCategories[activeCategory].title}
+                                </h2>
+                                <p className="text-sm sm:text-base text-gray-600">{courseCategories[activeCategory].description}</p>
+                            </div>
+
+                            {activeCategory === 'enrolled' && enrolledCourses.length === 0 ? (
+                                <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-8 sm:p-12 text-center">
+                                    <BookOpen className="h-12 w-12 sm:h-16 sm:w-16 text-gray-300 mx-auto mb-4" />
+                                    <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2">No Enrolled Courses</h3>
+                                    <p className="text-sm sm:text-base text-gray-600 mb-6">Start your learning journey by enrolling in a course</p>
+                                    <button
+                                        onClick={() => setActiveCategory('basics')}
+                                        className="inline-flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-3 bg-accent-600 text-white rounded-lg font-medium hover:bg-accent-700 transition-all text-sm sm:text-base"
+                                    >
+                                        Browse Courses
+                                        <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5" />
+                                    </button>
+                                </div>
+                            ) : (
+                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                                    {courseCategories[activeCategory].courses.map((course) => (
+                                        <div
+                                            key={course.id}
+                                            className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition-all group"
+                                        >
+                                            <div className={`h-24 sm:h-32 bg-gradient-to-br ${course.gradient} flex items-center justify-center text-white`}>
+                                                <div className="transform group-hover:scale-110 transition-transform">
+                                                    {course.icon}
+                                                </div>
+                                            </div>
+                                            <div className="p-4 sm:p-6">
+                                                <div className="flex items-center gap-2 mb-3 flex-wrap">
+                                                    <span className="px-2 py-1 bg-gray-100 text-gray-700 text-xs font-medium rounded">
+                                                        {course.level}
+                                                    </span>
+                                                    <span className="flex items-center gap-1 text-gray-600 text-xs">
+                                                        <Clock className="h-3 w-3" />
+                                                        {course.duration}
+                                                    </span>
+                                                </div>
+                                                <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-2">{course.title}</h3>
+                                                <p className="text-xs sm:text-sm text-gray-600 mb-4 line-clamp-2">{course.description}</p>
+
+                                                {isEnrolled(course.id) ? (
+                                                    <Link
+                                                        to={`/course/${course.id}`}
+                                                        className="flex items-center justify-center gap-2 w-full px-4 py-2 bg-accent-600 text-white rounded-lg font-medium hover:bg-accent-700 transition-all text-sm"
+                                                    >
+                                                        <Play className="h-4 w-4" />
+                                                        Continue Learning
+                                                    </Link>
+                                                ) : (
+                                                    <button
+                                                        onClick={() => handleEnrollClick(course)}
+                                                        className="flex items-center justify-center gap-2 w-full px-4 py-2 bg-gray-100 text-gray-900 rounded-lg font-medium hover:bg-gray-200 transition-all text-sm"
+                                                    >
+                                                        Enroll Now
+                                                        <ArrowRight className="h-4 w-4" />
+                                                    </button>
+                                                )}
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            )}
 
             {/* Enroll Modal */}
             {showEnrollModal && selectedCourse && (
