@@ -191,20 +191,22 @@ const SignIn = () => {
                             </label>
                         </div>
 
-                        <button
-                            type="submit"
-                            disabled={loading}
-                            className="inline-flex justify-center items-center gap-2 py-2.5 px-6 border-2 border-accent-600 rounded-xl text-base font-semibold text-accent-600 bg-transparent hover:bg-accent-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
-                        >
-                            {loading ? (
-                                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-accent-600"></div>
-                            ) : (
-                                <>
-                                    Sign In
-                                    <ArrowRight className="h-5 w-5" />
-                                </>
-                            )}
-                        </button>
+                        <div className="flex justify-center">
+                            <button
+                                type="submit"
+                                disabled={loading}
+                                className="inline-flex justify-center items-center gap-2 py-2.5 px-6 border-2 border-accent-600 rounded-xl text-base font-semibold text-accent-600 bg-transparent hover:bg-accent-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
+                            >
+                                {loading ? (
+                                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-accent-600"></div>
+                                ) : (
+                                    <>
+                                        Sign In
+                                        <ArrowRight className="h-5 w-5" />
+                                    </>
+                                )}
+                            </button>
+                        </div>
                     </form>
 
                     <div className="mt-6 text-center text-sm text-gray-600">
