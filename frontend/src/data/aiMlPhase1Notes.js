@@ -4,7 +4,7 @@
 
 export const week1Lesson1 = {
     title: 'What is AI, ML, and Deep Learning?',
-    videoUrl: 'https://www.youtube.com/embed/7CqJlxBYj-M',
+    videoUrl: 'https://www.youtube.com/embed/ukzFI9rgwfU',
     notes: `# Welcome to AI/ML - Understanding the Fundamentals
 
 ## What is Artificial Intelligence (AI)?
