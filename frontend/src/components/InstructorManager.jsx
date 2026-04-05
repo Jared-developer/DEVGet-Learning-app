@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 import { useAuth } from '../contexts/AuthContext';
 
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
 const InstructorManager = () => {
     const { user } = useAuth();
     const [courses, setCourses] = useState([]);
@@ -39,7 +41,7 @@ const InstructorManager = () => {
 
     const fetchUsers = async () => {
         try {
-            const response = await fetch('/api/instructors/users', {
+            const response = await fetch(`${API_BASE_URL}/api/instructors/users`, {
                 headers: {
                     'Authorization': `Bearer ${(await supabase.auth.getSession()).data.session?.access_token}`
                 }
@@ -66,7 +68,7 @@ const InstructorManager = () => {
 
     const fetchInstructors = async (courseId) => {
         try {
-            const response = await fetch(`/api/instructors/course/${courseId}`, {
+            const response = await fetch(`${API_BASE_URL}/api/instructors/course/${courseId}`, {
                 headers: {
                     'Authorization': `Bearer ${(await supabase.auth.getSession()).data.session?.access_token}`
                 }
@@ -89,7 +91,7 @@ const InstructorManager = () => {
 
         setLoading(true);
         try {
-            const response = await fetch('/api/instructors/assign', {
+            const response = await fetch(`${API_BASE_URL}/api/instructors/assign`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -121,7 +123,7 @@ const InstructorManager = () => {
         if (!confirm('Are you sure you want to remove this instructor?')) return;
 
         try {
-            const response = await fetch(`/api/instructors/${courseId}/instructor/${userId}`, {
+            const response = await fetch(`${API_BASE_URL}/api/instructors/${courseId}/instructor/${userId}`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${(await supabase.auth.getSession()).data.session?.access_token}`
