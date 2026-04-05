@@ -213,7 +213,7 @@ const Resources = () => {
                                 key={section.id}
                                 onClick={() => setActiveSection(section.id)}
                                 className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg sm:rounded-xl font-medium text-xs sm:text-sm whitespace-nowrap transition-all transform active:scale-95 sm:hover:scale-105 flex-shrink-0 ${activeSection === section.id
-                                    ? 'bg-gradient-to-r from-accent-600 to-primary-600 text-white shadow-lg'
+                                    ? 'bg-gradient-to-r from-accent-600 to-accent-500 text-white shadow-lg'
                                     : 'bg-gray-100 text-gray-700 active:bg-gray-200 sm:hover:bg-gray-200'
                                     }`}
                             >
