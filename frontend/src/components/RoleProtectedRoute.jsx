@@ -29,9 +29,9 @@ const RoleProtectedRoute = ({ children, requiredRole, redirectTo = '/signin' }) 
         return children
     }
 
-    // Special case: Allow access to student routes if user has no roles yet
+    // Special case: Allow access to student and developer routes if user has no roles yet
     // (they'll be assigned a role on first access)
-    if (requiredRole === 'student' && userRoles.length === 0) {
+    if ((requiredRole === 'student' || requiredRole === 'developer') && userRoles.length === 0) {
         return children
     }
 
