@@ -72,38 +72,50 @@ const Dashboard = () => {
                 .eq('user_id', user.id)
                 .eq('status', 'active')
 
-            if (error) throw error
+            if (error) {
+                console.error('Error loading enrolled courses:', error)
+                setEnrolledCourses([])
+                return
+            }
 
-            const formattedCourses = enrollments.map(enrollment => {
-                const courseTitle = enrollment.course.title
-                let courseId = courseTitle.toLowerCase().replace(/\s+/g, '-')
+            if (!enrollments || enrollments.length === 0) {
+                setEnrolledCourses([])
+                return
+            }
 
-                if (courseTitle.includes('MERN')) courseId = 'mern-stack'
-                else if (courseTitle.includes('AI') && courseTitle.includes('Machine Learning')) courseId = 'ai-ml'
-                else if (courseTitle.includes('Agentic AI')) courseId = 'agentic-ai'
-                else if (courseTitle.includes('HTML')) courseId = 'html-fundamentals'
+            const formattedCourses = enrollments
+                .filter(enrollment => enrollment.course)
+                .map(enrollment => {
+                    const courseTitle = enrollment.course.title
+                    let courseId = courseTitle.toLowerCase().replace(/\s+/g, '-')
 
-                const actualCourseData = courseContent[courseId]
+                    if (courseTitle.includes('MERN')) courseId = 'mern-stack'
+                    else if (courseTitle.includes('AI') && courseTitle.includes('Machine Learning')) courseId = 'ai-ml'
+                    else if (courseTitle.includes('Agentic AI')) courseId = 'agentic-ai'
+                    else if (courseTitle.includes('HTML')) courseId = 'html-fundamentals'
 
-                return {
-                    id: courseId,
-                    title: courseTitle,
-                    description: enrollment.course.description,
-                    category: enrollment.course.category,
-                    level: enrollment.course.difficulty || actualCourseData?.level || 'Beginner',
-                    duration: enrollment.course.duration || actualCourseData?.duration || 'N/A',
-                    instructor: enrollment.course.instructor || actualCourseData?.instructor || 'Unknown',
-                    enrolledAt: enrollment.enrolled_at,
-                    progress: 0,
-                    completed: false,
-                    enrollmentId: enrollment.id,
-                    lessons: actualCourseData?.lessons || 0
-                }
-            })
+                    const actualCourseData = courseContent[courseId]
+
+                    return {
+                        id: courseId,
+                        title: courseTitle,
+                        description: enrollment.course.description,
+                        category: enrollment.course.category,
+                        level: enrollment.course.difficulty || actualCourseData?.level || 'Beginner',
+                        duration: enrollment.course.duration || actualCourseData?.duration || 'N/A',
+                        instructor: enrollment.course.instructor || actualCourseData?.instructor || 'Unknown',
+                        enrolledAt: enrollment.enrolled_at,
+                        progress: 0,
+                        completed: false,
+                        enrollmentId: enrollment.id,
+                        lessons: actualCourseData?.lessons || 0
+                    }
+                })
 
             setEnrolledCourses(formattedCourses)
         } catch (error) {
             console.error('Error loading enrolled courses:', error)
+            setEnrolledCourses([])
         }
     }
 
