@@ -1,10 +1,52 @@
 import { Navigate } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
+import { useEffect, useState } from 'react'
+import { supabase } from '../lib/supabase'
 
 const RoleProtectedRoute = ({ children, requiredRole, redirectTo = '/signin' }) => {
-    const { user, userRoles, loading } = useAuth()
+    const { user, userRoles, loading, refreshUser } = useAuth()
+    const [isAssigningRole, setIsAssigningRole] = useState(false)
 
-    if (loading) {
+    useEffect(() => {
+        const assignDefaultRole = async () => {
+            // Only auto-assign for student role and if user has no roles
+            if (user && !loading && userRoles.length === 0 && requiredRole === 'student' && !isAssigningRole) {
+                setIsAssigningRole(true)
+                try {
+                    console.log('Auto-assigning student role to user:', user.id)
+
+                    // Check if role already exists (race condition protection)
+                    const { data: existingRoles } = await supabase
+                        .from('user_roles')
+                        .select('role')
+                        .eq('user_id', user.id)
+
+                    if (!existingRoles || existingRoles.length === 0) {
+                        // Assign student role
+                        const { error } = await supabase
+                            .from('user_roles')
+                            .insert([{ user_id: user.id, role: 'student' }])
+
+                        if (error) {
+                            console.error('Error auto-assigning student role:', error)
+                        } else {
+                            console.log('Successfully auto-assigned student role')
+                            // Refresh user roles
+                            await refreshUser()
+                        }
+                    }
+                } catch (error) {
+                    console.error('Error in auto-assign role:', error)
+                } finally {
+                    setIsAssigningRole(false)
+                }
+            }
+        }
+
+        assignDefaultRole()
+    }, [user, loading, userRoles, requiredRole, isAssigningRole, refreshUser])
+
+    if (loading || isAssigningRole) {
         return (
             <div className="min-h-screen flex items-center justify-center bg-gray-50">
                 <div className="text-center">
@@ -26,8 +68,8 @@ const RoleProtectedRoute = ({ children, requiredRole, redirectTo = '/signin' }) 
 
     // Check if user has the required role
     if (requiredRole && !userRoles.includes(requiredRole)) {
-        // If user has no roles at all, show a message instead of redirecting
-        if (userRoles.length === 0) {
+        // If user has no roles at all and it's not a student route, show access pending
+        if (userRoles.length === 0 && requiredRole !== 'student') {
             return (
                 <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
                     <div className="max-w-md w-full bg-white rounded-2xl shadow-xl p-8 text-center">
