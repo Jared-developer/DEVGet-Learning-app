@@ -69,7 +69,7 @@ const LandingPage = () => {
             gradient: "from-purple-500 to-purple-600",
             items: [
                 { icon: <Layers className="h-4 w-4" />, name: "MERN Stack Development" },
-                { icon: <Cpu className="h-4 w-4" />, name: "AI/ML Fundamentals" },
+                { icon: <Cpu className="h-4 w-4" />, name: "AI & Machine Learning" },
                 { icon: <Bot className="h-4 w-4" />, name: "Agentic AI Systems" }
             ]
         }
