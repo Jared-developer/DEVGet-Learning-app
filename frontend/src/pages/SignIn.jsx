@@ -194,10 +194,10 @@ const SignIn = () => {
                         <button
                             type="submit"
                             disabled={loading}
-                            className="w-full flex justify-center items-center gap-2 py-3.5 px-4 border border-transparent rounded-xl shadow-lg text-base font-semibold text-white bg-gradient-to-r from-accent-600 to-primary-600 hover:from-accent-700 hover:to-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-105"
+                            className="inline-flex justify-center items-center gap-2 py-2.5 px-6 border-2 border-accent-600 rounded-xl text-base font-semibold text-accent-600 bg-transparent hover:bg-accent-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
                         >
                             {loading ? (
-                                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-accent-600"></div>
                             ) : (
                                 <>
                                     Sign In
