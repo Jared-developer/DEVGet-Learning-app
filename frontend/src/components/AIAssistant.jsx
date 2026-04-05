@@ -197,38 +197,38 @@ const AIAssistant = ({ courseId, lessonTitle }) => {
 
             {/* Chat Window */}
             {isOpen && (
-                <div className={`fixed bottom-0 right-0 sm:bottom-6 sm:right-6 bg-white sm:rounded-2xl rounded-t-2xl shadow-2xl border border-primary-200 z-50 transition-all duration-300 ${isMinimized ? 'h-16' : 'h-[calc(100vh-4rem)] sm:h-96 md:h-[500px]'
-                    } w-full sm:w-80 md:w-96`}>
+                <div className={`fixed bottom-0 right-0 sm:bottom-6 sm:right-6 bg-white sm:rounded-2xl rounded-t-2xl shadow-2xl border border-primary-200 z-50 transition-all duration-300 ${isMinimized ? 'h-16' : 'h-[85vh] sm:h-[500px]'
+                    } w-full sm:w-96`}>
                     {/* Header */}
-                    <div className="flex items-center justify-between p-4 border-b border-primary-200 bg-gradient-to-r from-accent-600 to-accent-700 text-white rounded-t-2xl">
-                        <div className="flex items-center space-x-3">
+                    <div className="flex items-center justify-between p-3 sm:p-4 border-b border-primary-200 bg-gradient-to-r from-accent-600 to-accent-700 text-white rounded-t-2xl">
+                        <div className="flex items-center space-x-2 sm:space-x-3">
                             <div className="relative">
-                                <Bot className="h-6 w-6" />
-                                <Sparkles className="h-3 w-3 absolute -top-1 -right-1 text-yellow-300 animate-pulse" />
+                                <Bot className="h-5 w-5 sm:h-6 sm:w-6" />
+                                <Sparkles className="h-2 w-2 sm:h-3 sm:w-3 absolute -top-1 -right-1 text-yellow-300 animate-pulse" />
                             </div>
                             <div>
-                                <h3 className="font-semibold">Get.AI</h3>
+                                <h3 className="font-semibold text-sm sm:text-base">Get.AI</h3>
                                 <p className="text-xs opacity-90">Your Learning Assistant</p>
                             </div>
                         </div>
-                        <div className="flex items-center space-x-2">
+                        <div className="flex items-center space-x-1 sm:space-x-2">
                             <button
                                 onClick={toggleMinimize}
-                                className="p-1 hover:bg-white/20 rounded-lg transition-colors"
+                                className="p-1.5 sm:p-2 hover:bg-white/20 rounded-lg transition-colors touch-manipulation"
                                 title={isMinimized ? 'Maximize' : 'Minimize'}
                             >
                                 {isMinimized ? (
-                                    <Maximize2 className="h-4 w-4" />
+                                    <Maximize2 className="h-4 w-4 sm:h-5 sm:w-5" />
                                 ) : (
-                                    <Minimize2 className="h-4 w-4" />
+                                    <Minimize2 className="h-4 w-4 sm:h-5 sm:w-5" />
                                 )}
                             </button>
                             <button
                                 onClick={toggleAssistant}
-                                className="p-1 hover:bg-white/20 rounded-lg transition-colors"
+                                className="p-1.5 sm:p-2 hover:bg-white/20 rounded-lg transition-colors touch-manipulation"
                                 title="Close"
                             >
-                                <X className="h-4 w-4" />
+                                <X className="h-4 w-4 sm:h-5 sm:w-5" />
                             </button>
                         </div>
                     </div>
@@ -236,30 +236,30 @@ const AIAssistant = ({ courseId, lessonTitle }) => {
                     {!isMinimized && (
                         <>
                             {/* Messages */}
-                            <div className="flex-1 overflow-y-auto p-3 sm:p-4 space-y-3 sm:space-y-4 h-64 md:h-80">
+                            <div className="flex-1 overflow-y-auto p-3 sm:p-4 space-y-3 sm:space-y-4" style={{ height: 'calc(100% - 180px)' }}>
                                 {messages.map((message) => (
                                     <div
                                         key={message.id}
                                         className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
                                     >
-                                        <div className={`flex items-start space-x-2 max-w-[85%] sm:max-w-[80%] ${message.type === 'user' ? 'flex-row-reverse space-x-reverse' : ''
+                                        <div className={`flex items-start space-x-2 max-w-[90%] sm:max-w-[85%] ${message.type === 'user' ? 'flex-row-reverse space-x-reverse' : ''
                                             }`}>
-                                            <div className={`flex-shrink-0 w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center ${message.type === 'user'
+                                            <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center ${message.type === 'user'
                                                 ? 'bg-primary-600 text-white'
                                                 : 'bg-accent-100 text-accent-600'
                                                 }`}>
                                                 {message.type === 'user' ? (
-                                                    <User className="h-3 w-3 sm:h-4 sm:w-4" />
+                                                    <User className="h-4 w-4" />
                                                 ) : (
-                                                    <Bot className="h-3 w-3 sm:h-4 sm:w-4" />
+                                                    <Bot className="h-4 w-4" />
                                                 )}
                                             </div>
-                                            <div className={`rounded-2xl px-3 py-2 sm:px-4 sm:py-2 ${message.type === 'user'
+                                            <div className={`rounded-2xl px-3 py-2.5 sm:px-4 sm:py-3 ${message.type === 'user'
                                                 ? 'bg-primary-600 text-white'
                                                 : 'bg-primary-50 text-primary-900 border border-primary-200'
                                                 }`}>
-                                                <p className="text-xs sm:text-sm leading-relaxed break-words">{message.content}</p>
-                                                <p className={`text-xs mt-1 ${message.type === 'user' ? 'text-primary-200' : 'text-primary-500'
+                                                <p className="text-sm leading-relaxed break-words whitespace-pre-wrap">{message.content}</p>
+                                                <p className={`text-xs mt-1.5 ${message.type === 'user' ? 'text-primary-200' : 'text-primary-500'
                                                     }`}>
                                                     {formatTime(message.timestamp)}
                                                 </p>
@@ -274,7 +274,7 @@ const AIAssistant = ({ courseId, lessonTitle }) => {
                                             <div className="flex-shrink-0 w-8 h-8 rounded-full bg-accent-100 text-accent-600 flex items-center justify-center">
                                                 <Bot className="h-4 w-4" />
                                             </div>
-                                            <div className="bg-primary-50 text-primary-900 border border-primary-200 rounded-2xl px-4 py-2">
+                                            <div className="bg-primary-50 text-primary-900 border border-primary-200 rounded-2xl px-4 py-2.5">
                                                 <div className="flex items-center space-x-2">
                                                     <Loader className="h-4 w-4 animate-spin" />
                                                     <span className="text-sm">Thinking...</span>
@@ -289,17 +289,17 @@ const AIAssistant = ({ courseId, lessonTitle }) => {
 
                             {/* Suggestions */}
                             {suggestions.length > 0 && messages.length <= 1 && (
-                                <div className="px-3 sm:px-4 pb-2">
-                                    <div className="flex items-center space-x-2 mb-2">
-                                        <Lightbulb className="h-3 w-3 sm:h-4 sm:w-4 text-warning-600" />
+                                <div className="px-3 sm:px-4 pb-2 border-t border-primary-100">
+                                    <div className="flex items-center space-x-2 mb-2 pt-2">
+                                        <Lightbulb className="h-4 w-4 text-warning-600" />
                                         <span className="text-xs font-medium text-primary-600">Suggested questions:</span>
                                     </div>
-                                    <div className="space-y-1">
-                                        {suggestions.map((suggestion, index) => (
+                                    <div className="space-y-2">
+                                        {suggestions.slice(0, 3).map((suggestion, index) => (
                                             <button
                                                 key={index}
                                                 onClick={() => handleSuggestionClick(suggestion)}
-                                                className="w-full text-left text-xs p-2 bg-primary-50 hover:bg-primary-100 rounded-lg border border-primary-200 transition-colors break-words"
+                                                className="w-full text-left text-xs sm:text-sm p-2.5 sm:p-3 bg-primary-50 hover:bg-primary-100 active:bg-primary-200 rounded-lg border border-primary-200 transition-colors break-words touch-manipulation"
                                             >
                                                 {suggestion}
                                             </button>
@@ -309,41 +309,42 @@ const AIAssistant = ({ courseId, lessonTitle }) => {
                             )}
 
                             {/* Input */}
-                            <div className="p-3 sm:p-4 border-t border-primary-200">
+                            <div className="p-3 sm:p-4 border-t border-primary-200 bg-white">
                                 {!isAdvancedCourse && accessError ? (
                                     <div className="bg-accent-50 border border-accent-200 rounded-xl p-3 text-center">
                                         <div className="flex items-center justify-center gap-2 mb-2">
                                             <span className="text-2xl">🔒</span>
-                                            <span className="font-semibold text-accent-700">Pro Feature</span>
+                                            <span className="font-semibold text-accent-700 text-sm">Pro Feature</span>
                                         </div>
-                                        <p className="text-xs text-primary-600 mb-2">
+                                        <p className="text-xs text-primary-600 mb-3">
                                             Upgrade to Pro to unlock Get.AI assistant
                                         </p>
                                         <a
                                             href="/pricing"
-                                            className="inline-block bg-accent-600 text-white px-4 py-2 rounded-lg text-xs font-semibold hover:bg-accent-700 transition-colors"
+                                            className="inline-block bg-accent-600 text-white px-4 py-2 rounded-lg text-xs font-semibold hover:bg-accent-700 transition-colors touch-manipulation"
                                         >
                                             View Plans
                                         </a>
                                     </div>
                                 ) : (
-                                    <div className="flex items-center space-x-2">
-                                        <input
+                                    <div className="flex items-end space-x-2">
+                                        <textarea
                                             ref={inputRef}
-                                            type="text"
                                             value={inputMessage}
                                             onChange={(e) => setInputMessage(e.target.value)}
                                             onKeyPress={handleKeyPress}
                                             placeholder="Ask me anything..."
-                                            className="flex-1 px-2 py-2 sm:px-3 sm:py-2 border border-primary-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-transparent text-xs sm:text-sm"
+                                            rows="1"
+                                            className="flex-1 px-3 py-2.5 sm:py-3 border border-primary-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-transparent text-sm resize-none max-h-24 overflow-y-auto"
                                             disabled={isLoading}
+                                            style={{ minHeight: '42px' }}
                                         />
                                         <button
                                             onClick={() => sendMessage()}
                                             disabled={!inputMessage.trim() || isLoading}
-                                            className="p-2 bg-accent-600 text-white rounded-xl hover:bg-accent-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex-shrink-0"
+                                            className="p-3 bg-accent-600 text-white rounded-xl hover:bg-accent-700 active:bg-accent-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex-shrink-0 touch-manipulation"
                                         >
-                                            <Send className="h-3 w-3 sm:h-4 sm:w-4" />
+                                            <Send className="h-5 w-5" />
                                         </button>
                                     </div>
                                 )}
