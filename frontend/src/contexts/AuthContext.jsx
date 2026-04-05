@@ -21,26 +21,37 @@ export const AuthProvider = ({ children }) => {
         try {
             console.log('Fetching roles for user:', currentUser.id)
 
-            const { data: roles, error } = await supabase
+            // Set a timeout to prevent hanging
+            const timeoutPromise = new Promise((_, reject) =>
+                setTimeout(() => reject(new Error('Role fetch timeout')), 3000)
+            )
+
+            const fetchPromise = supabase
                 .from('user_roles')
                 .select('role')
                 .eq('user_id', currentUser.id)
 
+            const { data: roles, error } = await Promise.race([fetchPromise, timeoutPromise])
+                .catch(err => {
+                    console.error('Role fetch failed or timed out:', err)
+                    return { data: null, error: err }
+                })
+
             if (error) {
                 console.error('Error fetching user roles:', error)
-                // If table doesn't exist or other error, set empty roles but don't block
-                setUserRoles([])
+                // Default to student role if fetch fails
+                setUserRoles(['student'])
                 return
             }
 
             console.log('Fetched roles:', roles)
-            const rolesList = roles ? roles.map(r => r.role) : []
+            const rolesList = roles && roles.length > 0 ? roles.map(r => r.role) : ['student']
             console.log('Roles list:', rolesList)
             setUserRoles(rolesList)
         } catch (error) {
             console.error('Error fetching user roles:', error)
-            // On error, set empty array to unblock the UI
-            setUserRoles([])
+            // Default to student role on error
+            setUserRoles(['student'])
         }
     }
 
