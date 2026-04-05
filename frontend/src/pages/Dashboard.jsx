@@ -3,7 +3,6 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 import { supabase } from '../lib/supabase'
 import { courseContent } from '../data/courseContent'
-import AIAssistant from '../components/AIAssistant'
 import Sidebar from '../components/Sidebar'
 import ProfileModal from '../components/ProfileModal'
 import CertificatesModal from '../components/CertificatesModal'
@@ -580,8 +579,7 @@ const Dashboard = () => {
                 </div>
             )}
 
-            {/* AI Assistant */}
-            <AIAssistant />
+            {/* AI Assistant - Only available in course pages */}
         </div>
     )
 }
