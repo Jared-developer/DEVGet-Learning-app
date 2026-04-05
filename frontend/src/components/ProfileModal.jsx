@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { X, Save, User, Mail, Phone, Target, Award, Camera, Upload } from 'lucide-react'
+import { X, Save, User, Mail, Phone, Target, Award, Camera, Lock } from 'lucide-react'
 import { supabase } from '../lib/supabase'
 
 const ProfileModal = ({ isOpen, onClose, user, onSave }) => {
@@ -13,9 +13,16 @@ const ProfileModal = ({ isOpen, onClose, user, onSave }) => {
         bio: '',
         avatarUrl: ''
     })
+    const [passwordData, setPasswordData] = useState({
+        newPassword: '',
+        confirmPassword: ''
+    })
     const [loading, setLoading] = useState(false)
     const [uploadingAvatar, setUploadingAvatar] = useState(false)
+    const [changingPassword, setChangingPassword] = useState(false)
     const [error, setError] = useState('')
+    const [passwordError, setPasswordError] = useState('')
+    const [passwordSuccess, setPasswordSuccess] = useState(false)
     const [success, setSuccess] = useState(false)
     const [avatarPreview, setAvatarPreview] = useState(null)
 
@@ -46,6 +53,12 @@ const ProfileModal = ({ isOpen, onClose, user, onSave }) => {
         // Validate file type
         if (!file.type.startsWith('image/')) {
             setError('Please upload an image file')
+            return
+        }
+
+        // Check if user is loaded
+        if (!user || !user.id) {
+            setError('User not loaded. Please try again.')
             return
         }
 
@@ -116,6 +129,49 @@ const ProfileModal = ({ isOpen, onClose, user, onSave }) => {
             setError(err.message || 'Failed to update profile')
         } finally {
             setLoading(false)
+        }
+    }
+
+    const handlePasswordChange = async (e) => {
+        e.preventDefault()
+        setPasswordError('')
+        setPasswordSuccess(false)
+
+        // Validation
+        if (!passwordData.newPassword || !passwordData.confirmPassword) {
+            setPasswordError('Please fill in all password fields')
+            return
+        }
+
+        if (passwordData.newPassword.length < 6) {
+            setPasswordError('Password must be at least 6 characters')
+            return
+        }
+
+        if (passwordData.newPassword !== passwordData.confirmPassword) {
+            setPasswordError('Passwords do not match')
+            return
+        }
+
+        setChangingPassword(true)
+
+        try {
+            const { error } = await supabase.auth.updateUser({
+                password: passwordData.newPassword
+            })
+
+            if (error) throw error
+
+            setPasswordSuccess(true)
+            setPasswordData({ newPassword: '', confirmPassword: '' })
+
+            setTimeout(() => {
+                setPasswordSuccess(false)
+            }, 3000)
+        } catch (err) {
+            setPasswordError(err.message || 'Failed to update password')
+        } finally {
+            setChangingPassword(false)
         }
     }
 
@@ -299,6 +355,67 @@ const ProfileModal = ({ isOpen, onClose, user, onSave }) => {
                                 placeholder="Tell us about yourself..."
                             />
                         </div>
+                    </div>
+
+                    {/* Password Change Section */}
+                    <div className="space-y-4 pt-6 border-t">
+                        <h3 className="text-lg font-semibold text-gray-900 flex items-center">
+                            <Lock className="h-5 w-5 mr-2 text-primary-600" />
+                            Change Password
+                        </h3>
+
+                        {passwordError && (
+                            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
+                                {passwordError}
+                            </div>
+                        )}
+
+                        {passwordSuccess && (
+                            <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg text-sm">
+                                Password updated successfully!
+                            </div>
+                        )}
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                    New Password
+                                </label>
+                                <input
+                                    type="password"
+                                    value={passwordData.newPassword}
+                                    onChange={(e) => setPasswordData({ ...passwordData, newPassword: e.target.value })}
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                                    placeholder="Enter new password"
+                                    minLength={6}
+                                />
+                                <p className="text-xs text-gray-500 mt-1">Minimum 6 characters</p>
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                    Confirm Password
+                                </label>
+                                <input
+                                    type="password"
+                                    value={passwordData.confirmPassword}
+                                    onChange={(e) => setPasswordData({ ...passwordData, confirmPassword: e.target.value })}
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                                    placeholder="Confirm new password"
+                                    minLength={6}
+                                />
+                            </div>
+                        </div>
+
+                        <button
+                            type="button"
+                            onClick={handlePasswordChange}
+                            disabled={changingPassword || !passwordData.newPassword || !passwordData.confirmPassword}
+                            className="px-6 py-2 bg-accent-600 text-white rounded-lg hover:bg-accent-700 transition-colors flex items-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                            <Lock className="h-4 w-4" />
+                            <span>{changingPassword ? 'Updating...' : 'Update Password'}</span>
+                        </button>
                     </div>
 
                     {/* Actions */}
