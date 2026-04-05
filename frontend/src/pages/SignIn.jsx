@@ -88,7 +88,7 @@ const SignIn = () => {
                 <div className="text-center">
                     <Link to="/" className="flex items-center justify-center mb-6">
                         <img
-                            src="/images/logos/updatedLogo.jpg"
+                            src="/images/logos/SignInLogo.png"
                             alt="DEVGet Learning"
                             className="h-36 md:h-44 w-auto"
                             onError={(e) => {
