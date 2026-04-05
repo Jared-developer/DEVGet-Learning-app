@@ -21,17 +21,10 @@ export const AuthProvider = ({ children }) => {
         try {
             console.log('Fetching roles for user:', currentUser.id)
 
-            // Add a timeout to prevent infinite hanging
-            const timeoutPromise = new Promise((_, reject) =>
-                setTimeout(() => reject(new Error('Timeout')), 5000)
-            )
-
-            const queryPromise = supabase
+            const { data: roles, error } = await supabase
                 .from('user_roles')
                 .select('role')
                 .eq('user_id', currentUser.id)
-
-            const { data: roles, error } = await Promise.race([queryPromise, timeoutPromise])
 
             if (error) {
                 console.error('Error fetching user roles:', error)
@@ -46,7 +39,7 @@ export const AuthProvider = ({ children }) => {
             setUserRoles(rolesList)
         } catch (error) {
             console.error('Error fetching user roles:', error)
-            // On timeout or error, set empty array to unblock the UI
+            // On error, set empty array to unblock the UI
             setUserRoles([])
         }
     }
