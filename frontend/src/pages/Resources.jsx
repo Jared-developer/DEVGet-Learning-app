@@ -71,6 +71,34 @@ const Resources = () => {
             readTime: '10 min'
         },
         {
+            title: 'Building AI Agents with LangChain',
+            description: 'Complete guide to creating autonomous AI agents using LangChain',
+            url: 'https://python.langchain.com/docs/tutorials/agents',
+            category: 'AI/ML',
+            readTime: '25 min'
+        },
+        {
+            title: 'Groq: The Fastest LLM Inference',
+            description: 'How Groq achieves ultra-fast AI inference speeds',
+            url: 'https://wow.groq.com/why-groq/',
+            category: 'AI/ML',
+            readTime: '8 min'
+        },
+        {
+            title: 'React 19: What\'s New',
+            description: 'Exploring the latest features and improvements in React 19',
+            url: 'https://react.dev/blog/2024/12/05/react-19',
+            category: 'Web Development',
+            readTime: '15 min'
+        },
+        {
+            title: 'Prompt Engineering Best Practices',
+            description: 'Master the art of crafting effective prompts for LLMs',
+            url: 'https://platform.openai.com/docs/guides/prompt-engineering',
+            category: 'AI/ML',
+            readTime: '20 min'
+        },
+        {
             title: 'Clean Code Principles',
             description: 'Essential principles for writing maintainable and scalable code',
             url: 'https://github.com/ryanmcdermott/clean-code-javascript',
@@ -85,11 +113,39 @@ const Resources = () => {
             readTime: '20 min'
         },
         {
+            title: 'Vector Databases Explained',
+            description: 'Understanding vector databases for AI and semantic search',
+            url: 'https://www.pinecone.io/learn/vector-database/',
+            category: 'AI/ML',
+            readTime: '12 min'
+        },
+        {
+            title: 'TypeScript 5.5 Features',
+            description: 'New features and improvements in TypeScript 5.5',
+            url: 'https://devblogs.microsoft.com/typescript/',
+            category: 'Web Development',
+            readTime: '10 min'
+        },
+        {
+            title: 'RAG: Retrieval Augmented Generation',
+            description: 'Building smarter AI apps with RAG architecture',
+            url: 'https://www.anthropic.com/research/retrieval-augmented-generation',
+            category: 'AI/ML',
+            readTime: '18 min'
+        },
+        {
             title: 'AI Ethics and Responsible AI',
             description: 'Understanding ethical considerations in AI development',
             url: 'https://ai.google/responsibility/principles/',
             category: 'AI/ML',
             readTime: '12 min'
+        },
+        {
+            title: 'Next.js 15: App Router Deep Dive',
+            description: 'Mastering the new App Router in Next.js 15',
+            url: 'https://nextjs.org/blog/next-15',
+            category: 'Web Development',
+            readTime: '22 min'
         }
     ]
 
