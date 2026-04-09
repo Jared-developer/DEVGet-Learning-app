@@ -6,6 +6,7 @@ const AdmissionsSection = () => {
     const [admissions, setAdmissions] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
+    const [expandedId, setExpandedId] = useState(null)
 
     useEffect(() => {
         fetchActiveAdmissions()
@@ -28,6 +29,11 @@ const AdmissionsSection = () => {
         } finally {
             setLoading(false)
         }
+    }
+
+    const truncateText = (text, maxLength = 150) => {
+        if (!text || text.length <= maxLength) return text
+        return text.substring(0, maxLength) + '...'
     }
 
     const formatDate = (dateString) => {
@@ -96,61 +102,84 @@ const AdmissionsSection = () => {
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {admissions.map((admission) => {
                         const deadlinePassed = isDeadlinePassed(admission.deadline)
+                        const isExpanded = expandedId === admission.id
+                        const shouldTruncate = admission.description && admission.description.length > 150
 
                         return (
                             <div
                                 key={admission.id}
-                                className="bg-white rounded-2xl shadow-lg border border-gray-200 p-6 hover:shadow-xl transition-all transform hover:scale-105 duration-300"
+                                className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden hover:shadow-xl transition-all transform hover:scale-105 duration-300"
                             >
-                                {/* Icon */}
-                                <div className="w-14 h-14 bg-gradient-to-br from-accent-500 to-primary-600 rounded-xl flex items-center justify-center mb-4">
-                                    <FileText className="h-7 w-7 text-white" />
-                                </div>
-
-                                {/* Title */}
-                                <h3 className="text-xl font-bold text-gray-900 mb-2">
-                                    {admission.title}
-                                </h3>
-
-                                {/* Description */}
-                                {admission.description && (
-                                    <p className="text-sm text-gray-600 mb-4 line-clamp-3">
-                                        {admission.description}
-                                    </p>
+                                {/* Cover Image */}
+                                {admission.image_url && (
+                                    <img
+                                        src={admission.image_url}
+                                        alt={admission.title}
+                                        className="w-full h-48 object-cover"
+                                    />
                                 )}
 
-                                {/* Deadline */}
-                                {admission.deadline && (
-                                    <div className={`flex items-center gap-2 mb-4 text-sm ${deadlinePassed ? 'text-danger-600' : 'text-gray-600'
-                                        }`}>
-                                        {deadlinePassed ? (
-                                            <Clock className="h-4 w-4" />
-                                        ) : (
-                                            <Calendar className="h-4 w-4" />
-                                        )}
-                                        <span>
-                                            {deadlinePassed ? 'Deadline passed: ' : 'Deadline: '}
-                                            {formatDate(admission.deadline)}
-                                        </span>
+                                <div className="p-6">
+                                    {/* Icon */}
+                                    <div className="w-14 h-14 bg-gradient-to-br from-accent-500 to-primary-600 rounded-xl flex items-center justify-center mb-4">
+                                        <FileText className="h-7 w-7 text-white" />
                                     </div>
-                                )}
 
-                                {/* File Info */}
-                                <div className="flex items-center justify-between pt-4 border-t border-gray-200">
-                                    <span className="text-xs text-gray-500">
-                                        {admission.file_type?.toUpperCase() || 'FILE'}
-                                    </span>
-                                    <button
-                                        onClick={() => handleDownload(admission.file_url, admission.file_name)}
-                                        disabled={deadlinePassed}
-                                        className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold text-sm transition-all ${deadlinePassed
+                                    {/* Title */}
+                                    <h3 className="text-xl font-bold text-gray-900 mb-2">
+                                        {admission.title}
+                                    </h3>
+
+                                    {/* Description */}
+                                    {admission.description && (
+                                        <div className="mb-4">
+                                            <p className="text-sm text-gray-600">
+                                                {isExpanded ? admission.description : truncateText(admission.description)}
+                                            </p>
+                                            {shouldTruncate && (
+                                                <button
+                                                    onClick={() => setExpandedId(isExpanded ? null : admission.id)}
+                                                    className="text-accent-600 hover:text-accent-700 text-sm font-medium mt-1"
+                                                >
+                                                    {isExpanded ? 'Read Less' : 'Read More'}
+                                                </button>
+                                            )}
+                                        </div>
+                                    )}
+
+                                    {/* Deadline */}
+                                    {admission.deadline && (
+                                        <div className={`flex items-center gap-2 mb-4 text-sm ${deadlinePassed ? 'text-danger-600' : 'text-gray-600'
+                                            }`}>
+                                            {deadlinePassed ? (
+                                                <Clock className="h-4 w-4" />
+                                            ) : (
+                                                <Calendar className="h-4 w-4" />
+                                            )}
+                                            <span>
+                                                {deadlinePassed ? 'Deadline passed: ' : 'Deadline: '}
+                                                {formatDate(admission.deadline)}
+                                            </span>
+                                        </div>
+                                    )}
+
+                                    {/* File Info */}
+                                    <div className="flex items-center justify-between pt-4 border-t border-gray-200">
+                                        <span className="text-xs text-gray-500">
+                                            {admission.file_type?.toUpperCase() || 'FILE'}
+                                        </span>
+                                        <button
+                                            onClick={() => handleDownload(admission.file_url, admission.file_name)}
+                                            disabled={deadlinePassed}
+                                            className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold text-sm transition-all ${deadlinePassed
                                                 ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
                                                 : 'bg-gradient-to-r from-accent-600 to-primary-600 text-white hover:from-accent-700 hover:to-primary-700 shadow-md hover:shadow-lg'
-                                            }`}
-                                    >
-                                        <Download className="h-4 w-4" />
-                                        Download
-                                    </button>
+                                                }`}
+                                        >
+                                            <Download className="h-4 w-4" />
+                                            Download
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         )

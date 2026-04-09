@@ -16,8 +16,11 @@ const AdmissionsManager = () => {
         title: '',
         description: '',
         deadline: '',
-        file: null
+        file: null,
+        imageFile: null
     })
+
+    const [imagePreview, setImagePreview] = useState(null)
 
     useEffect(() => {
         fetchAdmissions()
@@ -77,16 +80,37 @@ const AdmissionsManager = () => {
 
         try {
             let fileData = null
+            let imageUrl = editingAdmission?.image_url || null
 
             // Upload file if new file is selected
             if (formData.file) {
                 fileData = await uploadFile(formData.file)
             }
 
+            // Upload image if new image is selected
+            if (formData.imageFile) {
+                const fileExt = formData.imageFile.name.split('.').pop()
+                const fileName = `${Math.random()}.${fileExt}`
+                const filePath = `images/${fileName}`
+
+                const { error: uploadError } = await supabase.storage
+                    .from('admissions')
+                    .upload(filePath, formData.imageFile)
+
+                if (uploadError) throw uploadError
+
+                const { data } = supabase.storage
+                    .from('admissions')
+                    .getPublicUrl(filePath)
+
+                imageUrl = data.publicUrl
+            }
+
             const admissionData = {
                 title: formData.title,
                 description: formData.description,
                 deadline: formData.deadline || null,
+                image_url: imageUrl,
                 ...(fileData && {
                     file_url: fileData.publicUrl,
                     file_name: fileData.fileName,
@@ -183,7 +207,8 @@ const AdmissionsManager = () => {
     const closeModal = () => {
         setShowModal(false)
         setEditingAdmission(null)
-        setFormData({ title: '', description: '', deadline: '', file: null })
+        setFormData({ title: '', description: '', deadline: '', file: null, imageFile: null })
+        setImagePreview(null)
     }
 
     return (
@@ -326,6 +351,34 @@ const AdmissionsManager = () => {
                                     onChange={(e) => setFormData({ ...formData, deadline: e.target.value })}
                                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-500 focus:border-transparent"
                                 />
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                    Cover Image (Optional)
+                                </label>
+                                <input
+                                    type="file"
+                                    onChange={(e) => {
+                                        const file = e.target.files[0]
+                                        if (file) {
+                                            setFormData({ ...formData, imageFile: file })
+                                            setImagePreview(URL.createObjectURL(file))
+                                        }
+                                    }}
+                                    accept="image/*"
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-500 focus:border-transparent"
+                                />
+                                <p className="text-xs text-gray-500 mt-1">
+                                    Recommended: 1200x600px, JPG/PNG (Max 5MB)
+                                </p>
+                                {(imagePreview || editingAdmission?.image_url) && (
+                                    <img
+                                        src={imagePreview || editingAdmission?.image_url}
+                                        alt="Preview"
+                                        className="mt-2 w-full h-32 object-cover rounded-lg"
+                                    />
+                                )}
                             </div>
 
                             <div>
