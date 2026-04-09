@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { UserPlus, Mail, Lock, User, Phone, Calendar, AlertCircle, CheckCircle, X } from 'lucide-react'
 import { supabase } from '../lib/supabase'
 
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
 const StudentRegistration = () => {
     const [loading, setLoading] = useState(false)
     const [message, setMessage] = useState({ type: '', text: '' })
@@ -41,7 +43,7 @@ const StudentRegistration = () => {
             }
 
             // Create user account via backend API
-            const response = await fetch('http://localhost:5000/api/admin/register-student', {
+            const response = await fetch(`${API_BASE_URL}/api/admin/register-student`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
