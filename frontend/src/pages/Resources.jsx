@@ -102,6 +102,41 @@ const Resources = () => {
             free: true
         },
         {
+            name: 'Google Colab',
+            description: 'Free cloud-based Jupyter notebook environment for Python and ML',
+            url: 'https://colab.research.google.com/',
+            category: 'AI/ML',
+            free: true
+        },
+        {
+            name: 'Jupyter Notebook',
+            description: 'Interactive computing environment for data science and ML',
+            url: 'https://jupyter.org/',
+            category: 'AI/ML',
+            free: true
+        },
+        {
+            name: 'LangChain',
+            description: 'Framework for building applications with large language models',
+            url: 'https://www.langchain.com/',
+            category: 'AI/ML',
+            free: true
+        },
+        {
+            name: 'OpenAI',
+            description: 'Leading AI research company with powerful APIs (GPT, DALL-E)',
+            url: 'https://openai.com/',
+            category: 'AI/ML',
+            free: false
+        },
+        {
+            name: 'Groq Cloud',
+            description: 'Ultra-fast AI inference for open-source LLMs',
+            url: 'https://groq.com/',
+            category: 'AI/ML',
+            free: true
+        },
+        {
             name: 'Postman',
             description: 'API development and testing platform',
             url: 'https://www.postman.com/',
