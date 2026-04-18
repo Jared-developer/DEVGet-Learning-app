@@ -23,33 +23,43 @@ export const AuthProvider = ({ children }) => {
 
             // Set a timeout to prevent hanging
             const timeoutPromise = new Promise((_, reject) =>
-                setTimeout(() => reject(new Error('Role fetch timeout')), 3000)
+                setTimeout(() => reject(new Error('Role fetch timeout')), 5000)
             )
 
             const fetchPromise = supabase
                 .from('user_roles')
                 .select('role')
                 .eq('user_id', currentUser.id)
+                .then(result => result)
 
-            const { data: roles, error } = await Promise.race([fetchPromise, timeoutPromise])
+            const result = await Promise.race([fetchPromise, timeoutPromise])
                 .catch(err => {
-                    console.error('Role fetch failed or timed out:', err)
+                    console.warn('Role fetch failed or timed out:', err.message)
                     return { data: null, error: err }
                 })
 
-            if (error) {
-                console.error('Error fetching user roles:', error)
+            if (result.error) {
+                console.warn('Error fetching user roles, defaulting to student:', result.error.message)
                 // Default to student role if fetch fails
                 setUserRoles(['student'])
                 return
             }
 
+            const roles = result.data
+
+            // If no roles found, default to student
+            if (!roles || roles.length === 0) {
+                console.log('No roles found, defaulting to student')
+                setUserRoles(['student'])
+                return
+            }
+
             console.log('Fetched roles:', roles)
-            const rolesList = roles && roles.length > 0 ? roles.map(r => r.role) : ['student']
+            const rolesList = roles.map(r => r.role)
             console.log('Roles list:', rolesList)
             setUserRoles(rolesList)
         } catch (error) {
-            console.error('Error fetching user roles:', error)
+            console.warn('Error fetching user roles, defaulting to student:', error.message)
             // Default to student role on error
             setUserRoles(['student'])
         }
