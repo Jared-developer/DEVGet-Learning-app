@@ -61,11 +61,11 @@ const Contact = () => {
         },
         {
             question: "How do I apply for a scholarship?",
-            answer: "Visit our homepage and navigate to the Admissions section to download the application form. Fill it out and submit it according to the instructions. All applications are reviewed on a rolling basis, and we prioritize underserved youth in Malawi and across Africa."
+            answer: "Visit our homepage and navigate to the Admissions section to download the application form. Fill it out and submit it according to the instructions. All applications are reviewed on a rolling basis, and we prioritize underserved communities across Africa."
         },
         {
             question: "Who is eligible for the scholarship program?",
-            answer: "Our scholarship program is open to all motivated youth in Malawi and across Africa who are passionate about learning Tech & AI. We especially focus on supporting underserved communities. No prior technical experience is required - just a willingness to learn!"
+            answer: "Our scholarship program is open to all motivated youth across Africa who are passionate about learning Tech & AI. As an award winning project, we especially focus on supporting underserved communities. No prior technical experience is required - just a willingness to learn!"
         },
         {
             question: "What does the scholarship cover?",

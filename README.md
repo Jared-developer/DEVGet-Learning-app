@@ -1,6 +1,6 @@
 # DEVGet Learning Platform
 
-A modern, full-stack learning management system built with React, Node.js, Express, and Supabase.
+An award winning project providing free tech and AI education to underserved communities across Africa.
 
 ## Features
 

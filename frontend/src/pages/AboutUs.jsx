@@ -37,7 +37,7 @@ const AboutUs = () => {
         {
             icon: <Globe className="h-8 w-8" />,
             title: "Africa-Focused",
-            description: "Prioritizing underserved youth in Malawi and across the African continent",
+            description: "An award winning project prioritizing underserved communities across the African continent",
             gradient: "from-primary-500 to-primary-700"
         },
         {
@@ -87,7 +87,7 @@ const AboutUs = () => {
                         <br />Through Free Tech & AI Education
                     </h1>
                     <p className="text-xl text-white/90 mb-8 max-w-3xl mx-auto">
-                        DEVGet Learning is a scholarship-based platform providing 100% free, world-class Tech & AI education to underserved youth in Malawi and across Africa
+                        An award winning project providing free tech and AI education to underserved communities across Africa
                     </p>
                     <div className="inline-flex items-center gap-3 px-6 py-3 bg-white/10 backdrop-blur-md rounded-full border border-white/20">
                         <Heart className="h-5 w-5 text-white" />
@@ -115,7 +115,7 @@ const AboutUs = () => {
                     <div className="max-w-4xl mx-auto">
                         <div className="bg-white rounded-3xl shadow-2xl p-8 sm:p-12 border border-accent-100">
                             <p className="text-xl text-gray-700 leading-relaxed mb-6">
-                                We envision a future where geographical location and economic status are no longer barriers to world-class Tech & AI education. A future where every young person in Africa has the opportunity to learn, grow, and become a leader in the global technology industry.
+                                We envision a future where geographical location and economic status are no longer barriers to world-class Tech & AI education. As an award winning project, we're committed to providing free tech and AI education to underserved communities across Africa, ensuring every young person has the opportunity to learn, grow, and become a leader in the global technology industry.
                             </p>
                             <p className="text-xl text-gray-700 leading-relaxed mb-6">
                                 Through DEVGet Learning, we're building a movement that transforms lives, communities, and entire nations by empowering the next generation with the skills, knowledge, and confidence to shape the digital future of Africa and beyond.
@@ -146,10 +146,10 @@ const AboutUs = () => {
                                 Breaking Barriers Through Scholarships
                             </h2>
                             <p className="text-lg text-gray-600 mb-4 leading-relaxed">
-                                We believe that financial constraints should never limit a young person's potential. That's why DEVGet Learning operates on a 100% scholarship basis - every student receives full access to all courses, materials, and resources at absolutely no cost.
+                                We believe that financial constraints should never limit a young person's potential. As an award winning project, DEVGet Learning operates on a 100% scholarship basis - every student receives full access to all courses, materials, and resources at absolutely no cost.
                             </p>
                             <p className="text-lg text-gray-600 mb-4 leading-relaxed">
-                                Our scholarship program is designed to reach underserved youth in Malawi and across Africa, providing them with the same quality Tech & AI education available to students anywhere in the world.
+                                Our scholarship program is designed to reach underserved communities across Africa, providing them with the same quality Tech & AI education available to students anywhere in the world.
                             </p>
                             <p className="text-lg text-gray-600 leading-relaxed">
                                 Through partnerships, donations, and community support, we're creating opportunities for the next generation of African tech leaders to develop the skills they need to excel in the global digital economy.
@@ -265,7 +265,7 @@ const AboutUs = () => {
                     <GraduationCap className="h-16 w-16 text-accent-600 mx-auto mb-6" />
                     <h2 className="text-4xl font-bold text-gray-900 mb-4">Apply for a Scholarship Today</h2>
                     <p className="text-xl text-gray-600 mb-4 max-w-2xl mx-auto">
-                        Our scholarship program is open to all motivated youth in Malawi and across Africa who are passionate about learning Tech & AI.
+                        Our scholarship program is open to all motivated youth across Africa who are passionate about learning Tech & AI. As an award winning project, we're committed to breaking down barriers to quality education.
                     </p>
                     <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
                         No application fees. No tuition costs. No hidden charges. Just your commitment to learning and growing.

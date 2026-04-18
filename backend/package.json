@@ -1,7 +1,7 @@
 {
     "name": "devget-learning-backend",
     "version": "1.0.0",
-    "description": "Backend API for DEVGet Learning Platform",
+    "description": "Backend API for DEVGet Learning - An award winning project providing free tech and AI education to underserved communities across Africa",
     "main": "server.js",
     "type": "module",
     "scripts": {

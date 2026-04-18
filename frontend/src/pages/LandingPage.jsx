@@ -315,7 +315,7 @@ const LandingPage = () => {
                         </h1>
 
                         <p className="text-xl sm:text-2xl text-gray-100 mb-4 max-w-3xl mx-auto leading-relaxed">
-                            A youth-led project providing free Tech & AI education to underserved communities in Malawi and across Africa
+                            An award winning project providing free tech and AI education to underserved communities across Africa
                         </p>
 
                         <p className="text-lg text-yellow-200 font-semibold mb-10">

@@ -28,7 +28,7 @@ const Footer = () => {
                             </div>
                         </Link>
                         <p className="text-gray-300 mb-6 max-w-md leading-relaxed">
-                            Empowering African youth through free, world-class Tech & AI education. Building the next generation of tech leaders.
+                            An award winning project providing free tech and AI education to underserved communities across Africa. Building the next generation of tech leaders.
                         </p>
                         <div className="flex gap-3">
                             <a

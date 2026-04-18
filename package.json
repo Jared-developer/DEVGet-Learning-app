@@ -1,7 +1,7 @@
 {
     "name": "devget-learning-platform",
     "version": "1.0.0",
-    "description": "DEVGet Learning Platform - Full Stack Application",
+    "description": "An award winning project providing free tech and AI education to underserved communities across Africa",
     "type": "module",
     "scripts": {
         "deploy-check": "node scripts/deploy-check.js",
