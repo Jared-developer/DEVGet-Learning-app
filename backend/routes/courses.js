@@ -301,6 +301,61 @@ router.delete('/:id', supabaseProtect, async (req, res) => {
     }
 });
 
+// @desc    Unenroll from course
+// @route   DELETE /api/courses/:id/enroll
+// @access  Private (Student)
+router.delete('/:id/enroll', supabaseProtect, async (req, res) => {
+    try {
+        const { data: course, error: fetchError } = await supabase
+            .from('courses')
+            .select('id, title')
+            .eq('id', req.params.id)
+            .single();
+
+        if (fetchError || !course) {
+            return res.status(404).json({
+                status: 'error',
+                message: 'Course not found'
+            });
+        }
+
+        // Find the enrollment
+        const { data: enrollment, error: enrollError } = await supabase
+            .from('enrollments')
+            .select('id')
+            .eq('user_id', req.user.id)
+            .eq('course_id', req.params.id)
+            .single();
+
+        if (enrollError || !enrollment) {
+            return res.status(404).json({
+                status: 'error',
+                message: 'You are not enrolled in this course'
+            });
+        }
+
+        // Delete the enrollment
+        const { error: deleteError } = await supabase
+            .from('enrollments')
+            .delete()
+            .eq('id', enrollment.id);
+
+        if (deleteError) throw deleteError;
+
+        res.json({
+            status: 'success',
+            message: 'Successfully unenrolled from course'
+        });
+
+    } catch (error) {
+        console.error('Unenroll error:', error);
+        res.status(500).json({
+            status: 'error',
+            message: 'Server error'
+        });
+    }
+});
+
 // @desc    Get course statistics
 // @route   GET /api/courses/:id/stats
 // @access  Private (Instructor/Admin)

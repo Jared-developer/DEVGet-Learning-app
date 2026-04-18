@@ -184,6 +184,35 @@ const CoursePage = () => {
         }
     }
 
+    const handleUnenroll = async () => {
+        if (!user || !enrollmentId) {
+            alert('Unable to unenroll')
+            return
+        }
+
+        const confirmed = window.confirm(
+            'Are you sure you want to unenroll from this course? Your progress will be lost.'
+        )
+
+        if (!confirmed) return
+
+        try {
+            const { error } = await supabase
+                .from('enrollments')
+                .delete()
+                .eq('id', enrollmentId)
+
+            if (error) throw error
+
+            setEnrollmentStatus('not-enrolled')
+            setEnrollmentId(null)
+            alert('Successfully unenrolled from course')
+        } catch (error) {
+            console.error('Error unenrolling:', error)
+            alert('Failed to unenroll. Please try again.')
+        }
+    }
+
     const handleLessonClick = (lesson, moduleId) => {
         const lessonWithWeek = { ...lesson, weekNumber: moduleId }
         setSelectedLesson(lessonWithWeek)
@@ -406,7 +435,18 @@ const CoursePage = () => {
                     {/* Curriculum Tab */}
                     {activeTab === 'curriculum' && !selectedLesson && (
                         <div className="space-y-4">
-                            <h2 className="text-2xl font-bold text-gray-900 mb-6">Course Curriculum</h2>
+                            <div className="flex items-center justify-between mb-6">
+                                <h2 className="text-2xl font-bold text-gray-900">Course Curriculum</h2>
+                                {enrollmentStatus === 'active' && (
+                                    <button
+                                        onClick={handleUnenroll}
+                                        className="flex items-center gap-2 px-4 py-2 text-red-600 border border-red-300 rounded-lg hover:bg-red-50 transition-all text-sm font-medium"
+                                    >
+                                        <LogOut className="h-4 w-4" />
+                                        Unenroll from Course
+                                    </button>
+                                )}
+                            </div>
                             {course.modules?.map((module, idx) => (
                                 <div key={idx} className="border border-gray-200 rounded-lg overflow-hidden">
                                     <button
