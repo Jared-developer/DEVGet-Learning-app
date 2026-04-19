@@ -112,14 +112,17 @@ const CoursePage = () => {
             const courseDbId = courses[0].id
             setCourseDbId(courseDbId)
 
-            const { data: enrollment } = await supabase
+            const { data: enrollment, error: enrollError } = await supabase
                 .from('enrollments')
                 .select('id, status')
                 .eq('user_id', user.id)
                 .eq('course_id', courseDbId)
-                .single()
+                .maybeSingle()
 
-            if (enrollment) {
+            if (enrollError) {
+                console.error('Error fetching enrollment:', enrollError)
+                setEnrollmentStatus('not-enrolled')
+            } else if (enrollment) {
                 setEnrollmentStatus(enrollment.status)
                 setEnrollmentId(enrollment.id)
             } else {

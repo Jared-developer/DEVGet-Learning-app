@@ -42,8 +42,8 @@ const AboutUs = () => {
         },
         {
             icon: <Heart className="h-8 w-8" />,
-            title: "Youth-Led Initiative",
-            description: "Built by young people, for young people, creating opportunities for all",
+            title: "Multi-Disciplinary Team",
+            description: "Built by a multi-disciplinary team, creating opportunities for all",
             gradient: "from-success-500 to-success-600"
         }
     ]

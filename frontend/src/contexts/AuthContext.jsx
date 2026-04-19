@@ -11,6 +11,7 @@ export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null)
     const [userRoles, setUserRoles] = useState([])
     const [loading, setLoading] = useState(true)
+    const [isFetchingRoles, setIsFetchingRoles] = useState(false)
 
     const fetchUserRoles = async (currentUser) => {
         if (!currentUser) {
@@ -18,7 +19,14 @@ export const AuthProvider = ({ children }) => {
             return
         }
 
+        // Prevent concurrent role fetches
+        if (isFetchingRoles) {
+            console.log('Role fetch already in progress, skipping...')
+            return
+        }
+
         try {
+            setIsFetchingRoles(true)
             console.log('Fetching roles for user:', currentUser.id)
 
             // Set a timeout to prevent hanging
@@ -62,6 +70,8 @@ export const AuthProvider = ({ children }) => {
             console.warn('Error fetching user roles, defaulting to student:', error.message)
             // Default to student role on error
             setUserRoles(['student'])
+        } finally {
+            setIsFetchingRoles(false)
         }
     }
 

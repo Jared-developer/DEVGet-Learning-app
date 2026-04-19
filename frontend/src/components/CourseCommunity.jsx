@@ -17,8 +17,21 @@ const CourseCommunity = ({ courseId }) => {
     const messagesEndRef = useRef(null);
 
     const getAuthToken = async () => {
-        const { data: { session } } = await supabase.auth.getSession();
-        return session?.access_token;
+        try {
+            const { data: { session }, error } = await supabase.auth.getSession();
+            if (error) {
+                console.error('Error getting session:', error);
+                return null;
+            }
+            if (!session?.access_token) {
+                console.warn('No access token available');
+                return null;
+            }
+            return session.access_token;
+        } catch (error) {
+            console.error('Exception getting auth token:', error);
+            return null;
+        }
     };
 
     const scrollToBottom = () => {
@@ -40,12 +53,19 @@ const CourseCommunity = ({ courseId }) => {
     const fetchMessages = async () => {
         try {
             const token = await getAuthToken();
+            if (!token) {
+                console.error('No auth token available');
+                setLoading(false);
+                return;
+            }
+
             console.log('Fetching messages for course:', courseId);
             const response = await fetch(
                 `${API_BASE_URL}/api/community/${courseId}/messages?limit=100`,
                 {
                     headers: {
-                        'Authorization': `Bearer ${token}`
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
                     }
                 }
             );
@@ -68,12 +88,18 @@ const CourseCommunity = ({ courseId }) => {
     const fetchMemberCount = async () => {
         try {
             const token = await getAuthToken();
+            if (!token) {
+                console.error('No auth token available for member count');
+                return;
+            }
+
             console.log('Fetching member count for course:', courseId);
             const response = await fetch(
                 `${API_BASE_URL}/api/community/${courseId}/members`,
                 {
                     headers: {
-                        'Authorization': `Bearer ${token}`
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
                     }
                 }
             );
