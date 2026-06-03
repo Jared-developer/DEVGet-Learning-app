@@ -46,7 +46,7 @@ const LandingPage = () => {
         {
             category: "Foundation",
             icon: <BookOpen className="h-6 w-6" />,
-            gradient: "from-blue-500 to-cyan-500",
+            gradient: "from-accent-400 to-accent-600",
             description: "Start your tech journey with essential programming skills",
             items: [
                 { icon: <Globe className="h-4 w-4" />, name: "HTML & Web Fundamentals", level: "Beginner" },
@@ -59,7 +59,7 @@ const LandingPage = () => {
         {
             category: "Professional",
             icon: <Rocket className="h-6 w-6" />,
-            gradient: "from-purple-500 to-pink-500",
+            gradient: "from-primary-500 to-primary-700",
             description: "Advanced skills for building production-ready applications",
             items: [
                 { icon: <Layers className="h-4 w-4" />, name: "MERN Stack Development", level: "Advanced" },
@@ -228,13 +228,31 @@ const LandingPage = () => {
                             )}
                         </div>
 
-                        {/* Mobile Menu Button */}
-                        <button
-                            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                            className="md:hidden p-2 rounded-lg text-gray-700 hover:bg-gray-100"
-                        >
-                            {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-                        </button>
+                        {/* Mobile CTA and Menu Button */}
+                        <div className="flex md:hidden items-center gap-4">
+                            {!user ? (
+                                <Link
+                                    to="/signin"
+                                    className="text-gray-700 hover:text-accent-600 text-sm font-medium transition-colors whitespace-nowrap flex items-center"
+                                >
+                                    Sign In
+                                </Link>
+                            ) : (
+                                <Link
+                                    to="/dashboard"
+                                    className="text-accent-600 hover:text-accent-700 text-sm font-semibold transition-colors whitespace-nowrap flex items-center"
+                                >
+                                    Dashboard
+                                </Link>
+                            )}
+                            <div className="w-px h-6 bg-gray-300"></div>
+                            <button
+                                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                                className="p-2 rounded-lg text-gray-700 hover:bg-gray-100 -mr-2 flex items-center justify-center"
+                            >
+                                {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+                            </button>
+                        </div>
                     </div>
 
                     {/* Mobile Menu */}
@@ -297,34 +315,97 @@ const LandingPage = () => {
             </nav>
 
             {/* Hero Section - Bold New Design - Mobile Optimized */}
-            <section className="relative bg-gradient-to-br from-accent-600 via-accent-700 to-purple-700 pt-20 sm:pt-28 pb-16 sm:pb-24 overflow-hidden">
-                {/* Animated Background Pattern */}
-                <div className="absolute inset-0 opacity-10">
-                    <div className="absolute inset-0" style={{
-                        backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-                    }}></div>
+            <section className="relative bg-white pt-20 sm:pt-28 pb-16 sm:pb-24 overflow-hidden">
+                {/* CSS Animations */}
+                <style>{`
+                    @keyframes fadeInUp {
+                        from {
+                            opacity: 0;
+                            transform: translateY(30px);
+                        }
+                        to {
+                            opacity: 1;
+                            transform: translateY(0);
+                        }
+                    }
+                    
+                    @keyframes fadeInDown {
+                        from {
+                            opacity: 0;
+                            transform: translateY(-20px);
+                        }
+                        to {
+                            opacity: 1;
+                            transform: translateY(0);
+                        }
+                    }
+                    
+                    @keyframes slideInLeft {
+                        from {
+                            opacity: 0;
+                            transform: translateX(-30px);
+                        }
+                        to {
+                            opacity: 1;
+                            transform: translateX(0);
+                        }
+                    }
+                    
+                    @keyframes pulse {
+                        0%, 100% {
+                            transform: scale(1);
+                        }
+                        50% {
+                            transform: scale(1.05);
+                        }
+                    }
+                    
+                    .animate-fadeInUp {
+                        animation: fadeInUp 0.8s ease-out forwards;
+                    }
+                    
+                    .animate-fadeInDown {
+                        animation: fadeInDown 0.6s ease-out forwards;
+                    }
+                    
+                    .animate-slideInLeft {
+                        animation: slideInLeft 0.8s ease-out forwards;
+                    }
+                    
+                    .animate-pulse-slow {
+                        animation: pulse 3s ease-in-out infinite;
+                    }
+                `}</style>
+
+                {/* Background Image - Full Coverage */}
+                <div className="absolute inset-0">
+                    <img
+                        src="/images/backgrounds/ChatGPT Image Mar 30, 2026, 10_01_07 PM.png"
+                        alt="Hero Background"
+                        className="w-full h-full object-cover"
+                    />
                 </div>
 
                 <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-                        {/* Left Content */}
-                        <div className="text-white text-center lg:text-left">
-                            <div className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 bg-white/20 backdrop-blur-sm rounded-full text-white text-xs sm:text-sm font-semibold mb-4 sm:mb-6">
+                        {/* Left Content - With Teal Background */}
+                        <div className="bg-gradient-to-br from-accent-600/70 to-accent-700/70 backdrop-blur-sm p-6 sm:p-8 lg:p-10 text-white text-center lg:text-left shadow-2xl">
+                            <div className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 bg-white/20 backdrop-blur-sm rounded-full text-white text-xs sm:text-sm font-semibold mb-4 sm:mb-6 animate-fadeInDown opacity-0" style={{ animationDelay: '0.1s', animationFillMode: 'forwards' }}>
                                 <Shield className="h-3 w-3 sm:h-4 sm:w-4" />
                                 Trusted by 1000+ African Learners
                             </div>
 
-                            <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold mb-4 sm:mb-6 leading-tight">
+                            <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold mb-4 sm:mb-6 leading-tight animate-fadeInUp opacity-0" style={{ animationDelay: '0.2s', animationFillMode: 'forwards' }}>
                                 Your Gateway to
-                                <span className="block text-yellow-300 mt-1 sm:mt-2">Tech Excellence</span>
+                                <span className="block text-yellow-300 mt-1 sm:mt-2 animate-pulse-slow">Tech Excellence</span>
                             </h1>
 
-                            <p className="text-lg sm:text-xl lg:text-2xl text-white/90 mb-6 sm:mb-8 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                            <p className="text-lg sm:text-xl lg:text-2xl text-white/90 mb-6 sm:mb-8 leading-relaxed max-w-2xl mx-auto lg:mx-0 animate-fadeInUp opacity-0" style={{ animationDelay: '0.4s', animationFillMode: 'forwards' }}>
                                 Master in-demand tech skills with world-class courses. Completely free. Forever.
                             </p>
 
                             {/* Benefits List - Hidden on smallest screens, shown on sm+ */}
-                            <div className="hidden sm:grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 mb-6 sm:mb-10 max-w-xl mx-auto lg:mx-0">
+                            <div className="hidden sm:grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 mb-6 sm:mb-10 max-w-xl mx-auto lg:mx-0 animate-slideInLeft opacity-0" style={{ animationDelay: '0.6s', animationFillMode: 'forwards' }}>
                                 {benefits.map((benefit, index) => (
                                     <div key={index} className="flex items-center gap-2 text-white/90 text-sm">
                                         {benefit.icon}
@@ -334,24 +415,24 @@ const LandingPage = () => {
                             </div>
 
                             {/* CTA Buttons */}
-                            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 max-w-md mx-auto lg:mx-0">
+                            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:max-w-md mx-auto lg:mx-0 animate-fadeInUp opacity-0" style={{ animationDelay: '0.8s', animationFillMode: 'forwards' }}>
                                 {!user ? (
                                     <Link
                                         to="/signin?tab=signup"
-                                        className="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-4 bg-white text-accent-600 rounded-xl text-base sm:text-lg font-bold transition-all shadow-xl hover:shadow-2xl hover:scale-105"
+                                        className="inline-flex items-center justify-center px-0 sm:px-8 py-3 sm:py-4 text-white sm:bg-white sm:text-accent-600 sm:rounded-xl text-base sm:text-lg font-bold transition-all sm:shadow-xl sm:hover:shadow-2xl hover:scale-105 w-full sm:w-auto"
                                     >
-                                        <GraduationCap className="h-5 w-5" />
-                                        Start Learning Now
-                                        <ArrowRight className="h-5 w-5" />
+                                        <span className="inline-flex items-center gap-2 border-b-2 border-yellow-300">
+                                            <GraduationCap className="h-5 w-5" />
+                                            Get Started
+                                        </span>
                                     </Link>
                                 ) : (
                                     <Link
                                         to="/dashboard"
-                                        className="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-4 bg-white text-accent-600 rounded-xl text-base sm:text-lg font-bold transition-all shadow-xl hover:shadow-2xl hover:scale-105"
+                                        className="inline-flex items-center justify-center gap-2 px-0 sm:px-8 py-3 sm:py-4 text-white sm:bg-white sm:text-accent-600 sm:rounded-xl text-base sm:text-lg font-bold transition-all sm:shadow-xl sm:hover:shadow-2xl hover:scale-105 w-full sm:w-auto"
                                     >
                                         <GraduationCap className="h-5 w-5" />
                                         Continue Learning
-                                        <ArrowRight className="h-5 w-5" />
                                     </Link>
                                 )}
                             </div>
@@ -387,11 +468,11 @@ const LandingPage = () => {
                             <span className="font-semibold">Trusted Platform</span>
                         </div>
                         <div className="flex items-center gap-2 text-gray-700 text-sm sm:text-base">
-                            <Users className="h-4 w-4 sm:h-5 sm:w-5 text-blue-500 flex-shrink-0" />
+                            <Users className="h-4 w-4 sm:h-5 sm:w-5 text-accent-600 flex-shrink-0" />
                             <span className="font-semibold">1000+ Students</span>
                         </div>
                         <div className="flex items-center gap-2 text-gray-700 text-sm sm:text-base">
-                            <TrendingUp className="h-4 w-4 sm:h-5 sm:w-5 text-purple-500 flex-shrink-0" />
+                            <TrendingUp className="h-4 w-4 sm:h-5 sm:w-5 text-primary-600 flex-shrink-0" />
                             <span className="font-semibold">Growing Community</span>
                         </div>
                     </div>
@@ -416,8 +497,8 @@ const LandingPage = () => {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
                         {features.map((feature, index) => (
-                            <div key={index} className="group relative bg-gradient-to-br from-gray-50 to-white p-6 sm:p-8 rounded-2xl border-2 border-gray-100 hover:border-accent-200 hover:shadow-2xl transition-all duration-300">
-                                <div className="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-accent-500 to-purple-600 rounded-2xl flex items-center justify-center text-white mb-4 sm:mb-6 group-hover:scale-110 group-hover:rotate-3 transition-transform">
+                            <div key={index} className="group relative bg-white p-6 sm:p-8 rounded-2xl border-2 border-gray-200 hover:border-accent-300 hover:shadow-2xl transition-all duration-300 text-center">
+                                <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-accent-500 to-accent-600 rounded-2xl flex items-center justify-center text-white mb-4 sm:mb-6 group-hover:scale-110 transition-transform mx-auto">
                                     {feature.icon}
                                 </div>
                                 <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2 sm:mb-3">{feature.title}</h3>
@@ -429,10 +510,10 @@ const LandingPage = () => {
             </section>
 
             {/* How It Works Section - Mobile Optimized */}
-            <section className="py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
+            <section className="py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-accent-50 via-primary-50 to-accent-100">
                 <div className="max-w-7xl mx-auto">
                     <div className="text-center mb-12 sm:mb-16">
-                        <div className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 bg-indigo-100 rounded-full text-indigo-700 text-xs sm:text-sm font-bold mb-3 sm:mb-4">
+                        <div className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 bg-accent-100 rounded-full text-accent-700 text-xs sm:text-sm font-bold mb-3 sm:mb-4">
                             <Target className="h-3 w-3 sm:h-4 sm:w-4" />
                             Simple Process
                         </div>
@@ -447,11 +528,11 @@ const LandingPage = () => {
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
                         {/* Step 1 */}
                         <div className="relative group">
-                            <div className="bg-white rounded-2xl p-8 shadow-lg border-2 border-indigo-100 hover:border-indigo-300 hover:shadow-2xl transition-all duration-300">
-                                <div className="absolute -top-4 -left-4 w-12 h-12 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center text-white text-xl font-bold shadow-lg">
+                            <div className="bg-white rounded-2xl p-8 shadow-lg border-2 border-accent-100 hover:border-accent-300 hover:shadow-2xl transition-all duration-300">
+                                <div className="absolute -top-4 left-1/2 -translate-x-1/2 sm:left-auto sm:translate-x-0 sm:-left-4 w-12 h-12 bg-gradient-to-br from-accent-500 to-accent-600 rounded-xl flex items-center justify-center text-white text-xl font-bold shadow-lg">
                                     1
                                 </div>
-                                <div className="w-16 h-16 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-2xl flex items-center justify-center text-indigo-600 mb-6 mx-auto group-hover:scale-110 transition-transform">
+                                <div className="w-16 h-16 bg-gradient-to-br from-accent-100 to-accent-200 rounded-2xl flex items-center justify-center text-accent-600 mb-6 mx-auto group-hover:scale-110 transition-transform">
                                     <Users className="h-8 w-8" />
                                 </div>
                                 <h3 className="text-xl font-bold text-gray-900 mb-3 text-center">Sign Up Free</h3>
@@ -463,11 +544,11 @@ const LandingPage = () => {
 
                         {/* Step 2 */}
                         <div className="relative group">
-                            <div className="bg-white rounded-2xl p-8 shadow-lg border-2 border-indigo-100 hover:border-indigo-300 hover:shadow-2xl transition-all duration-300">
-                                <div className="absolute -top-4 -left-4 w-12 h-12 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center text-white text-xl font-bold shadow-lg">
+                            <div className="bg-white rounded-2xl p-8 shadow-lg border-2 border-accent-100 hover:border-accent-300 hover:shadow-2xl transition-all duration-300">
+                                <div className="absolute -top-4 left-1/2 -translate-x-1/2 sm:left-auto sm:translate-x-0 sm:-left-4 w-12 h-12 bg-gradient-to-br from-accent-500 to-accent-600 rounded-xl flex items-center justify-center text-white text-xl font-bold shadow-lg">
                                     2
                                 </div>
-                                <div className="w-16 h-16 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-2xl flex items-center justify-center text-indigo-600 mb-6 mx-auto group-hover:scale-110 transition-transform">
+                                <div className="w-16 h-16 bg-gradient-to-br from-accent-100 to-accent-200 rounded-2xl flex items-center justify-center text-accent-600 mb-6 mx-auto group-hover:scale-110 transition-transform">
                                     <BookOpen className="h-8 w-8" />
                                 </div>
                                 <h3 className="text-xl font-bold text-gray-900 mb-3 text-center">Choose Your Path</h3>
@@ -479,11 +560,11 @@ const LandingPage = () => {
 
                         {/* Step 3 */}
                         <div className="relative group">
-                            <div className="bg-white rounded-2xl p-8 shadow-lg border-2 border-indigo-100 hover:border-indigo-300 hover:shadow-2xl transition-all duration-300">
-                                <div className="absolute -top-4 -left-4 w-12 h-12 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center text-white text-xl font-bold shadow-lg">
+                            <div className="bg-white rounded-2xl p-8 shadow-lg border-2 border-accent-100 hover:border-accent-300 hover:shadow-2xl transition-all duration-300">
+                                <div className="absolute -top-4 left-1/2 -translate-x-1/2 sm:left-auto sm:translate-x-0 sm:-left-4 w-12 h-12 bg-gradient-to-br from-accent-500 to-accent-600 rounded-xl flex items-center justify-center text-white text-xl font-bold shadow-lg">
                                     3
                                 </div>
-                                <div className="w-16 h-16 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-2xl flex items-center justify-center text-indigo-600 mb-6 mx-auto group-hover:scale-110 transition-transform">
+                                <div className="w-16 h-16 bg-gradient-to-br from-accent-100 to-accent-200 rounded-2xl flex items-center justify-center text-accent-600 mb-6 mx-auto group-hover:scale-110 transition-transform">
                                     <Video className="h-8 w-8" />
                                 </div>
                                 <h3 className="text-xl font-bold text-gray-900 mb-3 text-center">Learn & Practice</h3>
@@ -495,11 +576,11 @@ const LandingPage = () => {
 
                         {/* Step 4 */}
                         <div className="relative group">
-                            <div className="bg-white rounded-2xl p-8 shadow-lg border-2 border-indigo-100 hover:border-indigo-300 hover:shadow-2xl transition-all duration-300">
-                                <div className="absolute -top-4 -left-4 w-12 h-12 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center text-white text-xl font-bold shadow-lg">
+                            <div className="bg-white rounded-2xl p-8 shadow-lg border-2 border-accent-100 hover:border-accent-300 hover:shadow-2xl transition-all duration-300">
+                                <div className="absolute -top-4 left-1/2 -translate-x-1/2 sm:left-auto sm:translate-x-0 sm:-left-4 w-12 h-12 bg-gradient-to-br from-accent-500 to-accent-600 rounded-xl flex items-center justify-center text-white text-xl font-bold shadow-lg">
                                     4
                                 </div>
-                                <div className="w-16 h-16 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-2xl flex items-center justify-center text-indigo-600 mb-6 mx-auto group-hover:scale-110 transition-transform">
+                                <div className="w-16 h-16 bg-gradient-to-br from-accent-100 to-accent-200 rounded-2xl flex items-center justify-center text-accent-600 mb-6 mx-auto group-hover:scale-110 transition-transform">
                                     <Award className="h-8 w-8" />
                                 </div>
                                 <h3 className="text-xl font-bold text-gray-900 mb-3 text-center">Earn & Succeed</h3>
@@ -509,32 +590,6 @@ const LandingPage = () => {
                             </div>
                         </div>
                     </div>
-
-                    {/* CTA Below Steps */}
-                    <div className="text-center mt-16">
-                        <p className="text-lg text-gray-700 mb-6 font-medium">
-                            Join thousands of students already learning
-                        </p>
-                        {!user ? (
-                            <Link
-                                to="/signin?tab=signup"
-                                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white rounded-xl text-lg font-bold transition-all shadow-lg hover:shadow-xl hover:scale-105"
-                            >
-                                <Rocket className="h-5 w-5" />
-                                Start Your Journey Today
-                                <ArrowRight className="h-5 w-5" />
-                            </Link>
-                        ) : (
-                            <Link
-                                to="/dashboard"
-                                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white rounded-xl text-lg font-bold transition-all shadow-lg hover:shadow-xl hover:scale-105"
-                            >
-                                <Rocket className="h-5 w-5" />
-                                Continue Your Journey
-                                <ArrowRight className="h-5 w-5" />
-                            </Link>
-                        )}
-                    </div>
                 </div>
             </section>
 
@@ -542,7 +597,7 @@ const LandingPage = () => {
             <section className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-50 to-white">
                 <div className="max-w-7xl mx-auto">
                     <div className="text-center mb-16">
-                        <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-100 rounded-full text-purple-700 text-sm font-bold mb-4">
+                        <div className="inline-flex items-center gap-2 px-4 py-2 bg-accent-100 rounded-full text-accent-700 text-sm font-bold mb-4">
                             <BookOpen className="h-4 w-4" />
                             Course Catalog
                         </div>
@@ -587,28 +642,6 @@ const LandingPage = () => {
                                 </div>
                             </div>
                         ))}
-                    </div>
-
-                    <div className="text-center mt-12">
-                        {!user ? (
-                            <Link
-                                to="/signin?tab=signup"
-                                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-accent-600 hover:bg-accent-700 text-white rounded-xl text-lg font-bold transition-all shadow-lg hover:shadow-xl"
-                            >
-                                <GraduationCap className="h-5 w-5" />
-                                Enroll in All Courses Free
-                                <ArrowRight className="h-5 w-5" />
-                            </Link>
-                        ) : (
-                            <Link
-                                to="/dashboard"
-                                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-accent-600 hover:bg-accent-700 text-white rounded-xl text-lg font-bold transition-all shadow-lg hover:shadow-xl"
-                            >
-                                <GraduationCap className="h-5 w-5" />
-                                View All Courses
-                                <ArrowRight className="h-5 w-5" />
-                            </Link>
-                        )}
                     </div>
                 </div>
             </section>
@@ -685,7 +718,7 @@ const LandingPage = () => {
             </section>
 
             {/* Final CTA */}
-            <section className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-accent-600 via-purple-600 to-pink-600">
+            <section className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-accent-600 to-accent-700">
                 <div className="max-w-4xl mx-auto text-center text-white">
                     <h2 className="text-4xl sm:text-5xl font-bold mb-6">
                         Ready to Transform Your Career?
