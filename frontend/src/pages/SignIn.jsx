@@ -55,8 +55,6 @@ const SignIn = () => {
             if (signInError) {
                 if (signInError.message.includes('Network error')) {
                     setError('Unable to connect. Please check your internet connection.')
-                } else if (signInError.message.includes('Email not confirmed')) {
-                    setError('Please verify your email. Check your inbox for the verification link.')
                 } else if (signInError.message.includes('Invalid login credentials')) {
                     setError('Incorrect email or password.')
                 } else {

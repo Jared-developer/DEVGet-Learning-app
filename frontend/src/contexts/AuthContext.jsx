@@ -185,16 +185,10 @@ export const AuthProvider = ({ children }) => {
 
     const signUp = async (email, password, userDetails = {}, role = 'student') => {
         try {
-            // Use production URL from env, fallback to current origin for local dev
-            const appUrl = import.meta.env.VITE_APP_URL || window.location.origin
-            
             const { data, error } = await supabase.auth.signUp({
                 email,
                 password,
                 options: {
-                    emailRedirectTo: role === 'developer'
-                        ? `${appUrl}/developer-console`
-                        : `${appUrl}/dashboard`,
                     data: {
                         first_name: userDetails.firstName || '',
                         last_name: userDetails.lastName || '',
