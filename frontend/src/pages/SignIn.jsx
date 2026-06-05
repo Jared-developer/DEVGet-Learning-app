@@ -115,8 +115,11 @@ const SignIn = () => {
 
         try {
             const { supabase } = await import('../lib/supabase')
+            // Use production URL from env, fallback to current origin for local dev
+            const appUrl = import.meta.env.VITE_APP_URL || window.location.origin
+
             const { error: resetError } = await supabase.auth.resetPasswordForEmail(resetEmail, {
-                redirectTo: `${window.location.origin}/signin?reset=true`
+                redirectTo: `${appUrl}/signin?reset=true`
             })
 
             if (resetError) {

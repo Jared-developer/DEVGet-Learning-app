@@ -155,10 +155,13 @@ export const AuthProvider = ({ children }) => {
 
     const signInWithGoogle = async () => {
         try {
+            // Use production URL from env, fallback to current origin for local dev
+            const appUrl = import.meta.env.VITE_APP_URL || window.location.origin
+            
             const { data, error } = await supabase.auth.signInWithOAuth({
                 provider: 'google',
                 options: {
-                    redirectTo: `${window.location.origin}/dashboard`,
+                    redirectTo: `${appUrl}/dashboard`,
                     queryParams: {
                         access_type: 'offline',
                         prompt: 'consent',
@@ -182,13 +185,16 @@ export const AuthProvider = ({ children }) => {
 
     const signUp = async (email, password, userDetails = {}, role = 'student') => {
         try {
+            // Use production URL from env, fallback to current origin for local dev
+            const appUrl = import.meta.env.VITE_APP_URL || window.location.origin
+            
             const { data, error } = await supabase.auth.signUp({
                 email,
                 password,
                 options: {
                     emailRedirectTo: role === 'developer'
-                        ? `${window.location.origin}/developer-console`
-                        : `${window.location.origin}/dashboard`,
+                        ? `${appUrl}/developer-console`
+                        : `${appUrl}/dashboard`,
                     data: {
                         first_name: userDetails.firstName || '',
                         last_name: userDetails.lastName || '',

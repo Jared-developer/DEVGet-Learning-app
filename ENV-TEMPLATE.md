@@ -46,6 +46,16 @@ VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 # Backend API URL
 VITE_API_URL=https://your-backend.onrender.com
 
+# Production Frontend URL (IMPORTANT!)
+# This is used for email confirmation and password reset redirects
+# Must be set to your actual production URL to prevent localhost redirects
+# Examples:
+# - https://devget-learning.vercel.app
+# - https://devget-learning.netlify.app  
+# - https://your-custom-domain.com
+# For local development, you can omit this (will default to localhost)
+VITE_APP_URL=https://your-production-frontend-url.com
+
 # Google Calendar (Optional)
 VITE_GOOGLE_CALENDAR_ID=your-calendar-id@group.calendar.google.com
 VITE_GOOGLE_CALENDAR_PUBLIC_URL=https://calendar.google.com/calendar/embed?src=...
