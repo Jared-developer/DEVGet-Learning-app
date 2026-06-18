@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 import { supabase } from '../lib/supabase'
+import { useProgressTracking } from '../hooks/useProgressTracking'
 import LessonNotes from '../components/LessonNotes'
 import AIAssistant from '../components/AIAssistant'
 import CourseCommunity from '../components/CourseCommunity'
@@ -39,6 +40,18 @@ const CoursePage = () => {
     const [expandedModules, setExpandedModules] = useState({})
     const [quizAnswers, setQuizAnswers] = useState({})
     const [showQuizResults, setShowQuizResults] = useState(false)
+    
+    // Progress tracking
+    const {
+        courseProgress,
+        lessonProgress,
+        markLessonComplete,
+        markLessonInProgress,
+        getLessonStatus,
+        isLessonCompleted,
+        getQuizScore,
+        getProgressStats
+    } = useProgressTracking(courseDbId)
 
     const getCourseKey = (urlSlug) => {
         const courseMap = {
@@ -218,9 +231,15 @@ const CoursePage = () => {
 
     const handleLessonClick = (lesson, moduleId) => {
         const lessonWithWeek = { ...lesson, weekNumber: moduleId }
+        const lessonId = `${moduleId}-${lesson.id}`
+        
         setSelectedLesson(lessonWithWeek)
         setQuizAnswers({})
         setShowQuizResults(false)
+        
+        // Mark lesson as in progress when opened
+        markLessonInProgress(lessonId, lesson.title, lesson.type)
+        
         window.scrollTo({ top: 0, behavior: 'smooth' })
     }
 
@@ -233,6 +252,16 @@ const CoursePage = () => {
 
     const submitQuiz = () => {
         setShowQuizResults(true)
+        
+        // Calculate score and mark lesson complete if quiz passed
+        const { score, total, percentage } = calculateQuizScore()
+        const lessonId = `${selectedLesson.weekNumber}-${selectedLesson.id}`
+        
+        // Mark as complete if score is 70% or higher
+        if (percentage >= 70) {
+            markLessonComplete(lessonId, selectedLesson.title, 'quiz', percentage)
+        }
+        
         window.scrollTo({ top: 0, behavior: 'smooth' })
     }
 
@@ -246,6 +275,13 @@ const CoursePage = () => {
         const percentage = Math.round((score / total) * 100)
 
         return { score, total, percentage }
+    }
+
+    const markVideoComplete = () => {
+        if (!selectedLesson) return
+        
+        const lessonId = `${selectedLesson.weekNumber}-${selectedLesson.id}`
+        markLessonComplete(lessonId, selectedLesson.title, selectedLesson.type || 'video')
     }
 
     const toggleModule = (moduleId) => {
@@ -267,6 +303,20 @@ const CoursePage = () => {
                 return <Target className="h-4 w-4" />
             default:
                 return <FileText className="h-4 w-4" />
+        }
+    }
+
+    const getProgressIcon = (moduleId, lessonId) => {
+        const fullLessonId = `${moduleId + 1}-${lessonId}`
+        const status = getLessonStatus(fullLessonId)
+        
+        switch (status) {
+            case 'completed':
+                return <CheckCircle className="h-4 w-4 text-green-600" />
+            case 'in_progress':
+                return <Play className="h-4 w-4 text-yellow-600" />
+            default:
+                return <Clock className="h-4 w-4 text-gray-400" />
         }
     }
 
@@ -468,21 +518,43 @@ const CoursePage = () => {
                                     </button>
                                     {expandedModules[idx] && (
                                         <div className="p-4 space-y-2">
-                                            {module.lessons?.map((lesson, lessonIdx) => (
-                                                <button
-                                                    key={lessonIdx}
-                                                    onClick={() => handleLessonClick(lesson, idx + 1)}
-                                                    className="w-full flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-all text-left"
-                                                >
+                                    {module.lessons?.map((lesson, lessonIdx) => {
+                                        const fullLessonId = `${idx + 1}-${lesson.id}`
+                                        const isCompleted = isLessonCompleted(fullLessonId)
+                                        const quizScore = getQuizScore(fullLessonId)
+                                        
+                                        return (
+                                            <button
+                                                key={lessonIdx}
+                                                onClick={() => handleLessonClick(lesson, idx + 1)}
+                                                className={`w-full flex items-center gap-3 p-3 rounded-lg transition-all text-left ${
+                                                    isCompleted 
+                                                        ? 'bg-green-50 hover:bg-green-100' 
+                                                        : 'hover:bg-gray-50'
+                                                }`}
+                                            >
+                                                <div className="flex items-center gap-2">
                                                     <div className="text-accent-600">
                                                         {getIconForType(lesson.type)}
                                                     </div>
-                                                    <span className="flex-1 text-gray-700">{lesson.title}</span>
-                                                    {lesson.duration && (
-                                                        <span className="text-sm text-gray-500">{lesson.duration}</span>
+                                                    {getProgressIcon(idx, lesson.id)}
+                                                </div>
+                                                <div className="flex-1">
+                                                    <span className={`text-gray-700 ${isCompleted ? 'line-through' : ''}`}>
+                                                        {lesson.title}
+                                                    </span>
+                                                    {quizScore && (
+                                                        <div className="text-sm text-green-600 font-medium">
+                                                            Quiz Score: {quizScore}%
+                                                        </div>
                                                     )}
-                                                </button>
-                                            ))}
+                                                </div>
+                                                {lesson.duration && (
+                                                    <span className="text-sm text-gray-500">{lesson.duration}</span>
+                                                )}
+                                            </button>
+                                        )
+                                    })}
                                         </div>
                                     )}
                                 </div>
@@ -507,16 +579,145 @@ const CoursePage = () => {
                                 onSubmitQuiz={submitQuiz}
                                 showQuizResults={showQuizResults}
                                 quizScore={calculateQuizScore()}
+                                onMarkComplete={markVideoComplete}
+                                isCompleted={isLessonCompleted(`${selectedLesson.weekNumber}-${selectedLesson.id}`)}
                             />
                         </div>
                     )}
 
                     {/* Progress Tab */}
                     {activeTab === 'progress' && (
-                        <div className="text-center py-12">
-                            <Award className="h-16 w-16 text-gray-300 mx-auto mb-4" />
-                            <h3 className="text-xl font-bold text-gray-900 mb-2">Track Your Progress</h3>
-                            <p className="text-gray-600">Complete lessons to see your progress here</p>
+                        <div className="space-y-6">
+                            {enrollmentStatus === 'active' ? (
+                                <>
+                                    <div className="text-center mb-8">
+                                        <h2 className="text-2xl font-bold text-gray-900 mb-2">Your Progress</h2>
+                                        <p className="text-gray-600">Track your learning journey</p>
+                                    </div>
+
+                                    {/* Progress Overview */}
+                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                        <div className="bg-gradient-to-r from-blue-50 to-blue-100 p-6 rounded-xl border border-blue-200">
+                                            <div className="flex items-center gap-4">
+                                                <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center text-white">
+                                                    <BookOpen className="h-6 w-6" />
+                                                </div>
+                                                <div>
+                                                    <div className="text-2xl font-bold text-blue-900">
+                                                        {getProgressStats().completedLessons}/{getProgressStats().totalLessons}
+                                                    </div>
+                                                    <div className="text-blue-700 font-medium">Lessons Completed</div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className="bg-gradient-to-r from-green-50 to-green-100 p-6 rounded-xl border border-green-200">
+                                            <div className="flex items-center gap-4">
+                                                <div className="w-12 h-12 bg-green-600 rounded-xl flex items-center justify-center text-white">
+                                                    <TrendingUp className="h-6 w-6" />
+                                                </div>
+                                                <div>
+                                                    <div className="text-2xl font-bold text-green-900">
+                                                        {getProgressStats().progressPercentage}%
+                                                    </div>
+                                                    <div className="text-green-700 font-medium">Progress</div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className="bg-gradient-to-r from-purple-50 to-purple-100 p-6 rounded-xl border border-purple-200">
+                                            <div className="flex items-center gap-4">
+                                                <div className="w-12 h-12 bg-purple-600 rounded-xl flex items-center justify-center text-white">
+                                                    <Clock className="h-6 w-6" />
+                                                </div>
+                                                <div>
+                                                    <div className="text-2xl font-bold text-purple-900">
+                                                        {getProgressStats().inProgress}
+                                                    </div>
+                                                    <div className="text-purple-700 font-medium">In Progress</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Progress Bar */}
+                                    <div className="bg-white p-6 rounded-xl border border-gray-200">
+                                        <div className="flex items-center justify-between mb-2">
+                                            <span className="text-sm font-medium text-gray-700">Course Progress</span>
+                                            <span className="text-sm text-gray-500">{getProgressStats().progressPercentage}%</span>
+                                        </div>
+                                        <div className="w-full bg-gray-200 rounded-full h-3">
+                                            <div 
+                                                className="bg-gradient-to-r from-accent-500 to-accent-600 h-3 rounded-full transition-all duration-500"
+                                                style={{ width: `${getProgressStats().progressPercentage}%` }}
+                                            ></div>
+                                        </div>
+                                    </div>
+
+                                    {/* Module Progress */}
+                                    <div className="space-y-4">
+                                        <h3 className="text-xl font-bold text-gray-900">Module Progress</h3>
+                                        {course.modules?.map((module, idx) => {
+                                            const moduleCompletedCount = module.lessons?.filter(lesson => {
+                                                const lessonId = `${idx + 1}-${lesson.id}`
+                                                return isLessonCompleted(lessonId)
+                                            }).length || 0
+                                            const moduleTotalCount = module.lessons?.length || 0
+                                            const moduleProgress = moduleTotalCount > 0 ? Math.round((moduleCompletedCount / moduleTotalCount) * 100) : 0
+
+                                            return (
+                                                <div key={idx} className="bg-white p-6 rounded-xl border border-gray-200">
+                                                    <div className="flex items-center justify-between mb-4">
+                                                        <h4 className="font-semibold text-gray-900">{module.title}</h4>
+                                                        <span className="text-sm text-gray-500">{moduleCompletedCount}/{moduleTotalCount} lessons</span>
+                                                    </div>
+                                                    <div className="w-full bg-gray-200 rounded-full h-2">
+                                                        <div 
+                                                            className="bg-gradient-to-r from-blue-500 to-blue-600 h-2 rounded-full transition-all duration-500"
+                                                            style={{ width: `${moduleProgress}%` }}
+                                                        ></div>
+                                                    </div>
+                                                    <div className="text-right text-sm text-gray-500 mt-1">{moduleProgress}%</div>
+                                                </div>
+                                            )
+                                        })}
+                                    </div>
+
+                                    {/* Recent Activity */}
+                                    <div className="bg-white p-6 rounded-xl border border-gray-200">
+                                        <h3 className="text-xl font-bold text-gray-900 mb-4">Recent Activity</h3>
+                                        {Object.values(lessonProgress)
+                                            .filter(progress => progress.status === 'completed')
+                                            .sort((a, b) => new Date(b.completion_date) - new Date(a.completion_date))
+                                            .slice(0, 5)
+                                            .map((progress, idx) => (
+                                                <div key={idx} className="flex items-center gap-3 py-2">
+                                                    <CheckCircle className="h-5 w-5 text-green-600" />
+                                                    <span className="flex-1 text-gray-700">{progress.lesson_title}</span>
+                                                    <span className="text-sm text-gray-500">
+                                                        {new Date(progress.completion_date).toLocaleDateString()}
+                                                    </span>
+                                                </div>
+                                            ))
+                                        }
+                                        {Object.values(lessonProgress).filter(p => p.status === 'completed').length === 0 && (
+                                            <p className="text-gray-500 text-center py-4">No completed lessons yet. Start learning to see your progress!</p>
+                                        )}
+                                    </div>
+                                </>
+                            ) : (
+                                <div className="text-center py-12">
+                                    <Award className="h-16 w-16 text-gray-300 mx-auto mb-4" />
+                                    <h3 className="text-xl font-bold text-gray-900 mb-2">Enroll to Track Progress</h3>
+                                    <p className="text-gray-600 mb-6">Enroll in this course to track your learning progress</p>
+                                    <button
+                                        onClick={handleEnroll}
+                                        className="px-6 py-3 bg-accent-600 text-white rounded-lg font-medium hover:bg-accent-700 transition-all"
+                                    >
+                                        Enroll Now
+                                    </button>
+                                </div>
+                            )}
                         </div>
                     )}
 

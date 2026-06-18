@@ -1,7 +1,16 @@
 import { useState } from 'react'
 import { AlertCircle, Info, Lightbulb, AlertTriangle, CheckCircle, Copy, Check } from 'lucide-react'
 
-const LessonNotes = ({ lesson, onQuizAnswer, quizAnswers, onSubmitQuiz, showQuizResults, quizScore }) => {
+const LessonNotes = ({ 
+    lesson, 
+    onQuizAnswer, 
+    quizAnswers, 
+    onSubmitQuiz, 
+    showQuizResults, 
+    quizScore, 
+    onMarkComplete,
+    isCompleted 
+}) => {
     const [copiedCode, setCopiedCode] = useState(null)
 
     const copyCode = (code, id) => {
@@ -150,10 +159,26 @@ const LessonNotes = ({ lesson, onQuizAnswer, quizAnswers, onSubmitQuiz, showQuiz
     return (
         <div className="space-y-6">
             {/* Lesson Header */}
-            <div>
-                <h1 className="text-3xl font-bold text-gray-900 mb-3">{lesson.title}</h1>
-                {lesson.duration && (
-                    <p className="text-gray-600">Duration: {lesson.duration}</p>
+            <div className="flex items-start justify-between">
+                <div className="flex-1">
+                    <h1 className="text-3xl font-bold text-gray-900 mb-3">{lesson.title}</h1>
+                    {lesson.duration && (
+                        <p className="text-gray-600">Duration: {lesson.duration}</p>
+                    )}
+                </div>
+                {onMarkComplete && lesson.type !== 'quiz' && lesson.type !== 'assignment' && (
+                    <button
+                        onClick={onMarkComplete}
+                        disabled={isCompleted}
+                        className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all ${
+                            isCompleted 
+                                ? 'bg-green-100 text-green-700 cursor-not-allowed' 
+                                : 'bg-accent-600 text-white hover:bg-accent-700'
+                        }`}
+                    >
+                        <CheckCircle className="h-4 w-4" />
+                        {isCompleted ? 'Completed' : 'Mark Complete'}
+                    </button>
                 )}
             </div>
 

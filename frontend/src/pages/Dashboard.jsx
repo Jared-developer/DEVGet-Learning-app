@@ -41,6 +41,7 @@ const Dashboard = () => {
     const [enrolledCourses, setEnrolledCourses] = useState([])
     const [enrollmentLoading, setEnrollmentLoading] = useState(false)
     const [dashboardLoading, setDashboardLoading] = useState(true)
+    const [overallProgress, setOverallProgress] = useState({ avgProgress: 0, totalCertificates: 0 })
 
     useEffect(() => {
         if (user) {
@@ -117,12 +118,46 @@ const Dashboard = () => {
                         progress: 0,
                         completed: false,
                         enrollmentId: enrollment.id,
-                        lessons: actualCourseData?.lessons || 0
+                        lessons: actualCourseData?.lessons || 0,
+                        courseDbId: enrollment.course.id
                     }
                 })
 
-            console.log('Formatted courses:', formattedCourses)
-            setEnrolledCourses(formattedCourses)
+            // Load progress data for each course
+            const courseProgressPromises = formattedCourses.map(async (course) => {
+                try {
+                    const { data: progressData } = await supabase
+                        .from('course_progress')
+                        .select('progress_percentage')
+                        .eq('user_id', user.id)
+                        .eq('course_id', course.courseDbId)
+                        .maybeSingle()
+                    
+                    return {
+                        ...course,
+                        progress: progressData?.progress_percentage || 0,
+                        completed: (progressData?.progress_percentage || 0) >= 100
+                    }
+                } catch (error) {
+                    console.error('Error loading progress for course:', course.id, error)
+                    return course
+                }
+            })
+
+            const coursesWithProgress = await Promise.all(courseProgressPromises)
+
+            // Calculate overall progress stats
+            const totalProgress = coursesWithProgress.reduce((sum, course) => sum + course.progress, 0)
+            const avgProgress = coursesWithProgress.length > 0 ? Math.round(totalProgress / coursesWithProgress.length) : 0
+            const completedCourses = coursesWithProgress.filter(course => course.completed).length
+
+            setOverallProgress({
+                avgProgress,
+                totalCertificates: completedCourses
+            })
+
+            console.log('Formatted courses with progress:', coursesWithProgress)
+            setEnrolledCourses(coursesWithProgress)
             setDashboardLoading(false)
         } catch (error) {
             console.error('Error loading enrolled courses:', error)
@@ -390,7 +425,7 @@ const Dashboard = () => {
                                         <TrendingUp className="h-5 w-5 sm:h-6 sm:w-6" />
                                     </div>
                                     <div>
-                                        <div className="text-xl sm:text-2xl font-bold text-gray-900">0%</div>
+                                        <div className="text-xl sm:text-2xl font-bold text-gray-900">{overallProgress.avgProgress}%</div>
                                         <div className="text-xs sm:text-sm text-gray-600">Avg Progress</div>
                                     </div>
                                 </div>
@@ -401,7 +436,7 @@ const Dashboard = () => {
                                         <Award className="h-5 w-5 sm:h-6 sm:w-6" />
                                     </div>
                                     <div>
-                                        <div className="text-xl sm:text-2xl font-bold text-gray-900">0</div>
+                                        <div className="text-xl sm:text-2xl font-bold text-gray-900">{overallProgress.totalCertificates}</div>
                                         <div className="text-xs sm:text-sm text-gray-600">Certificates</div>
                                     </div>
                                 </div>
@@ -473,6 +508,22 @@ const Dashboard = () => {
                                                 </div>
                                                 <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-2">{course.title}</h3>
                                                 <p className="text-xs sm:text-sm text-gray-600 mb-4 line-clamp-2">{course.description}</p>
+                                                
+                                                {/* Progress bar for enrolled courses */}
+                                                {activeCategory === 'enrolled' && (
+                                                    <div className="mb-4">
+                                                        <div className="flex justify-between items-center mb-1">
+                                                            <span className="text-xs font-medium text-gray-700">Progress</span>
+                                                            <span className="text-xs text-gray-500">{course.progress}%</span>
+                                                        </div>
+                                                        <div className="w-full bg-gray-200 rounded-full h-2">
+                                                            <div 
+                                                                className="bg-gradient-to-r from-accent-500 to-accent-600 h-2 rounded-full transition-all duration-500"
+                                                                style={{ width: `${course.progress}%` }}
+                                                            ></div>
+                                                        </div>
+                                                    </div>
+                                                )}
 
                                                 {isEnrolled(course.id) ? (
                                                     <Link
