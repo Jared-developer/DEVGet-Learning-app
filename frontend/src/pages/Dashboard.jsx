@@ -146,11 +146,24 @@ const Dashboard = () => {
         setEnrollmentLoading(true)
 
         try {
-            const { data: courses, error: searchError } = await supabase
+            // First try to find by exact title match
+            let { data: courses, error: searchError } = await supabase
                 .from('courses')
                 .select('id, title')
-                .ilike('title', `%${selectedCourse.title}%`)
+                .eq('title', selectedCourse.title)
                 .limit(1)
+
+            // If no exact match, try partial match for HTML course
+            if (!courses || courses.length === 0) {
+                ({ data: courses, error: searchError } = await supabase
+                    .from('courses')
+                    .select('id, title')
+                    .or('title.ilike.%HTML for Absolute Beginners%,title.ilike.%HTML%')
+                    .limit(1))
+            }
+
+            console.log('Course search result:', courses)
+            console.log('Looking for course with title:', selectedCourse.title)
 
             if (searchError || !courses || courses.length === 0) {
                 alert('Course not found in database')

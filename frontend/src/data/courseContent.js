@@ -2411,254 +2411,30 @@ const ProgressChart = ({ habits }) => {
     ]
   },
   'html-fundamentals': {
-    title: 'HTML for Absolute Beginners',
-    description: 'Your first step into web development. Learn HTML from scratch with no prior experience needed.',
+    title: htmlAbsoluteBeginners.title,
+    description: htmlAbsoluteBeginners.description,
     instructor: 'DEVGet Learning Team',
     duration: 'Self-paced',
-    lessons: 8,
+    lessons: htmlAbsoluteBeginners.sections.length,
     level: 'Beginner',
     modules: [
       {
         id: 1,
         title: 'HTML Fundamentals',
-        lessons: [
-          {
-            id: 1,
-            title: 'What is HTML?',
-            type: 'video',
-            duration: '15 min',
-            videoUrl: 'https://www.youtube.com/embed/UB1O30fR-EE',
-            notes: `# What is HTML?
-
-HTML stands for **HyperText Markup Language**.
-
-It is **not a programming language** (like Python or JavaScript). Programming languages create logic and functionality. HTML is a **markup language**.
-
-Its job is to **structure content**. It tells the web browser (like Chrome, Safari, or Firefox) what the different parts of a page are. For example:
-
-- "This text is a heading."
-- "This block of text is a paragraph."
-- "This is an image."
-- "This text is a link to another page."
-
-Think of it like a **web architect**. You use HTML to draw the blueprints for a house, defining where the walls, roof, doors, and windows go. CSS (Cascading Style Sheets) is the interior decorator that adds colors, fonts, and layout, and JavaScript is the electricity that makes things interactive.`
-          },
-          {
-            id: 2,
-            title: 'Setting Up Your Workspace',
-            type: 'video',
-            duration: '10 min',
-            videoUrl: 'https://www.youtube.com/embed/BsDoLVMnmZs',
-            notes: `# Setting Up Your Workspace
-
-You need two things to start writing HTML:
-
-## A Text Editor
-This is where you'll write your code. Don't use a word processor like Microsoft Word (it adds invisible formatting). Use a plain text editor.
-
-**Beginner-friendly:** Visual Studio Code (VS Code) is the industry standard and completely free. Download it from code.visualstudio.com.
-
-**Alternatives:** Sublime Text, Atom, or even Notepad (on Windows) or TextEdit (on Mac, set to plain text mode).
-
-## A Web Browser
-You already have one! Chrome or Firefox are the best for development because they have excellent built-in developer tools to help you inspect and debug your code.`
-          },
-          {
-            id: 3,
-            title: 'The Structure of an HTML Document',
-            type: 'video',
-            duration: '25 min',
-            videoUrl: 'https://www.youtube.com/embed/salY_Sm6mv4',
-            notes: `# The Structure of an HTML Document
-
-Every HTML document follows the same basic structure. It's like a universal template.`,
-            codeSnippet: `<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My First Webpage</title>
-</head>
-<body>
-    <h1>Hello, World!</h1>
-    <p>This is my first paragraph.</p>
-</body>
-</html>`
-          },
-          {
-            id: 4,
-            title: 'Core Concepts: Elements, Tags, and Attributes',
-            type: 'video',
-            duration: '20 min',
-            videoUrl: 'https://www.youtube.com/embed/qz0aGYrrlhU',
-            notes: `# Core Concepts: Elements, Tags, and Attributes
-
-## Tags
-The building blocks. They are keywords surrounded by angle brackets. Most tags come in pairs: an opening tag \`<p>\` and a closing tag \`</p>\`. The closing tag has a forward slash \`/\`.
-
-## Elements
-The combination of an opening tag, the content inside, and the closing tag.
-
-\`\`\`html
-<p>This is a paragraph element.</p>
-\`\`\`
-
-## Attributes
-Provide extra information about an element. They are placed inside the opening tag. They usually come in name/value pairs like \`name="value"\`. A common example is the \`href\` attribute for links.`,
-            codeSnippet: `<a href="https://www.example.com">Click here to visit Example.com</a>
-
-<!-- Breakdown:
-- 'a' is the tag
-- 'href' is an attribute (specifying the link destination)
-- 'https://www.example.com' is the value of the attribute
-- 'Click here to visit Example.com' is the content
--->`
-          },
-          {
-            id: 5,
-            title: 'Essential HTML Elements',
-            type: 'video',
-            duration: '45 min',
-            videoUrl: 'https://www.youtube.com/embed/MDLn5-zSQQI',
-            notes: `# Essential HTML Elements
-
-These are the tags you'll use 90% of the time.
-
-## Headings & Paragraphs
-Headings range from \`<h1>\` (most important) to \`<h6>\` (least important). Use them to structure your content hierarchy, like an outline.
-
-## Links (Anchors)
-Links are what make the web, "the web". Use the \`<a>\` tag (anchor) with the \`href\` attribute.
-
-## Images
-Images are self-closing tags (they don't have a closing tag). Use the \`<img>\` tag with \`src\` (source) and \`alt\` (alternative text) attributes.
-
-**Always include alt text.** It's crucial for users with screen readers and for SEO.
-
-## Lists
-There are two main types of lists: unordered (bulleted) and ordered (numbered). List items are always wrapped in \`<li>\` tags.
-
-## Divs & Spans (Containers)
-- **\`<div>\`**: A block-level container. It will take up the full width available and start on a new line.
-- **\`<span>\`**: An inline container. It only takes up as much width as necessary and does not start on a new line.`,
-            codeSnippet: `<!-- Headings & Paragraphs -->
-<h1>Main Title of the Page</h1>
-<h2>Section Title</h2>
-<p>This is a regular paragraph of text.</p>
-
-<!-- Links -->
-<a href="https://www.google.com">Visit Google</a>
-<a href="about.html">About Us</a>
-
-<!-- Images -->
-<img src="images/my-photo.jpg" alt="A description of the photo">
-
-<!-- Lists -->
-<ul>
-    <li>Apples</li>
-    <li>Bananas</li>
-</ul>
-
-<ol>
-    <li>Wake up</li>
-    <li>Brush teeth</li>
-</ol>
-
-<!-- Containers -->
-<div class="card">
-    <h2>A Card Title</h2>
-    <p>Text with <span class="highlight">highlighted word</span>.</p>
-</div>`
-          },
-          {
-            id: 6,
-            title: 'Building Your First Webpage',
-            type: 'project',
-            duration: '2 hours',
-            instructions: `# Building Your First Webpage
-
-Let's put everything together! Create a file called \`index.html\` and build a recipe page.
-
-## Requirements:
-1. Use proper HTML document structure (DOCTYPE, html, head, body)
-2. Add a main heading with the recipe name
-3. Include an image (can use placeholder from https://placehold.co)
-4. Create an unordered list for ingredients
-5. Create an ordered list for instructions
-6. Add a paragraph with a link to another recipe site
-
-## Steps to View:
-1. Save the file
-2. Navigate to where you saved index.html
-3. Double-click the file to open in your browser
-
-Congratulations! You've built your first webpage.`,
-            codeSnippet: `<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Awesome Recipe</title>
-</head>
-<body>
-    <h1>My Favorite Pancake Recipe</h1>
-    
-    <img src="https://placehold.co/800x400" alt="Delicious pancakes with syrup">
-    
-    <h2>Ingredients</h2>
-    <ul>
-        <li>1 cup all-purpose flour</li>
-        <li>2 tablespoons sugar</li>
-        <li>1 teaspoon baking powder</li>
-        <li>1 cup milk</li>
-        <li>1 egg</li>
-    </ul>
-    
-    <h2>Instructions</h2>
-    <ol>
-        <li>Mix all dry ingredients in a bowl.</li>
-        <li>Add milk and egg. Stir until just combined.</li>
-        <li>Pour batter onto a hot, lightly oiled pan.</li>
-        <li>Cook until bubbles form, then flip and cook until golden brown.</li>
-    </ol>
-    
-    <p>For more great recipes, visit <a href="https://www.allrecipes.com" target="_blank">AllRecipes.com</a>.</p>
-</body>
-</html>`
-          },
-          {
-            id: 7,
-            title: 'Next Steps & Resources',
-            type: 'video',
-            duration: '15 min',
-            videoUrl: 'https://www.youtube.com/embed/pQN-pnXPaVg',
-            notes: `# Next Steps & Resources
-
-You've learned the fundamentals! Here's where to go next:
-
-## Continue Learning
-
-- **Learn CSS**: Your page works, but it looks plain. CSS will let you add colors, fonts, layout (like Flexbox and Grid), and make it look professional.
-
-- **Learn Semantic HTML**: You used \`<div>\` and \`<span>\`, but there are more meaningful tags like \`<article>\`, \`<section>\`, \`<nav>\`, \`<header>\`, and \`<footer>\`. These improve accessibility and SEO.
-
-- **Start Using Developer Tools**: Right-click on any webpage and select "Inspect". This opens the browser's DevTools. You can see the HTML structure, experiment with CSS live, and debug your code.
-
-## Great Resources for Learning More
-
-- **MDN Web Docs (Mozilla Developer Network)**: The definitive, most accurate documentation for HTML, CSS, and JavaScript.
-
-- **freeCodeCamp**: Offers an excellent, interactive, and free curriculum. Their "Responsive Web Design" course is a perfect next step.
-
-- **W3Schools**: A great reference with simple explanations and "Try it Yourself" editors.
-
-## Keep Practicing
-
-Your journey has just begun. Keep practicing by building small projects—a personal bio page, a list of your favorite movies, or a simple blog layout. The more you build, the more natural it will become.
-
-**Happy coding!**`
-          }
-        ]
+        lessons: htmlAbsoluteBeginners.sections.map((section, index) => ({
+          id: index + 1,
+          title: section.title,
+          type: 'reading',
+          duration: '20-30 min',
+          notes: section.content,
+          codeSnippet: section.code,
+          explanation: section.explanation,
+          subsections: section.subsections,
+          steps: section.steps,
+          conclusion: section.conclusion,
+          keyTakeaways: index === htmlAbsoluteBeginners.sections.length - 1 ? htmlAbsoluteBeginners.keyTakeaways : undefined,
+          practiceExercises: index === htmlAbsoluteBeginners.sections.length - 1 ? htmlAbsoluteBeginners.practiceExercises : undefined
+        }))
       }
     ]
   },
@@ -2708,7 +2484,7 @@ selector {
 - Easier maintenance
 - Better performance
 - Responsive design capabilities
-            `,
+          `,
             codeSnippet: `/* External CSS (styles.css) */
 /* Selector targeting h1 elements */
 h1 {
@@ -2769,7 +2545,7 @@ Selectors are patterns used to select and style HTML elements.
 - Use IDs sparingly (only once per page)
 - Keep selectors simple
 - Avoid over-specific selectors
-            `,
+          `,
             codeSnippet: `/* Element selector */
 p {
   color: #333;
@@ -2817,7 +2593,7 @@ input[type="text"] {
     description: 'Programming fundamentals and DOM manipulation',
     instructor: 'DEVGet Learning Team',
     duration: 'Self-paced',
-    lessons: 3,
+    lessons: 6,
     level: 'Beginner',
     modules: [
       {
@@ -3060,13 +2836,7 @@ let fruits = ["apple", "banana"];
 for (let fruit of fruits) {
   console.log(fruit);
 }`
-          }
-        ]
-      },
-      {
-        id: 2,
-        title: 'DOM Manipulation',
-        lessons: [
+          },
           {
             id: 6,
             title: 'Introduction to DOM',
