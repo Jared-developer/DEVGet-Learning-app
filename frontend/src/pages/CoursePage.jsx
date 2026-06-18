@@ -8,6 +8,7 @@ import AIAssistant from '../components/AIAssistant'
 import CourseCommunity from '../components/CourseCommunity'
 import AssignmentSubmission from '../components/AssignmentSubmission'
 import InstructorUpdates from '../components/InstructorUpdates'
+import ErrorBoundary from '../components/ErrorBoundary'
 import {
     ArrowLeft,
     Play,
@@ -24,7 +25,8 @@ import {
     MessageCircle,
     User,
     LogOut,
-    Bell
+    Bell,
+    TrendingUp
 } from 'lucide-react'
 import { courseContent } from '../data/courseContent'
 
@@ -724,7 +726,9 @@ const CoursePage = () => {
                     {/* Community Tab */}
                     {activeTab === 'community' && (
                         courseDbId ? (
-                            <CourseCommunity courseId={courseDbId} />
+                            <ErrorBoundary fallbackMessage="Unable to load community chat. Please refresh the page or try again later.">
+                                <CourseCommunity courseId={courseDbId} />
+                            </ErrorBoundary>
                         ) : (
                             <div className="text-center py-12">
                                 <p className="text-gray-600">Loading community...</p>

@@ -29,22 +29,41 @@ export const AuthProvider = ({ children }) => {
             setIsFetchingRoles(true)
             console.log('Fetching roles for user:', currentUser.id)
 
-            // Set a timeout to prevent hanging
-            const timeoutPromise = new Promise((_, reject) =>
-                setTimeout(() => reject(new Error('Role fetch timeout')), 5000)
-            )
+            // Set a shorter timeout and implement retry logic
+            const createTimeoutPromise = (ms) => new Promise((_, reject) =>
+                setTimeout(() => reject(new Error('Role fetch timeout')), ms)
+            );
 
-            const fetchPromise = supabase
-                .from('user_roles')
-                .select('role')
-                .eq('user_id', currentUser.id)
-                .then(result => result)
+            let result;
+            let retryCount = 0;
+            const maxRetries = 2;
 
-            const result = await Promise.race([fetchPromise, timeoutPromise])
-                .catch(err => {
-                    console.warn('Role fetch failed or timed out:', err.message)
-                    return { data: null, error: err }
-                })
+            while (retryCount <= maxRetries) {
+                try {
+                    const timeoutMs = 5000 + (retryCount * 2000); // Increase timeout with each retry
+                    const timeoutPromise = createTimeoutPromise(timeoutMs);
+                    
+                    const fetchPromise = supabase
+                        .from('user_roles')
+                        .select('role')
+                        .eq('user_id', currentUser.id);
+
+                    result = await Promise.race([fetchPromise, timeoutPromise]);
+                    break; // Success, exit retry loop
+                } catch (err) {
+                    retryCount++;
+                    console.warn(`Role fetch attempt ${retryCount} failed:`, err.message);
+                    
+                    if (retryCount > maxRetries) {
+                        console.warn('All role fetch attempts failed, defaulting to student role');
+                        result = { data: null, error: err };
+                        break;
+                    }
+                    
+                    // Wait before retrying with exponential backoff
+                    await new Promise(resolve => setTimeout(resolve, 1000 * retryCount));
+                }
+            }
 
             if (result.error) {
                 console.warn('Error fetching user roles, defaulting to student:', result.error.message)
