@@ -401,7 +401,7 @@ const LandingPage = () => {
                             </h1>
 
                             <p className="text-lg sm:text-xl lg:text-2xl text-white/90 mb-6 sm:mb-8 leading-relaxed max-w-2xl mx-auto lg:mx-0 animate-fadeInUp opacity-0" style={{ animationDelay: '0.4s', animationFillMode: 'forwards' }}>
-                                Master in-demand tech skills with world-class courses. Completely free. Forever.
+                                Master in-demand tech skills with world-class courses. No cost and Fully sponsored.
                             </p>
 
                             {/* Benefits List - Hidden on smallest screens, shown on sm+ */}

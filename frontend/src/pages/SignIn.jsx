@@ -88,10 +88,14 @@ const SignIn = () => {
                 'student'
             )
             if (signUpError) {
-                if (signUpError.message.includes('already registered')) {
-                    setError('An account with this email already exists. Try signing in.')
+                if (signUpError.message.includes('rate limit') || signUpError.message.includes('Rate limit')) {
+                    setError('Too many signup attempts. Please wait a few minutes before trying again.');
+                } else if (signUpError.message.includes('Email rate limit exceeded')) {
+                    setError('Email rate limit exceeded. Please wait a moment and try again.');
+                } else if (signUpError.message.includes('already registered') || signUpError.message.includes('User already registered')) {
+                    setError('An account with this email already exists. Try signing in instead.');
                 } else {
-                    setError(signUpError.message)
+                    setError(signUpError.message);
                 }
             } else {
                 setSuccessMessage('Account created! Check your email for a verification link, then sign in.')
@@ -193,7 +197,7 @@ const SignIn = () => {
                                                 <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                                             </svg>
                                         </div>
-                                        <span className="text-white/90">100% Free - Forever</span>
+                                        <span className="text-white/90">100% Free</span>
                                     </div>
                                     <div className="flex items-center gap-3">
                                         <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
