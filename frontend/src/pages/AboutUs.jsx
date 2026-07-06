@@ -230,7 +230,7 @@ const AboutUs = () => {
                             <div className="flex flex-col items-center text-center">
                                 <div className="w-16 h-16 mb-4">
                                     <img
-                                        src="/images/Partiner-logos/Spaceshift_Logo.png"
+                                        src="/images/Partiner-logos/Space_Shift_logo.png"
                                         alt="Spaceshift"
                                         className="w-full h-full object-contain"
                                     />
@@ -260,7 +260,7 @@ const AboutUs = () => {
                             <div className="flex flex-col items-center text-center">
                                 <div className="w-16 h-16 mb-4">
                                     <img
-                                        src="/images/logo.png"
+                                        src="/images/logos/updatedLogo.jpg"
                                         alt="Devget Learning"
                                         className="w-full h-full object-contain"
                                     />
