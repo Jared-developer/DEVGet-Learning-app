@@ -825,7 +825,7 @@ const LandingPage = () => {
                     </div>
 
                     <h2 className="text-4xl sm:text-5xl font-bold mb-6">
-                        Fully Sponsored. No Catch. Forever.
+                        Fully Sponsored.
                     </h2>
 
                     <p className="text-xl sm:text-2xl text-white/90 mb-8 leading-relaxed max-w-2xl mx-auto">

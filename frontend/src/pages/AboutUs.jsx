@@ -7,13 +7,13 @@ const AboutUs = () => {
     const offerings = [
         {
             icon: <GraduationCap className="h-6 w-6" />,
-            title: "Scholarship-Based Access",
-            description: "100% free education through our scholarship program"
+            title: "Fully Sponsored Access",
+            description: "100% free education with no application fees or hidden costs"
         },
         {
             icon: <BookOpen className="h-6 w-6" />,
             title: "Comprehensive Curriculum",
-            description: "From basics to advanced AI/ML and full-stack development"
+            description: "From basics to advanced AI/ML, Agentic AI, and full-stack development"
         },
         {
             icon: <Users className="h-6 w-6" />,
@@ -30,20 +30,20 @@ const AboutUs = () => {
     const impact = [
         {
             icon: <GraduationCap className="h-8 w-8" />,
-            title: "Scholarship-Based",
-            description: "Every student receives a full scholarship covering all courses and materials",
+            title: "Fully Sponsored",
+            description: "Every student receives full sponsorship covering all courses and materials",
             gradient: "from-accent-500 to-accent-600"
         },
         {
             icon: <Globe className="h-8 w-8" />,
             title: "Africa-Focused",
-            description: "An award winning project prioritizing underserved communities across the African continent",
+            description: "Prioritizing underserved communities across the African continent with world-class tech education",
             gradient: "from-primary-500 to-primary-700"
         },
         {
             icon: <Heart className="h-8 w-8" />,
-            title: "Multi-Disciplinary Team",
-            description: "Built by a multi-disciplinary team, creating opportunities for all",
+            title: "Partnership-Driven",
+            description: "Built through strategic partnerships with leading organizations in tech and education",
             gradient: "from-success-500 to-success-600"
         }
     ]
@@ -80,18 +80,18 @@ const AboutUs = () => {
                 <div className="max-w-7xl mx-auto text-center">
                     <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-white text-sm font-medium mb-8">
                         <GraduationCap className="h-4 w-4" />
-                        Scholarship-Based Learning
+                        Fully Sponsored
                     </div>
                     <h1 className="text-5xl sm:text-6xl font-bold text-white mb-6">
                         Empowering <span className="text-warning-300">African Youth</span>
                         <br />Through Free Tech & AI Education
                     </h1>
                     <p className="text-xl text-white/90 mb-8 max-w-3xl mx-auto">
-                        An award winning project providing free tech and AI education to underserved communities across Africa
+                        A fully sponsored program providing free tech and AI education to underserved communities across Africa
                     </p>
                     <div className="inline-flex items-center gap-3 px-6 py-3 bg-white/10 backdrop-blur-md rounded-full border border-white/20">
                         <Heart className="h-5 w-5 text-white" />
-                        <span className="text-white font-semibold">All courses are completely free through our scholarship program</span>
+                        <span className="text-white font-semibold">All courses are fully sponsored - completely free</span>
                     </div>
                 </div>
             </section>
@@ -115,7 +115,7 @@ const AboutUs = () => {
                     <div className="max-w-4xl mx-auto">
                         <div className="bg-white rounded-3xl shadow-2xl p-8 sm:p-12 border border-accent-100">
                             <p className="text-xl text-gray-700 leading-relaxed mb-6">
-                                We envision a future where geographical location and economic status are no longer barriers to world-class Tech & AI education. As an award winning project, we're committed to providing free tech and AI education to underserved communities across Africa, ensuring every young person has the opportunity to learn, grow, and become a leader in the global technology industry.
+                                We envision a future where geographical location and economic status are no longer barriers to world-class Tech & AI education. As a fully sponsored program, we're committed to providing free tech and AI education to underserved communities across Africa, ensuring every young person has the opportunity to learn, grow, and become a leader in the global technology industry.
                             </p>
                             <p className="text-xl text-gray-700 leading-relaxed mb-6">
                                 Through DEVGet Learning, we're building a movement that transforms lives, communities, and entire nations by empowering the next generation with the skills, knowledge, and confidence to shape the digital future of Africa and beyond.
@@ -140,16 +140,16 @@ const AboutUs = () => {
                         <div>
                             <div className="inline-flex items-center gap-2 px-4 py-2 bg-accent-100 rounded-full text-accent-700 text-sm font-medium mb-6">
                                 <GraduationCap className="h-4 w-4" />
-                                Scholarship Program
+                                Fully Sponsored Program
                             </div>
                             <h2 className="text-4xl font-bold text-gray-900 mb-6">
-                                Breaking Barriers Through Scholarships
+                                Breaking Barriers Through Full Sponsorship
                             </h2>
                             <p className="text-lg text-gray-600 mb-4 leading-relaxed">
-                                We believe that financial constraints should never limit a young person's potential. As an award winning project, DEVGet Learning operates on a 100% scholarship basis - every student receives full access to all courses, materials, and resources at absolutely no cost.
+                                We believe that financial constraints should never limit a young person's potential. DEVGet Learning operates on a 100% sponsored basis - every student receives full access to all courses, materials, and resources at absolutely no cost.
                             </p>
                             <p className="text-lg text-gray-600 mb-4 leading-relaxed">
-                                Our scholarship program is designed to reach underserved communities across Africa, providing them with the same quality Tech & AI education available to students anywhere in the world.
+                                Our fully sponsored program is designed to reach underserved communities across Africa, providing them with the same quality Tech & AI education available to students anywhere in the world.
                             </p>
                             <p className="text-lg text-gray-600 leading-relaxed">
                                 Through partnerships, donations, and community support, we're creating opportunities for the next generation of African tech leaders to develop the skills they need to excel in the global digital economy.
@@ -211,6 +211,68 @@ const AboutUs = () => {
                 </div>
             </section>
 
+            {/* Partners Section */}
+            <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-50 to-white">
+                <div className="max-w-7xl mx-auto">
+                    <div className="text-center mb-16">
+                        <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary-100 rounded-full text-primary-700 text-sm font-medium mb-6">
+                            <Users className="h-4 w-4" />
+                            Our Partners
+                        </div>
+                        <h2 className="text-4xl font-bold text-gray-900 mb-4">Trusted by Leading Organizations</h2>
+                        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                            We collaborate with innovative organizations to bring you world-class education and opportunities
+                        </p>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        {/* Spaceshift Logo */}
+                        <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100">
+                            <div className="flex flex-col items-center text-center">
+                                <div className="w-16 h-16 mb-4">
+                                    <img
+                                        src="/images/Partiner-logos/Spaceshift_Logo.png"
+                                        alt="Spaceshift"
+                                        className="w-full h-full object-contain"
+                                    />
+                                </div>
+                                <h3 className="text-lg font-bold text-gray-900 mb-2">Spaceshift</h3>
+                                <p className="text-gray-600 text-sm">Leading innovation in space technology and education</p>
+                            </div>
+                        </div>
+
+                        {/* AI & STEM HUB Logo */}
+                        <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100">
+                            <div className="flex flex-col items-center text-center">
+                                <div className="w-16 h-16 mb-4">
+                                    <img
+                                        src="/images/Partiner-logos/AI_&_STEM_Logo.jpeg"
+                                        alt="AI & STEM HUB"
+                                        className="w-full h-full object-contain"
+                                    />
+                                </div>
+                                <h3 className="text-lg font-bold text-gray-900 mb-2">AI & STEM HUB</h3>
+                                <p className="text-gray-600 text-sm">Advancing artificial intelligence and STEM education across Africa</p>
+                            </div>
+                        </div>
+
+                        {/* Devget Learning Logo */}
+                        <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100">
+                            <div className="flex flex-col items-center text-center">
+                                <div className="w-16 h-16 mb-4">
+                                    <img
+                                        src="/images/logo.png"
+                                        alt="Devget Learning"
+                                        className="w-full h-full object-contain"
+                                    />
+                                </div>
+                                <h3 className="text-lg font-bold text-gray-900 mb-2">Devget Learning</h3>
+                                <p className="text-gray-600 text-sm">Empowering African youth with world-class tech education</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             {/* Impact Section */}
             <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
                 <div className="max-w-7xl mx-auto">
@@ -263,15 +325,15 @@ const AboutUs = () => {
             <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-accent-50">
                 <div className="max-w-4xl mx-auto text-center">
                     <GraduationCap className="h-16 w-16 text-accent-600 mx-auto mb-6" />
-                    <h2 className="text-4xl font-bold text-gray-900 mb-4">Apply for a Scholarship Today</h2>
+                    <h2 className="text-4xl font-bold text-gray-900 mb-4">Join Our Fully Sponsored Program</h2>
                     <p className="text-xl text-gray-600 mb-4 max-w-2xl mx-auto">
-                        Our scholarship program is open to all motivated youth across Africa who are passionate about learning Tech & AI. As an award winning project, we're committed to breaking down barriers to quality education.
+                        Our fully sponsored program is open to all motivated youth across Africa who are passionate about learning Tech & AI. We're committed to breaking down barriers to quality education.
                     </p>
                     <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
                         No application fees. No tuition costs. No hidden charges. Just your commitment to learning and growing.
                     </p>
                     <div className="bg-accent-50 border border-accent-200 rounded-xl p-6 mb-8 max-w-2xl mx-auto">
-                        <h3 className="text-lg font-semibold text-gray-900 mb-3">Scholarship Benefits Include:</h3>
+                        <h3 className="text-lg font-semibold text-gray-900 mb-3">Your Sponsorship Includes:</h3>
                         <ul className="text-left space-y-2 text-gray-700">
                             <li className="flex items-start gap-2">
                                 <span className="text-accent-600 mt-1">✓</span>
@@ -300,7 +362,7 @@ const AboutUs = () => {
                         className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-accent-600 to-primary-600 text-white rounded-xl text-lg font-semibold hover:from-accent-700 hover:to-primary-700 hover:scale-105 transition-all shadow-lg transform duration-300"
                     >
                         <GraduationCap className="h-5 w-5" />
-                        Apply for Scholarship Now
+                        Join Our Program Now
                         <ArrowRight className="h-5 w-5" />
                     </Link>
                     <p className="text-sm text-gray-500 mt-4">
