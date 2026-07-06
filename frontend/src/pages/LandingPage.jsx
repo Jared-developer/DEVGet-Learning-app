@@ -690,7 +690,7 @@ const LandingPage = () => {
                     <div className="text-center mb-12 sm:mb-16">
                         <div className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 bg-primary-100 rounded-full text-primary-700 text-xs sm:text-sm font-bold mb-3 sm:mb-4">
                             <Users className="h-3 w-3 sm:h-4 sm:w-4" />
-                            AI & STEM HUB
+                            Our Partners
                         </div>
                         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 sm:mb-4 px-4">
                             Trusted by Leading Organizations
@@ -711,7 +711,7 @@ const LandingPage = () => {
                                         className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300"
                                     />
                                 </div>
-                                <h3 className="text-xl font-bold text-gray-900 mb-2">AI & STEM</h3>
+                                <h3 className="text-xl font-bold text-gray-900 mb-2">AI & STEM HUB</h3>
                                 <p className="text-gray-600 text-sm leading-relaxed">
                                     Advancing artificial intelligence and STEM education across Africa
                                 </p>
