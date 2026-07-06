@@ -91,7 +91,7 @@ const LandingPage = () => {
     ]
 
     const stats = [
-        { number: "100%", label: "Free Access", icon: <Heart className="h-6 w-6" /> },
+        { number: "100%", label: "Fully Sponsored", icon: <Heart className="h-6 w-6" /> },
         { number: "8+", label: "Courses", icon: <BookOpen className="h-6 w-6" /> },
         { number: "1000+", label: "Active Learners", icon: <Users className="h-6 w-6" /> },
         { number: "24/7", label: "Learning Support", icon: <Clock className="h-6 w-6" /> }
@@ -684,6 +684,121 @@ const LandingPage = () => {
                 </div>
             </section>
 
+            {/* Partners Section */}
+            <section className="py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-gray-50">
+                <div className="max-w-7xl mx-auto">
+                    <div className="text-center mb-12 sm:mb-16">
+                        <div className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 bg-primary-100 rounded-full text-primary-700 text-xs sm:text-sm font-bold mb-3 sm:mb-4">
+                            <Users className="h-3 w-3 sm:h-4 sm:w-4" />
+                            Our Partners
+                        </div>
+                        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 sm:mb-4 px-4">
+                            Trusted by Leading Organizations
+                        </h2>
+                        <p className="text-base sm:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto px-4">
+                            We collaborate with innovative organizations to bring you world-class education and opportunities
+                        </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 items-center justify-items-center">
+                        {/* AI & STEM Logo */}
+                        <div className="group bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 w-full max-w-sm">
+                            <div className="flex flex-col items-center text-center">
+                                <div className="w-32 h-32 mb-6 overflow-hidden rounded-xl bg-gray-50 flex items-center justify-center">
+                                    <img
+                                        src="/images/Partiner-logos/AI_&_STEM_Logo.jpeg"
+                                        alt="AI & STEM"
+                                        className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300"
+                                    />
+                                </div>
+                                <h3 className="text-xl font-bold text-gray-900 mb-2">AI & STEM</h3>
+                                <p className="text-gray-600 text-sm leading-relaxed">
+                                    Advancing artificial intelligence and STEM education across Africa
+                                </p>
+                            </div>
+                        </div>
+
+                        {/* Space Shift Logo */}
+                        <div className="group bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 w-full max-w-sm">
+                            <div className="flex flex-col items-center text-center">
+                                <div className="w-32 h-32 mb-6 overflow-hidden rounded-xl bg-gray-50 flex items-center justify-center">
+                                    <img
+                                        src="/images/Partiner-logos/Space_Shift_logo.png"
+                                        alt="Space Shift"
+                                        className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300"
+                                    />
+                                </div>
+                                <h3 className="text-xl font-bold text-gray-900 mb-2">Space Shift</h3>
+                                <p className="text-gray-600 text-sm leading-relaxed">
+                                    Transforming the digital landscape through innovative technology solutions
+                                </p>
+                            </div>
+                        </div>
+
+                        {/* Women in STEM Logo */}
+                        <div className="group bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 w-full max-w-sm">
+                            <div className="flex flex-col items-center text-center">
+                                <div className="w-32 h-32 mb-6 overflow-hidden rounded-xl bg-gray-50 flex items-center justify-center">
+                                    <img
+                                        src="/images/Partiner-logos/Women_IN_STEM_LOGO.jpeg"
+                                        alt="Women in STEM"
+                                        className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300"
+                                    />
+                                </div>
+                                <h3 className="text-xl font-bold text-gray-900 mb-2">Women in STEM</h3>
+                                <p className="text-gray-600 text-sm leading-relaxed">
+                                    Empowering women to excel in science, technology, engineering, and mathematics
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Partnership Benefits */}
+                    <div className="mt-16 bg-white rounded-2xl p-8 lg:p-12 shadow-xl border border-gray-200">
+                        <div className="text-center mb-8">
+                            <h3 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-4">
+                                Partnership Impact
+                            </h3>
+                            <p className="text-gray-600 max-w-2xl mx-auto">
+                                Through our strategic partnerships, we're able to provide enhanced learning experiences and real-world opportunities
+                            </p>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                            <div className="text-center">
+                                <div className="w-16 h-16 bg-accent-100 rounded-xl flex items-center justify-center mx-auto mb-4">
+                                    <Target className="h-8 w-8 text-accent-600" />
+                                </div>
+                                <h4 className="text-lg font-semibold text-gray-900 mb-2">Focused Learning</h4>
+                                <p className="text-gray-600 text-sm">
+                                    Curriculum designed with industry leaders to meet real market demands
+                                </p>
+                            </div>
+
+                            <div className="text-center">
+                                <div className="w-16 h-16 bg-primary-100 rounded-xl flex items-center justify-center mx-auto mb-4">
+                                    <Rocket className="h-8 w-8 text-primary-600" />
+                                </div>
+                                <h4 className="text-lg font-semibold text-gray-900 mb-2">Career Opportunities</h4>
+                                <p className="text-gray-600 text-sm">
+                                    Direct pathways to internships and job opportunities with our partners
+                                </p>
+                            </div>
+
+                            <div className="text-center">
+                                <div className="w-16 h-16 bg-green-100 rounded-xl flex items-center justify-center mx-auto mb-4">
+                                    <Users className="h-8 w-8 text-green-600" />
+                                </div>
+                                <h4 className="text-lg font-semibold text-gray-900 mb-2">Community Impact</h4>
+                                <p className="text-gray-600 text-sm">
+                                    Building a stronger tech ecosystem across Africa through collaboration
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             {/* Free Forever Section */}
             <section className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-green-500 to-emerald-600 relative overflow-hidden">
                 <div className="absolute inset-0 opacity-10">
@@ -699,7 +814,7 @@ const LandingPage = () => {
                     </div>
 
                     <h2 className="text-4xl sm:text-5xl font-bold mb-6">
-                        100% Free. No Catch. Forever.
+                        Fully Sponsored. No Catch. Forever.
                     </h2>
 
                     <p className="text-xl sm:text-2xl text-white/90 mb-8 leading-relaxed max-w-2xl mx-auto">

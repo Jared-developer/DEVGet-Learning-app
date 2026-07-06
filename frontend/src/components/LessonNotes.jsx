@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { AlertCircle, Info, Lightbulb, AlertTriangle, CheckCircle, Copy, Check } from 'lucide-react'
+import { AlertCircle, Info, Lightbulb, AlertTriangle, CheckCircle, Copy, Check, Send } from 'lucide-react'
+import BootcampAssignmentSubmission from './BootcampAssignmentSubmission'
 
 const LessonNotes = ({ 
     lesson, 
@@ -9,9 +10,17 @@ const LessonNotes = ({
     showQuizResults, 
     quizScore, 
     onMarkComplete,
-    isCompleted 
+    isCompleted,
+    courseId = '',
+    courseName = ''
 }) => {
     const [copiedCode, setCopiedCode] = useState(null)
+    const [showAssignmentModal, setShowAssignmentModal] = useState(false)
+
+    // Check if this is an AI/ML course assignment that needs the bootcamp submission
+    const isBootcampAssignment = courseId === 'ai-ml' && lesson.weekNumber && 
+        [1, 3, 5, 14].includes(lesson.weekNumber) && 
+        (lesson.type === 'project' || lesson.type === 'assignment')
 
     const copyCode = (code, id) => {
         navigator.clipboard.writeText(code)
@@ -489,10 +498,32 @@ const LessonNotes = ({
                         </div>
                     )}
 
-                    <button className="w-full px-6 py-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-xl font-semibold hover:from-purple-700 hover:to-indigo-700 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
-                        Submit Assignment
-                    </button>
+                    <div className="flex gap-4">
+                        {isBootcampAssignment ? (
+                            <button 
+                                onClick={() => setShowAssignmentModal(true)}
+                                className="flex-1 flex items-center justify-center gap-3 px-6 py-4 bg-gradient-to-r from-yellow-400 to-orange-500 text-white rounded-xl font-semibold hover:from-yellow-500 hover:to-orange-600 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+                            >
+                                <Send className="h-5 w-5" />
+                                Submit to AI Governance Bootcamp
+                            </button>
+                        ) : (
+                            <button className="flex-1 px-6 py-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-xl font-semibold hover:from-purple-700 hover:to-indigo-700 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                                Submit Assignment
+                            </button>
+                        )}
+                    </div>
                 </div>
+            )}
+
+            {/* Bootcamp Assignment Submission Modal */}
+            {showAssignmentModal && (
+                <BootcampAssignmentSubmission
+                    weekNumber={lesson.weekNumber}
+                    courseName={courseName}
+                    assignmentTitle={lesson.title}
+                    onClose={() => setShowAssignmentModal(false)}
+                />
             )}
         </div>
     )

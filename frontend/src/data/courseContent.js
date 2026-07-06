@@ -3506,6 +3506,47 @@ LIMIT 10;`
             videoUrl: week1Project.videoUrl,
             notes: week1Project.notes,
             codeSnippet: week1Project.codeSnippet
+          },
+          {
+            id: 8.5,
+            title: 'Week 1 Final Assignment - AI Governance Bootcamp',
+            type: 'assignment',
+            duration: '4-6 hours',
+            description: 'Complete your Week 1 final assignment for the AI Governance & Digital Safety Bootcamp. This assignment covers the fundamentals of AI/ML and Python basics learned in this week.',
+            tasks: [
+              {
+                id: 1,
+                title: 'Python Fundamentals Implementation',
+                description: 'Create a comprehensive Python project demonstrating variables, data types, control structures, and functions',
+                points: 30,
+                requirements: [
+                  'Use all basic Python data types (int, float, string, boolean, list, dictionary)',
+                  'Implement at least 3 custom functions',
+                  'Use control structures (if-elif-else, loops)',
+                  'Include proper error handling'
+                ]
+              },
+              {
+                id: 2,
+                title: 'AI Concepts Documentation',
+                description: 'Write a report explaining key AI/ML concepts covered this week',
+                points: 20,
+                requirements: [
+                  'Define artificial intelligence and machine learning',
+                  'Explain the difference between supervised and unsupervised learning',
+                  'Provide real-world examples of AI applications',
+                  'Minimum 500 words'
+                ]
+              }
+            ],
+            submissionGuidelines: [
+              'Upload your complete project to a public GitHub repository',
+              'Include a README.md file with setup instructions',
+              'Add comments to your code explaining key concepts',
+              'Submit the GitHub repository link through the bootcamp form'
+            ],
+            points: 50,
+            dueDate: 'End of Week 1'
           }
         ]
       },
@@ -3640,6 +3681,48 @@ LIMIT 10;`
             videoUrl: week3Project.videoUrl,
             notes: week3Project.notes,
             codeSnippet: week3Project.codeSnippet
+          },
+          {
+            id: 20.5,
+            title: 'Week 3 Final Assignment - AI Governance Bootcamp',
+            type: 'assignment',
+            duration: '5-7 hours',
+            description: 'Complete your Week 3 final assignment for the AI Governance & Digital Safety Bootcamp focusing on data preprocessing and exploratory data analysis.',
+            tasks: [
+              {
+                id: 1,
+                title: 'Data Preprocessing Pipeline',
+                description: 'Build a complete data preprocessing pipeline using real-world datasets',
+                points: 35,
+                requirements: [
+                  'Handle missing values using appropriate techniques',
+                  'Detect and handle outliers',
+                  'Perform feature scaling and normalization',
+                  'Encode categorical variables',
+                  'Document your preprocessing decisions'
+                ]
+              },
+              {
+                id: 2,
+                title: 'Exploratory Data Analysis',
+                description: 'Conduct comprehensive EDA with visualizations and insights',
+                points: 35,
+                requirements: [
+                  'Create at least 5 different types of visualizations',
+                  'Analyze data distributions and correlations',
+                  'Identify patterns and trends in the data',
+                  'Provide actionable insights from your analysis'
+                ]
+              }
+            ],
+            submissionGuidelines: [
+              'Use Jupyter Notebook for your analysis',
+              'Include clear explanations for each step',
+              'Upload to GitHub with sample data (if possible)',
+              'Submit through the bootcamp submission form'
+            ],
+            points: 70,
+            dueDate: 'End of Week 3'
           }
         ]
       },
@@ -3801,6 +3884,47 @@ LIMIT 10;`
             videoUrl: week5Project.videoUrl,
             notes: week5Project.notes,
             codeSnippet: week5Project.codeSnippet
+          },
+          {
+            id: 36.5,
+            title: 'Week 5 Final Assignment - AI Governance Bootcamp',
+            type: 'assignment',
+            duration: '6-8 hours',
+            description: 'Complete your Week 5 final assignment for the AI Governance & Digital Safety Bootcamp focusing on classification algorithms and model evaluation.',
+            tasks: [
+              {
+                id: 1,
+                title: 'Multi-Algorithm Classification',
+                description: 'Implement and compare multiple classification algorithms on a dataset',
+                points: 40,
+                requirements: [
+                  'Implement at least 4 different classification algorithms',
+                  'Use proper train-validation-test splits',
+                  'Apply cross-validation techniques',
+                  'Compare model performances using appropriate metrics'
+                ]
+              },
+              {
+                id: 2,
+                title: 'Model Evaluation & Ethics',
+                description: 'Evaluate models thoroughly and discuss ethical implications',
+                points: 30,
+                requirements: [
+                  'Calculate precision, recall, F1-score, and AUC',
+                  'Create confusion matrices and ROC curves',
+                  'Discuss potential bias in your model',
+                  'Address fairness and ethical considerations'
+                ]
+              }
+            ],
+            submissionGuidelines: [
+              'Include comprehensive model comparison',
+              'Document ethical considerations and bias analysis',
+              'Provide clear visualizations of results',
+              'Upload complete code and analysis to GitHub'
+            ],
+            points: 70,
+            dueDate: 'End of Week 5'
           }
         ]
       },
@@ -4431,6 +4555,59 @@ LIMIT 10;`
             type: 'quiz',
             duration: '15 min',
             questions: week14Quiz.questions
+          },
+          {
+            id: 102.5,
+            title: 'Week 14 Final Assignment - AI Governance Bootcamp',
+            type: 'assignment',
+            duration: '8-10 hours',
+            description: 'Complete your Week 14 capstone assignment for the AI Governance & Digital Safety Bootcamp focusing on responsible AI and ethical considerations in AI systems.',
+            tasks: [
+              {
+                id: 1,
+                title: 'AI Ethics Case Study Analysis',
+                description: 'Analyze real-world AI ethics cases and propose solutions',
+                points: 40,
+                requirements: [
+                  'Select 3 real-world AI ethics cases from different domains',
+                  'Analyze the ethical issues involved',
+                  'Propose concrete solutions and preventive measures',
+                  'Consider stakeholder perspectives'
+                ]
+              },
+              {
+                id: 2,
+                title: 'Responsible AI Framework Implementation',
+                description: 'Design and implement a responsible AI framework for a specific use case',
+                points: 35,
+                requirements: [
+                  'Choose a specific AI application domain',
+                  'Develop a comprehensive ethical framework',
+                  'Include bias detection and mitigation strategies',
+                  'Create guidelines for transparent AI decision-making'
+                ]
+              },
+              {
+                id: 3,
+                title: 'Digital Safety Recommendations',
+                description: 'Create actionable recommendations for digital safety in AI systems',
+                points: 25,
+                requirements: [
+                  'Address privacy and data protection',
+                  'Include security considerations',
+                  'Propose user education strategies',
+                  'Consider regulatory compliance'
+                ]
+              }
+            ],
+            submissionGuidelines: [
+              'Create a comprehensive report (minimum 2000 words)',
+              'Include practical code examples where applicable',
+              'Provide clear recommendations and action items',
+              'Upload complete submission to GitHub repository'
+            ],
+            points: 100,
+            dueDate: 'End of Week 14'
           }
         ]
       },

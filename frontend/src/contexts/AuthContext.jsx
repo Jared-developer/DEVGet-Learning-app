@@ -221,7 +221,19 @@ export const AuthProvider = ({ children }) => {
 
             if (error) {
                 console.error('Sign up error:', error)
-                return { data, error }
+                
+                // Handle specific error cases for better user experience
+                let userFriendlyError = { ...error };
+                
+                if (error.message.includes('rate limit') || error.message.includes('Rate limit')) {
+                    userFriendlyError.message = 'Too many signup attempts. Please wait a few minutes and try again.';
+                } else if (error.message.includes('Email rate limit exceeded')) {
+                    userFriendlyError.message = 'Email rate limit exceeded. Please wait a moment and try again.';
+                } else if (error.message.includes('already registered') || error.message.includes('User already registered')) {
+                    userFriendlyError.message = 'An account with this email already exists. Try signing in instead.';
+                }
+                
+                return { data, error: userFriendlyError }
             }
 
             // Assign role to user

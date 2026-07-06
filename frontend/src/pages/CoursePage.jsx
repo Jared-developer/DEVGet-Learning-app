@@ -583,6 +583,8 @@ const CoursePage = () => {
                                 quizScore={calculateQuizScore()}
                                 onMarkComplete={markVideoComplete}
                                 isCompleted={isLessonCompleted(`${selectedLesson.weekNumber}-${selectedLesson.id}`)}
+                                courseId={actualCourseId}
+                                courseName={course.title}
                             />
                         </div>
                     )}
