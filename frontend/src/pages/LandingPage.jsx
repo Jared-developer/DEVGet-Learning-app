@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { BookOpen, Code, Users, Globe, Heart, Award, Menu, X, ChevronDown, FileText, Newspaper, Zap, GraduationCap, Rocket, Palette, Cpu, Database, Layers, Bot, Sparkles, ArrowRight, CheckCircle, Star, TrendingUp, Target, Clock, Video, MessageCircle, Shield } from 'lucide-react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useAuth } from '../contexts/AuthContext'
 import Footer from '../components/Footer'
 
@@ -8,6 +8,17 @@ const LandingPage = () => {
     const { user } = useAuth()
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
     const [resourcesDropdownOpen, setResourcesDropdownOpen] = useState(false)
+
+    // Add smooth scrolling behavior
+    useEffect(() => {
+        // Enable smooth scrolling for the entire page
+        document.documentElement.style.scrollBehavior = 'smooth'
+        
+        return () => {
+            // Clean up on unmount
+            document.documentElement.style.scrollBehavior = 'auto'
+        }
+    }, [])
 
     const features = [
         {
