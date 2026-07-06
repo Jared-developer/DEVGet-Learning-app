@@ -189,7 +189,7 @@ const AboutUs = () => {
                             The principles that guide everything we do
                         </p>
                     </div>
-                    <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 justify-items-center">
                         {values.map((value, index) => {
                             const gradients = [
                                 'from-accent-500 to-accent-600',
@@ -198,7 +198,7 @@ const AboutUs = () => {
                                 'from-warning-500 to-warning-600'
                             ]
                             return (
-                                <div key={index} className="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all border border-gray-100 hover:scale-105 transform duration-300">
+                                <div key={index} className="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all border border-gray-100 hover:scale-105 transform duration-300 w-full max-w-sm">
                                     <div className={`w-12 h-12 bg-gradient-to-br ${gradients[index]} rounded-lg flex items-center justify-center text-white mb-4`}>
                                         {value.icon}
                                     </div>
@@ -224,9 +224,9 @@ const AboutUs = () => {
                             We collaborate with innovative organizations to bring you world-class education and opportunities
                         </p>
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
                         {/* Spaceshift Logo */}
-                        <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100">
+                        <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100 w-full max-w-sm">
                             <div className="flex flex-col items-center text-center">
                                 <div className="w-16 h-16 mb-4">
                                     <img
@@ -241,7 +241,7 @@ const AboutUs = () => {
                         </div>
 
                         {/* AI & STEM HUB Logo */}
-                        <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100">
+                        <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100 w-full max-w-sm">
                             <div className="flex flex-col items-center text-center">
                                 <div className="w-16 h-16 mb-4">
                                     <img
@@ -256,7 +256,7 @@ const AboutUs = () => {
                         </div>
 
                         {/* Devget Learning Logo */}
-                        <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100">
+                        <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100 w-full max-w-sm sm:col-span-2 lg:col-span-1">
                             <div className="flex flex-col items-center text-center">
                                 <div className="w-16 h-16 mb-4">
                                     <img
@@ -282,9 +282,9 @@ const AboutUs = () => {
                             Together, we're building a brighter future for African youth
                         </p>
                     </div>
-                    <div className="grid md:grid-cols-3 gap-8">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
                         {impact.map((item, index) => (
-                            <div key={index} className="p-8 bg-gradient-to-br from-gray-50 to-white rounded-2xl border border-gray-200 hover:shadow-lg transition-all text-center">
+                            <div key={index} className="p-8 bg-gradient-to-br from-gray-50 to-white rounded-2xl border border-gray-200 hover:shadow-lg transition-all text-center w-full max-w-sm">
                                 <div className={`w-16 h-16 bg-gradient-to-br ${item.gradient} rounded-full flex items-center justify-center mx-auto mb-4 text-white`}>
                                     {item.icon}
                                 </div>
