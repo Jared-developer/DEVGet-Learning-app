@@ -690,7 +690,7 @@ const LandingPage = () => {
                     <div className="text-center mb-12 sm:mb-16">
                         <div className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 bg-primary-100 rounded-full text-primary-700 text-xs sm:text-sm font-bold mb-3 sm:mb-4">
                             <Users className="h-3 w-3 sm:h-4 sm:w-4" />
-                            Our Partners
+                            AI & STEM HUB
                         </div>
                         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 sm:mb-4 px-4">
                             Trusted by Leading Organizations
