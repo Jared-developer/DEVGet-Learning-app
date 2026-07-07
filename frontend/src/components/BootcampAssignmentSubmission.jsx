@@ -88,9 +88,9 @@ const BootcampAssignmentSubmission = ({
                 body: JSON.stringify(submissionData)
             })
 
-            // Handle cases where endpoint doesn't exist (405 Method Not Allowed)
-            if (response.status === 405 || response.status === 404) {
-                console.log('Bootcamp endpoint not available, falling back to Google Forms')
+            // Handle cases where endpoint doesn't exist or returns invalid response
+            if (response.status === 405 || response.status === 404 || !response.ok) {
+                console.log('Bootcamp endpoint issue (status:', response.status, '), falling back to Google Forms')
                 // Fallback to Google Forms approach
                 const googleFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLScRvk5R1PHCswfblcYElwqkmrD3J9fzIaJ9pGs--5UA0u3C5w/viewform"
                 window.open(googleFormUrl, '_blank')
@@ -107,14 +107,28 @@ const BootcampAssignmentSubmission = ({
 
             let result
             try {
-                result = await response.json()
+                const responseText = await response.text()
+                if (!responseText.trim()) {
+                    console.log('Empty response, falling back to Google Forms')
+                    const googleFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLScRvk5R1PHCswfblcYElwqkmrD3J9fzIaJ9pGs--5UA0u3C5w/viewform"
+                    window.open(googleFormUrl, '_blank')
+                    setSuccess(true)
+                    setError('')
+                    return
+                }
+                result = JSON.parse(responseText)
             } catch (jsonError) {
                 console.error('JSON parsing error:', jsonError)
-                throw new Error('Server returned invalid response')
+                console.log('Invalid JSON response, falling back to Google Forms')
+                const googleFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLScRvk5R1PHCswfblcYElwqkmrD3J9fzIaJ9pGs--5UA0u3C5w/viewform"
+                window.open(googleFormUrl, '_blank')
+                setSuccess(true)
+                setError('')
+                return
             }
 
             if (!response.ok) {
-                throw new Error(result.error || `Server error: ${response.status}`)
+                throw new Error(result?.error || `Server error: ${response.status}`)
             }
 
             console.log('Bootcamp assignment submitted successfully:', result.submission)
