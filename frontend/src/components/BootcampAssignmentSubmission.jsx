@@ -67,51 +67,43 @@ const BootcampAssignmentSubmission = ({
         setSubmitting(true)
 
         try {
-            // Option 1: Simple approach - just open your Google Form
-            // Your actual Google Form URL
-            const googleFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLScRvk5R1PHCswfblcYElwqkmrD3J9fzIaJ9pGs--5UA0u3C5w/viewform"
-            
-            // Option 2: Advanced approach with pre-filled data (uncomment when you have entry IDs)
-            /*
-            const googleFormBaseUrl = "https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse"
-            const formData_google = new URLSearchParams({
-                'entry.1234567890': formData.studentName,        // Replace with actual entry ID
-                'entry.0987654321': formData.email,              // Replace with actual entry ID
-                'entry.1122334455': formData.submissionType,     // Replace with actual entry ID
-                'entry.5544332211': formData.githubUrl,          // Replace with actual entry ID
-                'entry.6677889900': formData.additionalNotes,    // Replace with actual entry ID
-                'entry.9988776655': `Week ${weekNumber}`,        // Replace with actual entry ID
-                'entry.4433221100': assignmentTitle,             // Replace with actual entry ID
-                'entry.7766554433': courseName                   // Replace with actual entry ID
-            })
-            const googleFormUrl = `${googleFormBaseUrl}?${formData_google.toString()}`
-            */
-            
-            // Open Google Form in a new tab
-            window.open(googleFormUrl, '_blank')
-            
-            // Log submission data for reference
-            console.log('Assignment submission data:', {
+            // Submit directly to LMS backend
+            const submissionData = {
+                userId: user.id,
                 studentName: formData.studentName,
                 email: formData.email,
-                submissionType: formData.submissionType,
-                githubUrl: formData.githubUrl,
-                additionalNotes: formData.additionalNotes,
-                weekNumber: `Week ${weekNumber}`,
+                weekNumber: weekNumber,
                 assignmentTitle: assignmentTitle,
                 courseName: courseName,
-                submittedAt: new Date().toISOString()
+                submissionType: formData.submissionType,
+                githubUrl: formData.githubUrl,
+                additionalNotes: formData.additionalNotes
+            }
+
+            const response = await fetch('/api/assignments/bootcamp/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(submissionData)
             })
-            
+
+            const result = await response.json()
+
+            if (!response.ok) {
+                throw new Error(result.error || 'Failed to submit assignment')
+            }
+
+            console.log('Bootcamp assignment submitted successfully:', result.submission)
             setSuccess(true)
             
-            // Auto close after 5 seconds to give time for Google Form submission
+            // Auto close after 3 seconds
             setTimeout(() => {
                 if (onClose) onClose()
-            }, 5000)
+            }, 3000)
             
         } catch (err) {
-            setError('Failed to open submission form. Please try again.')
+            setError(err.message || 'Failed to submit assignment. Please try again.')
             console.error('Submission error:', err)
         } finally {
             setSubmitting(false)
@@ -340,9 +332,9 @@ const BootcampAssignmentSubmission = ({
                         <div className="flex items-start space-x-3 p-4 bg-green-50 border border-green-200 rounded-lg text-green-700">
                             <CheckCircle className="h-5 w-5 flex-shrink-0 mt-0.5" />
                             <div className="text-sm">
-                                <p className="font-medium">Form opened successfully!</p>
-                                <p>Please complete the Google Form that opened in a new tab to finalize your submission.</p>
-                                <p className="text-xs mt-1 text-green-600">This dialog will close automatically in 5 seconds.</p>
+                                <p className="font-medium">Assignment submitted successfully!</p>
+                                <p>Your submission has been recorded in the LMS and is ready for review.</p>
+                                <p className="text-xs mt-1 text-green-600">This dialog will close automatically in 3 seconds.</p>
                             </div>
                         </div>
                     )}
