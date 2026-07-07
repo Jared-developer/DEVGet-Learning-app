@@ -80,7 +80,10 @@ const BootcampAssignmentSubmission = ({
                 additionalNotes: formData.additionalNotes
             }
 
-            const response = await fetch('/api/assignments/bootcamp/submit', {
+            console.log('Submitting bootcamp assignment:', submissionData)
+
+            const apiUrl = import.meta.env.VITE_API_URL || ''
+            const response = await fetch(`${apiUrl}/api/assignments/bootcamp/submit`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -88,50 +91,27 @@ const BootcampAssignmentSubmission = ({
                 body: JSON.stringify(submissionData)
             })
 
-            // Handle cases where endpoint doesn't exist or returns invalid response
-            if (response.status === 405 || response.status === 404 || !response.ok) {
-                console.log('Bootcamp endpoint issue (status:', response.status, '), falling back to Google Forms')
-                // Fallback to Google Forms approach
-                const googleFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLScRvk5R1PHCswfblcYElwqkmrD3J9fzIaJ9pGs--5UA0u3C5w/viewform"
-                window.open(googleFormUrl, '_blank')
-                
-                setSuccess(true)
-                setError('')
-                
-                // Show different success message for fallback
-                setTimeout(() => {
-                    if (onClose) onClose()
-                }, 5000)
-                return
-            }
-
-            let result
-            try {
-                const responseText = await response.text()
-                if (!responseText.trim()) {
-                    console.log('Empty response, falling back to Google Forms')
-                    const googleFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLScRvk5R1PHCswfblcYElwqkmrD3J9fzIaJ9pGs--5UA0u3C5w/viewform"
-                    window.open(googleFormUrl, '_blank')
-                    setSuccess(true)
-                    setError('')
-                    return
-                }
-                result = JSON.parse(responseText)
-            } catch (jsonError) {
-                console.error('JSON parsing error:', jsonError)
-                console.log('Invalid JSON response, falling back to Google Forms')
-                const googleFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLScRvk5R1PHCswfblcYElwqkmrD3J9fzIaJ9pGs--5UA0u3C5w/viewform"
-                window.open(googleFormUrl, '_blank')
-                setSuccess(true)
-                setError('')
-                return
-            }
+            console.log('Response status:', response.status)
+            console.log('Response headers:', response.headers)
 
             if (!response.ok) {
-                throw new Error(result?.error || `Server error: ${response.status}`)
+                let errorMessage = `Server error: ${response.status}`
+                try {
+                    const errorData = await response.text()
+                    console.log('Error response:', errorData)
+                    if (errorData) {
+                        const parsed = JSON.parse(errorData)
+                        errorMessage = parsed.error || errorMessage
+                    }
+                } catch (e) {
+                    console.log('Could not parse error response')
+                }
+                throw new Error(errorMessage)
             }
 
-            console.log('Bootcamp assignment submitted successfully:', result.submission)
+            const result = await response.json()
+            console.log('Bootcamp assignment submitted successfully:', result)
+            
             setSuccess(true)
             
             // Auto close after 3 seconds
@@ -141,17 +121,6 @@ const BootcampAssignmentSubmission = ({
             
         } catch (err) {
             console.error('Submission error:', err)
-            
-            // If it's a network error or the endpoint is not available, fall back to Google Forms
-            if (err.message.includes('Failed to fetch') || err.message.includes('NetworkError')) {
-                console.log('Network error, falling back to Google Forms')
-                const googleFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLScRvk5R1PHCswfblcYElwqkmrD3J9fzIaJ9pGs--5UA0u3C5w/viewform"
-                window.open(googleFormUrl, '_blank')
-                setSuccess(true)
-                setError('')
-                return
-            }
-            
             setError(err.message || 'Failed to submit assignment. Please try again.')
         } finally {
             setSubmitting(false)

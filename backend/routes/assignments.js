@@ -175,6 +175,15 @@ router.get('/user/:userId/assignment/:assignmentId', async (req, res) => {
     }
 });
 
+// Test bootcamp endpoint availability
+router.get('/bootcamp/status', async (req, res) => {
+    res.json({
+        success: true,
+        message: 'Bootcamp endpoint is available',
+        timestamp: new Date().toISOString()
+    });
+});
+
 // Test bootcamp submissions table
 router.get('/bootcamp/test', async (req, res) => {
     try {
