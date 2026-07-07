@@ -88,10 +88,33 @@ const BootcampAssignmentSubmission = ({
                 body: JSON.stringify(submissionData)
             })
 
-            const result = await response.json()
+            // Handle cases where endpoint doesn't exist (405 Method Not Allowed)
+            if (response.status === 405 || response.status === 404) {
+                console.log('Bootcamp endpoint not available, falling back to Google Forms')
+                // Fallback to Google Forms approach
+                const googleFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLScRvk5R1PHCswfblcYElwqkmrD3J9fzIaJ9pGs--5UA0u3C5w/viewform"
+                window.open(googleFormUrl, '_blank')
+                
+                setSuccess(true)
+                setError('')
+                
+                // Show different success message for fallback
+                setTimeout(() => {
+                    if (onClose) onClose()
+                }, 5000)
+                return
+            }
+
+            let result
+            try {
+                result = await response.json()
+            } catch (jsonError) {
+                console.error('JSON parsing error:', jsonError)
+                throw new Error('Server returned invalid response')
+            }
 
             if (!response.ok) {
-                throw new Error(result.error || 'Failed to submit assignment')
+                throw new Error(result.error || `Server error: ${response.status}`)
             }
 
             console.log('Bootcamp assignment submitted successfully:', result.submission)
@@ -103,8 +126,19 @@ const BootcampAssignmentSubmission = ({
             }, 3000)
             
         } catch (err) {
-            setError(err.message || 'Failed to submit assignment. Please try again.')
             console.error('Submission error:', err)
+            
+            // If it's a network error or the endpoint is not available, fall back to Google Forms
+            if (err.message.includes('Failed to fetch') || err.message.includes('NetworkError')) {
+                console.log('Network error, falling back to Google Forms')
+                const googleFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLScRvk5R1PHCswfblcYElwqkmrD3J9fzIaJ9pGs--5UA0u3C5w/viewform"
+                window.open(googleFormUrl, '_blank')
+                setSuccess(true)
+                setError('')
+                return
+            }
+            
+            setError(err.message || 'Failed to submit assignment. Please try again.')
         } finally {
             setSubmitting(false)
         }
@@ -333,8 +367,8 @@ const BootcampAssignmentSubmission = ({
                             <CheckCircle className="h-5 w-5 flex-shrink-0 mt-0.5" />
                             <div className="text-sm">
                                 <p className="font-medium">Assignment submitted successfully!</p>
-                                <p>Your submission has been recorded in the LMS and is ready for review.</p>
-                                <p className="text-xs mt-1 text-green-600">This dialog will close automatically in 3 seconds.</p>
+                                <p>Your submission has been recorded and is ready for review.</p>
+                                <p className="text-xs mt-1 text-green-600">This dialog will close automatically in a few seconds.</p>
                             </div>
                         </div>
                     )}

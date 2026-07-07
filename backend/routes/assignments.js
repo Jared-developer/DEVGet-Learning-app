@@ -175,6 +175,40 @@ router.get('/user/:userId/assignment/:assignmentId', async (req, res) => {
     }
 });
 
+// Test bootcamp submissions table
+router.get('/bootcamp/test', async (req, res) => {
+    try {
+        // Simple test to check if bootcamp_submissions table exists
+        const { data, error } = await supabase
+            .from('bootcamp_submissions')
+            .select('count')
+            .limit(1);
+
+        if (error) {
+            if (error.code === '42P01') {
+                return res.json({
+                    success: false,
+                    error: 'bootcamp_submissions table does not exist',
+                    message: 'Please run the database migration first'
+                });
+            }
+            throw error;
+        }
+
+        res.json({
+            success: true,
+            message: 'bootcamp_submissions table exists and is accessible'
+        });
+    } catch (error) {
+        console.error('Error testing bootcamp submissions table:', error);
+        res.status(500).json({ 
+            success: false, 
+            error: error.message,
+            code: error.code 
+        });
+    }
+});
+
 // Submit bootcamp assignment
 router.post('/bootcamp/submit', async (req, res) => {
     try {
