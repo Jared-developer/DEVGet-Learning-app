@@ -104,7 +104,6 @@ const LandingPage = () => {
     const stats = [
         { number: "100%", label: "Fully Sponsored", icon: <Heart className="h-6 w-6" /> },
         { number: "8+", label: "Courses", icon: <BookOpen className="h-6 w-6" /> },
-        { number: "1000+", label: "Active Learners", icon: <Users className="h-6 w-6" /> },
         { number: "24/7", label: "Learning Support", icon: <Clock className="h-6 w-6" /> }
     ]
 
@@ -401,11 +400,6 @@ const LandingPage = () => {
                     <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
                         {/* Left Content - With Teal Background */}
                         <div className="bg-gradient-to-br from-accent-600/70 to-accent-700/70 backdrop-blur-sm p-6 sm:p-8 lg:p-10 text-white text-center lg:text-left shadow-2xl">
-                            <div className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 bg-white/20 backdrop-blur-sm rounded-full text-white text-xs sm:text-sm font-semibold mb-4 sm:mb-6 animate-fadeInDown opacity-0" style={{ animationDelay: '0.1s', animationFillMode: 'forwards' }}>
-                                <Shield className="h-3 w-3 sm:h-4 sm:w-4" />
-                                Trusted by 1000+ African Learners
-                            </div>
-
                             <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold mb-4 sm:mb-6 leading-tight animate-fadeInUp opacity-0" style={{ animationDelay: '0.2s', animationFillMode: 'forwards' }}>
                                 Your Gateway to
                                 <span className="block text-yellow-300 mt-1 sm:mt-2 animate-pulse-slow">Tech Excellence</span>
