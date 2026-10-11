@@ -4,7 +4,7 @@ import AIGovernanceCertificate from '../components/AIGovernanceCertificate';
 const CertificatePreview = () => {
   return (
     <div style={{ 
-      padding: '40px', 
+      padding: '20px 10px', 
       backgroundColor: '#f5f5f5', 
       minHeight: '100vh',
       display: 'flex',
@@ -14,10 +14,11 @@ const CertificatePreview = () => {
     }}>
       <h1 style={{ 
         textAlign: 'center', 
-        marginBottom: '30px',
+        marginBottom: '20px',
         color: '#0f4c5c',
-        fontSize: '32px',
-        fontWeight: '600'
+        fontSize: 'clamp(24px, 5vw, 32px)',
+        fontWeight: '600',
+        padding: '0 10px'
       }}>
         Certificate Preview
       </h1>

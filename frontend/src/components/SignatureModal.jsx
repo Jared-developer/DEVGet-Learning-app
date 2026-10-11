@@ -41,14 +41,18 @@ const SignatureModal = ({ isOpen, onClose, onSubmit, signatureData, slotNumber }
     if (!isEditing) return;
     setIsDrawing(true);
     const rect = canvasRef.current.getBoundingClientRect();
+    const x = e.type.includes('touch') ? e.touches[0].clientX - rect.left : e.clientX - rect.left;
+    const y = e.type.includes('touch') ? e.touches[0].clientY - rect.top : e.clientY - rect.top;
     ctx.beginPath();
-    ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+    ctx.moveTo(x, y);
   };
 
   const draw = (e) => {
     if (!isDrawing || !isEditing) return;
     const rect = canvasRef.current.getBoundingClientRect();
-    ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
+    const x = e.type.includes('touch') ? e.touches[0].clientX - rect.left : e.clientX - rect.left;
+    const y = e.type.includes('touch') ? e.touches[0].clientY - rect.top : e.clientY - rect.top;
+    ctx.lineTo(x, y);
     ctx.stroke();
   };
 
@@ -176,13 +180,17 @@ const SignatureModal = ({ isOpen, onClose, onSubmit, signatureData, slotNumber }
             onMouseMove={draw}
             onMouseUp={stopDrawing}
             onMouseLeave={stopDrawing}
+            onTouchStart={startDrawing}
+            onTouchMove={draw}
+            onTouchEnd={stopDrawing}
             style={{
               border: '2px solid #0f4c5c',
               borderRadius: '6px',
               cursor: isEditing ? 'crosshair' : 'not-allowed',
               backgroundColor: isEditing ? '#fff' : '#f5f5f5',
               display: 'block',
-              width: '100%'
+              width: '100%',
+              touchAction: 'none'
             }}
           />
           {isEditing && (
@@ -217,7 +225,7 @@ const SignatureModal = ({ isOpen, onClose, onSubmit, signatureData, slotNumber }
           </div>
         )}
 
-        <div style={{ display: 'flex', gap: '10px', justifyContent: 'flex-end' }}>
+        <div style={{ display: 'flex', gap: '10px', justifyContent: 'flex-end', flexWrap: 'wrap' }}>
           <button
             onClick={onClose}
             style={{
@@ -227,7 +235,9 @@ const SignatureModal = ({ isOpen, onClose, onSubmit, signatureData, slotNumber }
               borderRadius: '6px',
               cursor: 'pointer',
               fontSize: '14px',
-              fontWeight: '600'
+              fontWeight: '600',
+              flex: '1 1 auto',
+              minWidth: '80px'
             }}
           >
             Close
@@ -244,7 +254,9 @@ const SignatureModal = ({ isOpen, onClose, onSubmit, signatureData, slotNumber }
                   borderRadius: '6px',
                   cursor: 'pointer',
                   fontSize: '14px',
-                  fontWeight: '600'
+                  fontWeight: '600',
+                  flex: '1 1 auto',
+                  minWidth: '100px'
                 }}
               >
                 Save Draft
@@ -259,7 +271,9 @@ const SignatureModal = ({ isOpen, onClose, onSubmit, signatureData, slotNumber }
                   borderRadius: '6px',
                   cursor: 'pointer',
                   fontSize: '14px',
-                  fontWeight: '600'
+                  fontWeight: '600',
+                  flex: '1 1 auto',
+                  minWidth: '120px'
                 }}
               >
                 Confirm & Lock

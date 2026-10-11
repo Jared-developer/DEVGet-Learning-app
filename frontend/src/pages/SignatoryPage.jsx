@@ -29,7 +29,7 @@ const SignatoryPage = () => {
 
   return (
     <div style={{
-      padding: '40px',
+      padding: '20px 10px',
       backgroundColor: '#f5f5f5',
       minHeight: '100vh',
       display: 'flex',
@@ -40,12 +40,13 @@ const SignatoryPage = () => {
       <div style={{
         maxWidth: '1200px',
         width: '100%',
-        marginBottom: '30px'
+        marginBottom: '20px',
+        padding: '0 10px'
       }}>
         <h1 style={{
           textAlign: 'center',
           color: '#0f4c5c',
-          fontSize: '32px',
+          fontSize: 'clamp(24px, 5vw, 32px)',
           fontWeight: '600',
           marginBottom: '10px'
         }}>
@@ -54,8 +55,9 @@ const SignatoryPage = () => {
         <p style={{
           textAlign: 'center',
           color: '#666',
-          fontSize: '16px',
-          marginBottom: '20px'
+          fontSize: 'clamp(14px, 3vw, 16px)',
+          marginBottom: '15px',
+          lineHeight: '1.5'
         }}>
           {slotNumber 
             ? `Please review the certificate and add your signature to Slot ${slotNumber}.`
@@ -63,13 +65,13 @@ const SignatoryPage = () => {
           }
         </p>
         <div style={{
-          padding: '15px',
+          padding: '12px 15px',
           backgroundColor: slotNumber ? '#d1ecf1' : '#fff3cd',
           border: slotNumber ? '1px solid #bee5eb' : '1px solid #ffeeba',
           borderRadius: '8px',
-          marginBottom: '20px'
+          marginBottom: '15px'
         }}>
-          <p style={{ margin: 0, color: slotNumber ? '#0c5460' : '#856404', fontSize: '14px' }}>
+          <p style={{ margin: 0, color: slotNumber ? '#0c5460' : '#856404', fontSize: 'clamp(12px, 2.5vw, 14px)', lineHeight: '1.6' }}>
             <strong>Instructions:</strong> 
             {slotNumber 
               ? ` You can only edit Signature Slot ${slotNumber}. Click "Add Signature" on the designated slot, fill in your details, and click "Confirm & Lock" when done. Once confirmed, your signature cannot be changed.`
