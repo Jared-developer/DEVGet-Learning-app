@@ -16,6 +16,7 @@ import certificatesRoutes from './routes/certificates.js';
 import adminRoutes from './routes/admin.js';
 import instructorRoutes from './routes/instructors.js';
 import userRolesRoutes from './routes/user-roles.js';
+import signaturesRoutes from './routes/signatures.js';
 
 // Load environment variables
 dotenv.config();
@@ -106,6 +107,7 @@ app.use('/api/certificates', certificatesRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/instructors', instructorRoutes);
 app.use('/api/user-roles', userRolesRoutes);
+app.use('/api/signatures', signaturesRoutes);
 
 // 404 handler
 app.use('*', (req, res) => {

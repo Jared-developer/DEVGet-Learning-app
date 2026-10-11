@@ -11,6 +11,8 @@ import Contact from './pages/Contact'
 import Resources from './pages/Resources'
 import RoleProtectedRoute from './components/RoleProtectedRoute'
 import InstructorDashboard from './components/InstructorDashboard'
+import CertificatePreview from './pages/CertificatePreview'
+import SignatoryPage from './pages/SignatoryPage'
 
 function App() {
     return (
@@ -24,6 +26,8 @@ function App() {
                             <Route path="/contact" element={<Contact />} />
                             <Route path="/resources" element={<Resources />} />
                             <Route path="/signin" element={<SignIn />} />
+                            <Route path="/certificate-preview" element={<CertificatePreview />} />
+                            <Route path="/signatory/:certificateId" element={<SignatoryPage />} />
                             <Route
                                 path="/dashboard"
                                 element={

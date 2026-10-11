@@ -70,3 +70,7 @@ Thumbs.db
 .env.backup
 .env.production.local
 .env.development.local
+
+# Exported CSV data (contains PII)
+backend/scripts/ai-governance-students-*.csv
+backend/scripts/*-export-*.csv
