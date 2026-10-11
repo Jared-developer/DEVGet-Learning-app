@@ -10,7 +10,8 @@ const AIGovernanceCertificateWithSignatures = ({
     courseTitle = "AI GOVERNANCE AND DIGITAL SAFETY BOOTCAMP 1.0",
     certificateId = "CERT-2026-001",
     verificationUrl = "https://devget.com/verify",
-    editable = false
+    editable = false,
+    allowedSlot = null // Only this slot can be edited
 }) => {
     const certificateRef = useRef(null);
     const [qrCodeUrl, setQrCodeUrl] = useState('');
@@ -126,7 +127,8 @@ const AIGovernanceCertificateWithSignatures = ({
 
     const renderSignatureSlot = (slotNumber) => {
         const sig = signatures[slotNumber];
-        const canEdit = editable && (!sig || !sig.confirmed);
+        // Only allow editing if editable is true AND this is the allowed slot (or no slot restriction)
+        const canEdit = editable && (!sig || !sig.confirmed) && (allowedSlot === null || allowedSlot === slotNumber);
 
         if (sig) {
             return (

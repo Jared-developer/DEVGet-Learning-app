@@ -5,7 +5,7 @@ import AIGovernanceCertificateWithSignatures from '../components/AIGovernanceCer
 const SignatoryPage = () => {
   const { certificateId } = useParams();
   const [searchParams] = useSearchParams();
-  const slotNumber = searchParams.get('slot');
+  const slotNumber = searchParams.get('slot') ? parseInt(searchParams.get('slot')) : null;
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -57,18 +57,24 @@ const SignatoryPage = () => {
           fontSize: '16px',
           marginBottom: '20px'
         }}>
-          Please review the certificate and add your signature{slotNumber ? ` to slot ${slotNumber}` : ''}.
+          {slotNumber 
+            ? `Please review the certificate and add your signature to Slot ${slotNumber}.`
+            : 'Please review the certificate and add your signature.'
+          }
         </p>
         <div style={{
           padding: '15px',
-          backgroundColor: '#fff3cd',
-          border: '1px solid #ffeeba',
+          backgroundColor: slotNumber ? '#d1ecf1' : '#fff3cd',
+          border: slotNumber ? '1px solid #bee5eb' : '1px solid #ffeeba',
           borderRadius: '8px',
           marginBottom: '20px'
         }}>
-          <p style={{ margin: 0, color: '#856404', fontSize: '14px' }}>
-            <strong>Instructions:</strong> Click on "Add Signature" button on any empty signature slot. 
-            You can save as draft and edit multiple times. Once you click "Confirm & Lock", your signature cannot be changed.
+          <p style={{ margin: 0, color: slotNumber ? '#0c5460' : '#856404', fontSize: '14px' }}>
+            <strong>Instructions:</strong> 
+            {slotNumber 
+              ? ` You can only edit Signature Slot ${slotNumber}. Click "Add Signature" on the designated slot, fill in your details, and click "Confirm & Lock" when done. Once confirmed, your signature cannot be changed.`
+              : ' Click on "Add Signature" button on any empty signature slot. You can save as draft and edit multiple times. Once you click "Confirm & Lock", your signature cannot be changed.'
+            }
           </p>
         </div>
       </div>
@@ -79,6 +85,7 @@ const SignatoryPage = () => {
         courseTitle="AI GOVERNANCE AND DIGITAL SAFETY BOOTCAMP 1.0"
         certificateId={certificateId}
         editable={true}
+        allowedSlot={slotNumber}
       />
     </div>
   );
