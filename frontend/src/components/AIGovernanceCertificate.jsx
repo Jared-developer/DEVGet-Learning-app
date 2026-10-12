@@ -70,64 +70,17 @@ const AIGovernanceCertificate = ({
                     transition: transform 0.3s ease;
                 }
                 
+                /* Dynamic scaling based on viewport */
                 @media (max-width: 1100px) {
                     .certificate-wrapper {
-                        transform: scale(0.95) !important;
+                        transform: scale(calc(100vw / 1100)) !important;
                     }
                 }
-                @media (max-width: 1024px) {
+                
+                /* Fallback breakpoints for better control */
+                @media (min-width: 1101px) {
                     .certificate-wrapper {
-                        transform: scale(0.88) !important;
-                    }
-                }
-                @media (max-width: 950px) {
-                    .certificate-wrapper {
-                        transform: scale(0.80) !important;
-                    }
-                }
-                @media (max-width: 850px) {
-                    .certificate-wrapper {
-                        transform: scale(0.72) !important;
-                    }
-                }
-                @media (max-width: 768px) {
-                    .certificate-wrapper {
-                        transform: scale(0.65) !important;
-                    }
-                }
-                @media (max-width: 667px) {
-                    .certificate-wrapper {
-                        transform: scale(0.56) !important;
-                    }
-                }
-                @media (max-width: 580px) {
-                    .certificate-wrapper {
-                        transform: scale(0.47) !important;
-                    }
-                }
-                @media (max-width: 520px) {
-                    .certificate-wrapper {
-                        transform: scale(0.42) !important;
-                    }
-                }
-                @media (max-width: 460px) {
-                    .certificate-wrapper {
-                        transform: scale(0.37) !important;
-                    }
-                }
-                @media (max-width: 410px) {
-                    .certificate-wrapper {
-                        transform: scale(0.33) !important;
-                    }
-                }
-                @media (max-width: 370px) {
-                    .certificate-wrapper {
-                        transform: scale(0.30) !important;
-                    }
-                }
-                @media (max-width: 330px) {
-                    .certificate-wrapper {
-                        transform: scale(0.27) !important;
+                        transform: scale(1) !important;
                     }
                 }
             `}</style>
@@ -139,7 +92,8 @@ const AIGovernanceCertificate = ({
                 gap: '20px',
                 width: '100%',
                 minHeight: '100vh',
-                overflow: 'visible'
+                overflow: 'visible',
+                boxSizing: 'border-box'
             }}>
                 <div
                     className="certificate-wrapper"
@@ -149,8 +103,7 @@ const AIGovernanceCertificate = ({
                         display: 'flex',
                         justifyContent: 'center',
                         transformOrigin: 'top center',
-                        overflow: 'visible',
-                        transition: 'transform 0.3s ease'
+                        overflow: 'visible'
                     }}
                 >
                     <div
