@@ -40,19 +40,21 @@ const AIGovernanceCertificate = ({
             const width = window.innerWidth;
             let newScale = 1;
 
-            if (width <= 320) newScale = 0.29;
-            else if (width <= 360) newScale = 0.33;
-            else if (width <= 400) newScale = 0.36;
-            else if (width <= 470) newScale = 0.43;
-            else if (width <= 550) newScale = 0.50;
-            else if (width <= 650) newScale = 0.58;
-            else if (width <= 750) newScale = 0.68;
+            // More aggressive scaling for better mobile visibility
+            if (width <= 320) newScale = 0.28;
+            else if (width <= 375) newScale = 0.34;
+            else if (width <= 414) newScale = 0.38;
+            else if (width <= 480) newScale = 0.44;
+            else if (width <= 568) newScale = 0.52;
+            else if (width <= 667) newScale = 0.61;
+            else if (width <= 768) newScale = 0.70;
             else if (width <= 850) newScale = 0.78;
             else if (width <= 950) newScale = 0.88;
-            else if (width <= 1056) newScale = 0.93;
-            else if (width <= 1100) newScale = 0.96;
+            else if (width <= 1024) newScale = 0.94;
+            else if (width <= 1100) newScale = 0.98;
             else newScale = 1;
 
+            console.log('Window width:', width, 'Scale:', newScale);
             setScale(newScale);
         };
 
