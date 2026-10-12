@@ -133,15 +133,15 @@ const AIGovernanceCertificateWithSignatures = ({
         if (sig) {
             return (
                 <div style={{ textAlign: 'center', minWidth: '120px', position: 'relative' }}>
-                    <img 
-                        src={sig.signature} 
-                        alt="Signature" 
-                        style={{ 
-                            height: '35px', 
+                    <img
+                        src={sig.signature}
+                        alt="Signature"
+                        style={{
+                            height: '35px',
                             width: 'auto',
                             maxWidth: '120px',
                             marginBottom: '5px'
-                        }} 
+                        }}
                     />
                     <div style={{ height: '1.5px', background: '#0f4c5c', marginBottom: '3px' }} />
                     <p style={{ fontSize: '9px', color: '#666', margin: 0, fontWeight: '600' }}>
@@ -222,27 +222,120 @@ const AIGovernanceCertificateWithSignatures = ({
 
     return (
         <>
-            <div style={{ 
-                display: 'flex', 
-                flexDirection: 'column', 
-                alignItems: 'center', 
-                padding: '10px', 
-                gap: '20px', 
+            <style>{`
+                @media (max-width: 1100px) {
+                    .certificate-wrapper-sig {
+                        transform: scale(0.95) !important;
+                    }
+                }
+                @media (max-width: 1076px) {
+                    .certificate-wrapper-sig {
+                        transform: scale(0.92) !important;
+                    }
+                }
+                @media (max-width: 1024px) {
+                    .certificate-wrapper-sig {
+                        transform: scale(0.88) !important;
+                    }
+                }
+                @media (max-width: 992px) {
+                    .certificate-wrapper-sig {
+                        transform: scale(0.85) !important;
+                    }
+                }
+                @media (max-width: 950px) {
+                    .certificate-wrapper-sig {
+                        transform: scale(0.80) !important;
+                    }
+                }
+                @media (max-width: 900px) {
+                    .certificate-wrapper-sig {
+                        transform: scale(0.75) !important;
+                    }
+                }
+                @media (max-width: 850px) {
+                    .certificate-wrapper-sig {
+                        transform: scale(0.72) !important;
+                    }
+                }
+                @media (max-width: 800px) {
+                    .certificate-wrapper-sig {
+                        transform: scale(0.65) !important;
+                    }
+                }
+                @media (max-width: 768px) {
+                    .certificate-wrapper-sig {
+                        transform: scale(0.65) !important;
+                    }
+                }
+                @media (max-width: 688px) {
+                    .certificate-wrapper-sig {
+                        transform: scale(0.55) !important;
+                    }
+                }
+                @media (max-width: 667px) {
+                    .certificate-wrapper-sig {
+                        transform: scale(0.56) !important;
+                    }
+                }
+                @media (max-width: 580px) {
+                    .certificate-wrapper-sig {
+                        transform: scale(0.45) !important;
+                    }
+                }
+                @media (max-width: 500px) {
+                    .certificate-wrapper-sig {
+                        transform: scale(0.42) !important;
+                    }
+                }
+                @media (max-width: 476px) {
+                    .certificate-wrapper-sig {
+                        transform: scale(0.38) !important;
+                    }
+                }
+                @media (max-width: 440px) {
+                    .certificate-wrapper-sig {
+                        transform: scale(0.37) !important;
+                    }
+                }
+                @media (max-width: 402px) {
+                    .certificate-wrapper-sig {
+                        transform: scale(0.33) !important;
+                    }
+                }
+                @media (max-width: 390px) {
+                    .certificate-wrapper-sig {
+                        transform: scale(0.33) !important;
+                    }
+                }
+                @media (max-width: 350px) {
+                    .certificate-wrapper-sig {
+                        transform: scale(0.30) !important;
+                    }
+                }
+            `}</style>
+            <div style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                padding: '10px',
+                gap: '20px',
                 width: '100%',
                 minHeight: '100vh',
-                overflow: 'hidden'
+                overflow: 'visible',
+                boxSizing: 'border-box'
             }}>
                 <div style={{
                     width: '100%',
                     maxWidth: '1056px',
                     display: 'flex',
                     justifyContent: 'center',
-                    transform: 'scale(1)',
-                    transformOrigin: 'top center'
+                    transformOrigin: 'top center',
+                    overflow: 'visible'
                 }}
-                className="certificate-wrapper-sig">
-                    <div 
-                        ref={certificateRef} 
+                    className="certificate-wrapper-sig">
+                    <div
+                        ref={certificateRef}
                         style={{
                             position: 'relative',
                             width: '1056px',
@@ -257,225 +350,182 @@ const AIGovernanceCertificateWithSignatures = ({
                         {/* Left teal border */}
                         <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: '48px', background: '#0f4c5c' }} />
 
-                    {/* Top circuit pattern */}
-                    <div style={{ position: 'absolute', top: 0, left: '48px', right: 0, height: '150px' }}>
-                        <img src="/Bootcamp_Certificates_Elements/png_topbacground.png" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.15 }} />
-                    </div>
-
-                    {/* Bottom circuit pattern */}
-                    <div style={{ position: 'absolute', bottom: 0, right: 0, width: '300px', height: '150px' }}>
-                        <img src="/Bootcamp_Certificates_Elements/png_Footerbackground.png" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.15 }} />
-                    </div>
-
-                    {/* Official Gold Seal */}
-                    <div style={{ position: 'absolute', top: '20px', right: '40px', width: '140px', height: '140px', zIndex: 3 }}>
-                        <img src="/Bootcamp_Certificates_Elements/Official_seal.png" alt="Official Seal" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
-                    </div>
-
-                    {/* Partner logos */}
-                    <div style={{
-                        position: 'absolute',
-                        top: '20px',
-                        left: '50%',
-                        transform: 'translateX(-50%)',
-                        zIndex: 3
-                    }}>
-                        <div style={{
-                            background: '#ffffff',
-                            borderRadius: '15px',
-                            padding: '12px 25px',
-                            display: 'flex',
-                            gap: '25px',
-                            alignItems: 'center'
-                        }}>
-                            <img src="/images/Partiner-logos/AI_&_STEM_Logo.jpeg" alt="AI & STEM" style={{ height: '40px', width: 'auto' }} />
-                            <img src="/images/Partiner-logos/Space_Shift_logo.png" alt="SpaceShift" style={{ height: '40px', width: 'auto' }} />
-                            <img src="/images/Partiner-logos/Women_IN_STEM_LOGO.jpeg" alt="Women in STEM" style={{ height: '40px', width: 'auto' }} />
-                            <img src="/images/logos/updatedLogo.jpg" alt="DEVGet Learning" style={{ height: '70px', width: 'auto' }} />
+                        {/* Top circuit pattern */}
+                        <div style={{ position: 'absolute', top: 0, left: '48px', right: 0, height: '150px' }}>
+                            <img src="/Bootcamp_Certificates_Elements/png_topbacground.png" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.15 }} />
                         </div>
-                    </div>
 
-                    {/* Main content */}
-                    <div style={{ position: 'relative', zIndex: 2, padding: '100px 80px 40px 80px', height: '100%', display: 'flex', flexDirection: 'column' }}>
-                        {/* Title */}
-                        <div style={{ textAlign: 'center', marginBottom: '30px' }}>
-                            <h1 style={{
-                                fontSize: '66px',
+                        {/* Bottom circuit pattern */}
+                        <div style={{ position: 'absolute', bottom: 0, right: 0, width: '300px', height: '150px' }}>
+                            <img src="/Bootcamp_Certificates_Elements/png_Footerbackground.png" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.15 }} />
+                        </div>
+
+                        {/* Official Gold Seal */}
+                        <div style={{ position: 'absolute', top: '20px', right: '40px', width: '140px', height: '140px', zIndex: 3 }}>
+                            <img src="/Bootcamp_Certificates_Elements/Official_seal.png" alt="Official Seal" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                        </div>
+
+                        {/* Partner logos */}
+                        <div style={{
+                            position: 'absolute',
+                            top: '20px',
+                            left: '50%',
+                            transform: 'translateX(-50%)',
+                            zIndex: 3
+                        }}>
+                            <div style={{
+                                background: '#ffffff',
+                                borderRadius: '15px',
+                                padding: '12px 25px',
+                                display: 'flex',
+                                gap: '25px',
+                                alignItems: 'center'
+                            }}>
+                                <img src="/images/Partiner-logos/AI_&_STEM_Logo.jpeg" alt="AI & STEM" style={{ height: '40px', width: 'auto' }} />
+                                <img src="/images/Partiner-logos/Space_Shift_logo.png" alt="SpaceShift" style={{ height: '40px', width: 'auto' }} />
+                                <img src="/images/Partiner-logos/Women_IN_STEM_LOGO.jpeg" alt="Women in STEM" style={{ height: '40px', width: 'auto' }} />
+                                <img src="/images/logos/updatedLogo.jpg" alt="DEVGet Learning" style={{ height: '70px', width: 'auto' }} />
+                            </div>
+                        </div>
+
+                        {/* Main content */}
+                        <div style={{ position: 'relative', zIndex: 2, padding: '100px 80px 40px 80px', height: '100%', display: 'flex', flexDirection: 'column' }}>
+                            {/* Title */}
+                            <div style={{ textAlign: 'center', marginBottom: '30px' }}>
+                                <h1 style={{
+                                    fontSize: '66px',
+                                    fontWeight: '700',
+                                    color: '#0f4c5c',
+                                    margin: '0',
+                                    letterSpacing: '8px',
+                                    fontFamily: 'Arial, sans-serif'
+                                }}>
+                                    CERTIFICATE
+                                </h1>
+                                <div style={{
+                                    display: 'inline-block',
+                                    background: '#20b2aa',
+                                    color: '#ffffff',
+                                    padding: '6px 35px',
+                                    borderRadius: '25px',
+                                    fontSize: '22px',
+                                    fontWeight: '400',
+                                    letterSpacing: '5px',
+                                    marginTop: '8px'
+                                }}>
+                                    OF ACHIEVEMENT
+                                </div>
+                            </div>
+
+                            <p style={{
+                                textAlign: 'center',
+                                fontSize: '13px',
+                                color: '#0f4c5c',
+                                letterSpacing: '3px',
+                                fontWeight: '600',
+                                margin: '0 0 15px 0'
+                            }}>
+                                THIS CERTIFICATE IS PROUDLY PRESENTED TO
+                            </p>
+
+                            <h2 style={{
+                                textAlign: 'center',
+                                fontSize: '48px',
                                 fontWeight: '700',
                                 color: '#0f4c5c',
-                                margin: '0',
-                                letterSpacing: '8px',
+                                margin: '0 0 5px 0',
                                 fontFamily: 'Arial, sans-serif'
                             }}>
-                                CERTIFICATE
-                            </h1>
+                                {studentName}
+                            </h2>
                             <div style={{
-                                display: 'inline-block',
+                                width: '420px',
+                                height: '2px',
                                 background: '#20b2aa',
-                                color: '#ffffff',
-                                padding: '6px 35px',
-                                borderRadius: '25px',
-                                fontSize: '22px',
-                                fontWeight: '400',
-                                letterSpacing: '5px',
-                                marginTop: '8px'
+                                margin: '0 auto 20px auto'
+                            }} />
+
+                            <p style={{
+                                textAlign: 'center',
+                                fontSize: '13px',
+                                color: '#666',
+                                margin: '0 0 10px 0'
                             }}>
-                                OF ACHIEVEMENT
-                            </div>
-                        </div>
+                                In recognition of successful completion of the
+                            </p>
 
-                        <p style={{
-                            textAlign: 'center',
-                            fontSize: '13px',
-                            color: '#0f4c5c',
-                            letterSpacing: '3px',
-                            fontWeight: '600',
-                            margin: '0 0 15px 0'
-                        }}>
-                            THIS CERTIFICATE IS PROUDLY PRESENTED TO
-                        </p>
+                            <h3 style={{
+                                textAlign: 'center',
+                                fontSize: '19px',
+                                fontWeight: '700',
+                                color: '#20b2aa',
+                                margin: '0 0 18px 0',
+                                letterSpacing: '1px'
+                            }}>
+                                {courseTitle}
+                            </h3>
 
-                        <h2 style={{
-                            textAlign: 'center',
-                            fontSize: '48px',
-                            fontWeight: '700',
-                            color: '#0f4c5c',
-                            margin: '0 0 5px 0',
-                            fontFamily: 'Arial, sans-serif'
-                        }}>
-                            {studentName}
-                        </h2>
-                        <div style={{
-                            width: '420px',
-                            height: '2px',
-                            background: '#20b2aa',
-                            margin: '0 auto 20px auto'
-                        }} />
+                            <p style={{
+                                textAlign: 'center',
+                                fontSize: '12px',
+                                color: '#666',
+                                lineHeight: '1.5',
+                                maxWidth: '720px',
+                                margin: '0 auto 25px auto'
+                            }}>
+                                This certificate acknowledges the participant's commitment to excellence in understanding AI governance principles, ethical AI implementation, and digital safety best practices.
+                            </p>
 
-                        <p style={{
-                            textAlign: 'center',
-                            fontSize: '13px',
-                            color: '#666',
-                            margin: '0 0 10px 0'
-                        }}>
-                            In recognition of successful completion of the
-                        </p>
-
-                        <h3 style={{
-                            textAlign: 'center',
-                            fontSize: '19px',
-                            fontWeight: '700',
-                            color: '#20b2aa',
-                            margin: '0 0 18px 0',
-                            letterSpacing: '1px'
-                        }}>
-                            {courseTitle}
-                        </h3>
-
-                        <p style={{
-                            textAlign: 'center',
-                            fontSize: '12px',
-                            color: '#666',
-                            lineHeight: '1.5',
-                            maxWidth: '720px',
-                            margin: '0 auto 25px auto'
-                        }}>
-                            This certificate acknowledges the participant's commitment to excellence in understanding AI governance principles, ethical AI implementation, and digital safety best practices.
-                        </p>
-
-                        {/* Bottom section */}
-                        <div style={{
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            alignItems: 'flex-start',
-                            marginTop: 'auto',
-                            paddingBottom: '0'
-                        }}>
-                            {/* QR Code */}
-                            <div style={{ flex: '0 0 auto', textAlign: 'center', minWidth: '100px' }}>
-                                {qrCodeUrl ? (
-                                    <>
-                                        <img src={qrCodeUrl} alt="QR Code" style={{ width: '85px', height: '85px', border: '2px solid #0f4c5c', display: 'block', margin: '0 auto 5px auto' }} />
-                                        <p style={{ fontSize: '8px', color: '#666', margin: '0', lineHeight: '1.3' }}>
-                                            <strong>CERTIFICATE ID:</strong><br />{certificateId}<br /><strong>DATE OF ISSUE:</strong><br />{completionDate}
-                                        </p>
-                                    </>
-                                ) : (
-                                    <div style={{
-                                        width: '85px',
-                                        height: '85px',
-                                        border: '2px solid #0f4c5c',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        background: '#f0f0f0',
-                                        margin: '0 auto 5px auto'
-                                    }}>
-                                        <span style={{ fontSize: '9px', color: '#666' }}>QR Code</span>
-                                    </div>
-                                )}
-                            </div>
-
-                            {/* Signatures */}
+                            {/* Bottom section */}
                             <div style={{
-                                flex: 1,
                                 display: 'flex',
-                                justifyContent: 'space-around',
-                                gap: '15px',
-                                paddingLeft: '30px',
-                                paddingRight: '10px'
+                                justifyContent: 'space-between',
+                                alignItems: 'flex-start',
+                                marginTop: 'auto',
+                                paddingBottom: '0'
                             }}>
-                                {renderSignatureSlot(1)}
-                                {renderSignatureSlot(2)}
-                                {renderSignatureSlot(3)}
+                                {/* QR Code */}
+                                <div style={{ flex: '0 0 auto', textAlign: 'center', minWidth: '100px' }}>
+                                    {qrCodeUrl ? (
+                                        <>
+                                            <img src={qrCodeUrl} alt="QR Code" style={{ width: '85px', height: '85px', border: '2px solid #0f4c5c', display: 'block', margin: '0 auto 5px auto' }} />
+                                            <p style={{ fontSize: '8px', color: '#666', margin: '0', lineHeight: '1.3' }}>
+                                                <strong>CERTIFICATE ID:</strong><br />{certificateId}<br /><strong>DATE OF ISSUE:</strong><br />{completionDate}
+                                            </p>
+                                        </>
+                                    ) : (
+                                        <div style={{
+                                            width: '85px',
+                                            height: '85px',
+                                            border: '2px solid #0f4c5c',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            background: '#f0f0f0',
+                                            margin: '0 auto 5px auto'
+                                        }}>
+                                            <span style={{ fontSize: '9px', color: '#666' }}>QR Code</span>
+                                        </div>
+                                    )}
+                                </div>
+
+                                {/* Signatures */}
+                                <div style={{
+                                    flex: 1,
+                                    display: 'flex',
+                                    justifyContent: 'space-around',
+                                    gap: '15px',
+                                    paddingLeft: '30px',
+                                    paddingRight: '10px'
+                                }}>
+                                    {renderSignatureSlot(1)}
+                                    {renderSignatureSlot(2)}
+                                    {renderSignatureSlot(3)}
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                </div>
-
-                <style>{`
-                    @media (max-width: 1076px) {
-                        .certificate-wrapper-sig {
-                            transform: scale(0.92) !important;
-                        }
-                    }
-                    @media (max-width: 992px) {
-                        .certificate-wrapper-sig {
-                            transform: scale(0.85) !important;
-                        }
-                    }
-                    @media (max-width: 900px) {
-                        .certificate-wrapper-sig {
-                            transform: scale(0.75) !important;
-                        }
-                    }
-                    @media (max-width: 800px) {
-                        .certificate-wrapper-sig {
-                            transform: scale(0.65) !important;
-                        }
-                    }
-                    @media (max-width: 688px) {
-                        .certificate-wrapper-sig {
-                            transform: scale(0.55) !important;
-                        }
-                    }
-                    @media (max-width: 580px) {
-                        .certificate-wrapper-sig {
-                            transform: scale(0.45) !important;
-                        }
-                    }
-                    @media (max-width: 476px) {
-                        .certificate-wrapper-sig {
-                            transform: scale(0.38) !important;
-                        }
-                    }
-                    @media (max-width: 402px) {
-                        .certificate-wrapper-sig {
-                            transform: scale(0.33) !important;
-                        }
-                    }
-                `}</style>
 
                 <button onClick={downloadPDF} style={{
                     padding: '12px 32px',

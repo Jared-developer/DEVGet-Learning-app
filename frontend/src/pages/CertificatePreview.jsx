@@ -11,16 +11,18 @@ const CertificatePreview = () => {
       flexDirection: 'column',
       alignItems: 'center',
       overflow: 'auto',
-      width: '100%'
+      width: '100%',
+      boxSizing: 'border-box'
     }}>
       <h1 style={{ 
         textAlign: 'center', 
         marginBottom: '20px',
         color: '#0f4c5c',
-        fontSize: 'clamp(20px, 5vw, 32px)',
+        fontSize: 'clamp(18px, 4vw, 32px)',
         fontWeight: '600',
-        padding: '10px',
-        width: '100%'
+        padding: '10px 5px',
+        width: '100%',
+        margin: '0 0 20px 0'
       }}>
         Certificate Preview
       </h1>
