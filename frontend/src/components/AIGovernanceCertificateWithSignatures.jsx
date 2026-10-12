@@ -86,14 +86,19 @@ const AIGovernanceCertificateWithSignatures = ({
                     [signatureData.slotNumber]: data.signature
                 }));
                 if (signatureData.confirmed) {
+                    alert('✓ Signature confirmed successfully!');
                     setModalOpen(false);
+                } else {
+                    alert('✓ Signature saved as draft!');
                 }
             } else {
-                alert(data.error || 'Failed to save signature');
+                alert('Error: ' + (data.error || 'Failed to save signature. Please try again.'));
+                // Don't close modal on error - user can try again
             }
         } catch (error) {
             console.error('Error saving signature:', error);
-            alert('Failed to save signature');
+            alert('Network error: Failed to save signature. Please check your connection and try again.');
+            // Don't close modal on error - user can try again
         }
     };
 

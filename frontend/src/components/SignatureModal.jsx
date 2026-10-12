@@ -93,6 +93,8 @@ const SignatureModal = ({ isOpen, onClose, onSubmit, signatureData, slotNumber }
       slotNumber
     });
 
+    // Only close modal and disable editing if confirmed
+    // Don't close on draft save or if there's an error
     if (confirmed) {
       setIsEditing(false);
     }
