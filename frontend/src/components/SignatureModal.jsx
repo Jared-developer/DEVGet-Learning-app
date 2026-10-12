@@ -181,13 +181,14 @@ const SignatureModal = ({ isOpen, onClose, onSubmit, signatureData, slotNumber }
       <div style={{
         backgroundColor: '#ffffff',
         borderRadius: '12px',
-        padding: '30px',
+        padding: '20px',
         maxWidth: '500px',
         width: '90%',
         maxHeight: '90vh',
-        overflow: 'auto'
+        overflow: 'auto',
+        boxSizing: 'border-box'
       }}>
-        <h2 style={{ margin: '0 0 20px 0', color: '#0f4c5c' }}>
+        <h2 style={{ margin: '0 0 15px 0', color: '#0f4c5c', fontSize: 'clamp(18px, 5vw, 24px)' }}>
           {isEditing ? 'Add Signature' : 'View Signature'} - Slot {slotNumber}
         </h2>
 
@@ -234,23 +235,24 @@ const SignatureModal = ({ isOpen, onClose, onSubmit, signatureData, slotNumber }
         </div>
 
         <div style={{ marginBottom: '15px' }}>
-          <label style={{ display: 'block', marginBottom: '5px', fontWeight: '600', color: '#333' }}>
+          <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', color: '#333', fontSize: '14px' }}>
             Signature Method
           </label>
-          <div style={{ display: 'flex', gap: '10px', marginBottom: '10px' }}>
+          <div style={{ display: 'flex', gap: '8px', marginBottom: '12px', flexWrap: 'wrap' }}>
             <button
               onClick={() => setSignatureMode('draw')}
               disabled={!isEditing}
               style={{
-                flex: 1,
-                padding: '8px 16px',
+                flex: '1 1 120px',
+                padding: '10px 12px',
                 backgroundColor: signatureMode === 'draw' ? '#20b2aa' : '#f0f0f0',
                 color: signatureMode === 'draw' ? '#fff' : '#333',
-                border: 'none',
-                borderRadius: '6px',
+                border: signatureMode === 'draw' ? '2px solid #20b2aa' : '2px solid #ddd',
+                borderRadius: '8px',
                 cursor: isEditing ? 'pointer' : 'not-allowed',
                 fontWeight: '600',
-                fontSize: '14px'
+                fontSize: '14px',
+                transition: 'all 0.2s'
               }}
             >
               ✏️ Draw
@@ -259,15 +261,16 @@ const SignatureModal = ({ isOpen, onClose, onSubmit, signatureData, slotNumber }
               onClick={() => setSignatureMode('upload')}
               disabled={!isEditing}
               style={{
-                flex: 1,
-                padding: '8px 16px',
+                flex: '1 1 120px',
+                padding: '10px 12px',
                 backgroundColor: signatureMode === 'upload' ? '#20b2aa' : '#f0f0f0',
                 color: signatureMode === 'upload' ? '#fff' : '#333',
-                border: 'none',
-                borderRadius: '6px',
+                border: signatureMode === 'upload' ? '2px solid #20b2aa' : '2px solid #ddd',
+                borderRadius: '8px',
                 cursor: isEditing ? 'pointer' : 'not-allowed',
                 fontWeight: '600',
-                fontSize: '14px'
+                fontSize: '14px',
+                transition: 'all 0.2s'
               }}
             >
               📤 Upload
@@ -275,7 +278,13 @@ const SignatureModal = ({ isOpen, onClose, onSubmit, signatureData, slotNumber }
           </div>
           
           {signatureMode === 'upload' && isEditing && (
-            <div style={{ marginBottom: '10px' }}>
+            <div style={{ 
+              marginBottom: '12px', 
+              padding: '12px', 
+              backgroundColor: '#f8f9fa',
+              borderRadius: '8px',
+              border: '1px solid #dee2e6'
+            }}>
               <input
                 ref={fileInputRef}
                 type="file"
@@ -283,14 +292,16 @@ const SignatureModal = ({ isOpen, onClose, onSubmit, signatureData, slotNumber }
                 onChange={handleFileUpload}
                 style={{
                   width: '100%',
-                  padding: '8px',
-                  border: '1px solid #ddd',
+                  padding: '10px',
+                  border: '2px dashed #20b2aa',
                   borderRadius: '6px',
-                  fontSize: '14px'
+                  fontSize: '14px',
+                  backgroundColor: '#fff',
+                  cursor: 'pointer'
                 }}
               />
-              <p style={{ fontSize: '12px', color: '#666', margin: '5px 0 0 0' }}>
-                Upload a PNG, JPG, or other image file (max 2MB)
+              <p style={{ fontSize: '12px', color: '#666', margin: '8px 0 0 0', lineHeight: '1.4' }}>
+                📷 Upload a PNG, JPG, or other image file (max 2MB)
               </p>
             </div>
           )}
@@ -309,27 +320,31 @@ const SignatureModal = ({ isOpen, onClose, onSubmit, signatureData, slotNumber }
             style={{
               border: '2px solid #0f4c5c',
               borderRadius: '6px',
-              cursor: isEditing && signatureMode === 'draw' ? 'crosshair' : 'not-allowed',
+              cursor: isEditing && signatureMode === 'draw' ? 'crosshair' : signatureMode === 'upload' ? 'default' : 'not-allowed',
               backgroundColor: isEditing ? '#fff' : '#f5f5f5',
               display: 'block',
               width: '100%',
-              touchAction: 'none'
+              height: 'auto',
+              maxHeight: '150px',
+              touchAction: signatureMode === 'draw' ? 'none' : 'auto'
             }}
           />
           {isEditing && (
             <button
               onClick={clearSignature}
               style={{
-                marginTop: '8px',
-                padding: '6px 12px',
-                backgroundColor: '#f0f0f0',
+                marginTop: '10px',
+                padding: '8px 16px',
+                backgroundColor: '#fff',
                 border: '1px solid #ddd',
-                borderRadius: '4px',
+                borderRadius: '6px',
                 cursor: 'pointer',
-                fontSize: '12px'
+                fontSize: '13px',
+                fontWeight: '500',
+                width: '100%'
               }}
             >
-              Clear Signature
+              🗑️ Clear Signature
             </button>
           )}
         </div>
