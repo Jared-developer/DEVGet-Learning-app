@@ -68,21 +68,24 @@ const AIGovernanceCertificate = ({
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            padding: '10px',
+            padding: '20px 10px',
             gap: '20px',
             width: '100%',
             minHeight: '100vh',
-            overflow: 'hidden'
+            overflow: 'visible'
         }}>
-            <div style={{
-                width: '100%',
-                maxWidth: '1056px',
-                display: 'flex',
-                justifyContent: 'center',
-                transform: 'scale(1)',
-                transformOrigin: 'top center'
-            }}
-                className="certificate-wrapper">
+            <div 
+                className="certificate-wrapper"
+                style={{
+                    width: '100%',
+                    maxWidth: '1056px',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    transform: 'scale(1)',
+                    transformOrigin: 'top center',
+                    overflow: 'visible'
+                }}
+            >
                 <div
                     ref={certificateRef}
                     style={{
@@ -332,6 +335,10 @@ const AIGovernanceCertificate = ({
             </div>
 
             <style>{`
+                .certificate-wrapper {
+                    margin-bottom: 20px;
+                }
+                
                 @media (max-width: 1076px) {
                     .certificate-wrapper {
                         transform: scale(0.92) !important;
@@ -355,21 +362,31 @@ const AIGovernanceCertificate = ({
                 @media (max-width: 688px) {
                     .certificate-wrapper {
                         transform: scale(0.55) !important;
+                        margin-bottom: 30px;
                     }
                 }
                 @media (max-width: 580px) {
                     .certificate-wrapper {
                         transform: scale(0.45) !important;
+                        margin-bottom: 40px;
                     }
                 }
                 @media (max-width: 476px) {
                     .certificate-wrapper {
                         transform: scale(0.38) !important;
+                        margin-bottom: 50px;
                     }
                 }
                 @media (max-width: 402px) {
                     .certificate-wrapper {
                         transform: scale(0.33) !important;
+                        margin-bottom: 60px;
+                    }
+                }
+                @media (max-width: 360px) {
+                    .certificate-wrapper {
+                        transform: scale(0.30) !important;
+                        margin-bottom: 70px;
                     }
                 }
             `}</style>
