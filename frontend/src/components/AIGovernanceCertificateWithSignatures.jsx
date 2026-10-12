@@ -231,7 +231,7 @@ const AIGovernanceCertificateWithSignatures = ({
                 /* Dynamic scaling based on viewport */
                 @media (max-width: 1100px) {
                     .certificate-wrapper-sig {
-                        transform: scale(calc(100vw / 1100)) !important;
+                        transform: scale(calc((100vw - 40px) / 1056)) !important;
                     }
                 }
                 
@@ -246,7 +246,7 @@ const AIGovernanceCertificateWithSignatures = ({
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                padding: '10px',
+                padding: '20px',
                 gap: '20px',
                 width: '100%',
                 minHeight: '100vh',
@@ -254,8 +254,7 @@ const AIGovernanceCertificateWithSignatures = ({
                 boxSizing: 'border-box'
             }}>
                 <div style={{
-                    width: '100%',
-                    maxWidth: '1056px',
+                    width: '1056px',
                     display: 'flex',
                     justifyContent: 'center',
                     transformOrigin: 'top center',
