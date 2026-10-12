@@ -339,74 +339,77 @@ const AIGovernanceCertificate = ({
                     margin-bottom: 20px;
                 }
                 
-                /* Tablet and smaller desktops */
+                /* Large tablets and smaller desktops */
                 @media (max-width: 1100px) {
                     .certificate-wrapper {
-                        transform: scale(0.95) !important;
+                        transform: scale(0.96) !important;
                     }
                 }
                 
                 @media (max-width: 1056px) {
                     .certificate-wrapper {
-                        transform: scale(0.90) !important;
+                        transform: scale(0.93) !important;
                     }
                 }
                 
                 /* Tablets portrait */
                 @media (max-width: 950px) {
                     .certificate-wrapper {
-                        transform: scale(0.80) !important;
+                        transform: scale(0.88) !important;
                     }
                 }
                 
                 @media (max-width: 850px) {
                     .certificate-wrapper {
-                        transform: scale(0.70) !important;
+                        transform: scale(0.78) !important;
                     }
                 }
                 
-                /* Mobile landscape and small tablets */
+                /* Small tablets */
                 @media (max-width: 750px) {
                     .certificate-wrapper {
-                        transform: scale(0.60) !important;
-                        margin-bottom: 30px;
+                        transform: scale(0.68) !important;
                     }
                 }
                 
+                /* Large mobile landscape */
                 @media (max-width: 650px) {
                     .certificate-wrapper {
-                        transform: scale(0.52) !important;
-                        margin-bottom: 40px;
+                        transform: scale(0.58) !important;
                     }
                 }
                 
-                /* Mobile portrait */
+                /* Mobile landscape / small tablets portrait */
                 @media (max-width: 550px) {
                     .certificate-wrapper {
-                        transform: scale(0.44) !important;
-                        margin-bottom: 50px;
+                        transform: scale(0.50) !important;
                     }
                 }
                 
+                /* Mobile portrait - standard */
                 @media (max-width: 470px) {
                     .certificate-wrapper {
-                        transform: scale(0.38) !important;
-                        margin-bottom: 60px;
+                        transform: scale(0.43) !important;
                     }
                 }
                 
-                /* Small mobile devices */
+                /* Smaller mobile devices */
                 @media (max-width: 400px) {
                     .certificate-wrapper {
-                        transform: scale(0.34) !important;
-                        margin-bottom: 70px;
+                        transform: scale(0.36) !important;
                     }
                 }
                 
+                /* Very small mobile screens */
                 @media (max-width: 360px) {
                     .certificate-wrapper {
-                        transform: scale(0.31) !important;
-                        margin-bottom: 80px;
+                        transform: scale(0.33) !important;
+                    }
+                }
+                
+                @media (max-width: 320px) {
+                    .certificate-wrapper {
+                        transform: scale(0.29) !important;
                     }
                 }
             `}</style>
