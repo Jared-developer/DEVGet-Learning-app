@@ -65,17 +65,27 @@ const AIGovernanceCertificate = ({
     return (
         <>
             <style>{`
+                body {
+                    overflow-x: hidden;
+                }
+                
                 .certificate-wrapper {
                     transform-origin: top center;
                     transition: transform 0.3s ease;
                     width: 1056px;
                     max-width: 100%;
+                    margin: 0 auto;
+                }
+                
+                .certificate-wrapper > div {
+                    margin: 0 auto;
                 }
                 
                 /* Dynamic scaling based on viewport */
                 @media (max-width: 1100px) {
                     .certificate-wrapper {
-                        transform: scale(calc((100vw - 40px) / 1056)) !important;
+                        transform: scale(calc((100vw - 20px) / 1056)) !important;
+                        width: 1056px !important;
                     }
                 }
                 
@@ -88,7 +98,7 @@ const AIGovernanceCertificate = ({
                 
                 @media (max-width: 768px) {
                     .certificate-outer-container {
-                        padding: 10px !important;
+                        padding: 10px 5px !important;
                     }
                 }
             `}</style>
@@ -102,15 +112,16 @@ const AIGovernanceCertificate = ({
                 maxWidth: '100vw',
                 minHeight: '100vh',
                 overflow: 'hidden',
-                boxSizing: 'border-box'
+                boxSizing: 'border-box',
+                position: 'relative'
             }}>
                 <div
                     className="certificate-wrapper"
                     style={{
-                        display: 'flex',
-                        justifyContent: 'center',
+                        display: 'block',
                         transformOrigin: 'top center',
-                        overflow: 'visible'
+                        overflow: 'visible',
+                        margin: '0 auto'
                     }}
                 >
                     <div
