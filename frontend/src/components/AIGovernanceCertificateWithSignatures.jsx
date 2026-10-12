@@ -223,14 +223,14 @@ const AIGovernanceCertificateWithSignatures = ({
     return (
         <>
             <style>{`
+                .certificate-wrapper-sig {
+                    transform-origin: top center;
+                    transition: transform 0.3s ease;
+                }
+                
                 @media (max-width: 1100px) {
                     .certificate-wrapper-sig {
                         transform: scale(0.95) !important;
-                    }
-                }
-                @media (max-width: 1076px) {
-                    .certificate-wrapper-sig {
-                        transform: scale(0.92) !important;
                     }
                 }
                 @media (max-width: 1024px) {
@@ -238,19 +238,9 @@ const AIGovernanceCertificateWithSignatures = ({
                         transform: scale(0.88) !important;
                     }
                 }
-                @media (max-width: 992px) {
-                    .certificate-wrapper-sig {
-                        transform: scale(0.85) !important;
-                    }
-                }
                 @media (max-width: 950px) {
                     .certificate-wrapper-sig {
                         transform: scale(0.80) !important;
-                    }
-                }
-                @media (max-width: 900px) {
-                    .certificate-wrapper-sig {
-                        transform: scale(0.75) !important;
                     }
                 }
                 @media (max-width: 850px) {
@@ -258,19 +248,9 @@ const AIGovernanceCertificateWithSignatures = ({
                         transform: scale(0.72) !important;
                     }
                 }
-                @media (max-width: 800px) {
-                    .certificate-wrapper-sig {
-                        transform: scale(0.65) !important;
-                    }
-                }
                 @media (max-width: 768px) {
                     .certificate-wrapper-sig {
                         transform: scale(0.65) !important;
-                    }
-                }
-                @media (max-width: 688px) {
-                    .certificate-wrapper-sig {
-                        transform: scale(0.55) !important;
                     }
                 }
                 @media (max-width: 667px) {
@@ -280,37 +260,32 @@ const AIGovernanceCertificateWithSignatures = ({
                 }
                 @media (max-width: 580px) {
                     .certificate-wrapper-sig {
-                        transform: scale(0.45) !important;
+                        transform: scale(0.47) !important;
                     }
                 }
-                @media (max-width: 500px) {
+                @media (max-width: 520px) {
                     .certificate-wrapper-sig {
                         transform: scale(0.42) !important;
                     }
                 }
-                @media (max-width: 476px) {
-                    .certificate-wrapper-sig {
-                        transform: scale(0.38) !important;
-                    }
-                }
-                @media (max-width: 440px) {
+                @media (max-width: 460px) {
                     .certificate-wrapper-sig {
                         transform: scale(0.37) !important;
                     }
                 }
-                @media (max-width: 402px) {
+                @media (max-width: 410px) {
                     .certificate-wrapper-sig {
                         transform: scale(0.33) !important;
                     }
                 }
-                @media (max-width: 390px) {
-                    .certificate-wrapper-sig {
-                        transform: scale(0.33) !important;
-                    }
-                }
-                @media (max-width: 350px) {
+                @media (max-width: 370px) {
                     .certificate-wrapper-sig {
                         transform: scale(0.30) !important;
+                    }
+                }
+                @media (max-width: 330px) {
+                    .certificate-wrapper-sig {
+                        transform: scale(0.27) !important;
                     }
                 }
             `}</style>

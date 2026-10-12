@@ -65,6 +65,11 @@ const AIGovernanceCertificate = ({
     return (
         <>
             <style>{`
+                .certificate-wrapper {
+                    transform-origin: top center;
+                    transition: transform 0.3s ease;
+                }
+                
                 @media (max-width: 1100px) {
                     .certificate-wrapper {
                         transform: scale(0.95) !important;
@@ -97,27 +102,32 @@ const AIGovernanceCertificate = ({
                 }
                 @media (max-width: 580px) {
                     .certificate-wrapper {
-                        transform: scale(0.48) !important;
+                        transform: scale(0.47) !important;
                     }
                 }
-                @media (max-width: 500px) {
+                @media (max-width: 520px) {
                     .certificate-wrapper {
                         transform: scale(0.42) !important;
                     }
                 }
-                @media (max-width: 440px) {
+                @media (max-width: 460px) {
                     .certificate-wrapper {
                         transform: scale(0.37) !important;
                     }
                 }
-                @media (max-width: 390px) {
+                @media (max-width: 410px) {
                     .certificate-wrapper {
                         transform: scale(0.33) !important;
                     }
                 }
-                @media (max-width: 350px) {
+                @media (max-width: 370px) {
                     .certificate-wrapper {
                         transform: scale(0.30) !important;
+                    }
+                }
+                @media (max-width: 330px) {
+                    .certificate-wrapper {
+                        transform: scale(0.27) !important;
                     }
                 }
             `}</style>
