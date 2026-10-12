@@ -223,40 +223,48 @@ const AIGovernanceCertificateWithSignatures = ({
     return (
         <>
             <style>{`
-                body {
+                * {
+                    box-sizing: border-box;
+                }
+                
+                html, body {
                     overflow-x: hidden;
+                    max-width: 100vw;
                 }
                 
                 .certificate-wrapper-sig {
                     transform-origin: top center;
-                    transition: transform 0.3s ease;
                     width: 1056px;
-                    max-width: 100%;
+                    max-width: calc(100vw - 20px);
                     margin: 0 auto;
                 }
                 
-                .certificate-wrapper-sig > div {
-                    margin: 0 auto;
-                }
-                
-                /* Dynamic scaling based on viewport */
-                @media (max-width: 1100px) {
+                /* Scale certificate on smaller screens */
+                @media (max-width: 1096px) {
                     .certificate-wrapper-sig {
-                        transform: scale(calc((100vw - 20px) / 1056)) !important;
-                        width: 1056px !important;
-                    }
-                }
-                
-                /* Fallback breakpoints for better control */
-                @media (min-width: 1101px) {
-                    .certificate-wrapper-sig {
-                        transform: scale(1) !important;
+                        transform: scale(calc((100vw - 20px) / 1056));
                     }
                 }
                 
                 @media (max-width: 768px) {
                     .certificate-outer-container {
                         padding: 10px 5px !important;
+                    }
+                    
+                    .certificate-wrapper-sig {
+                        transform: scale(calc((100vw - 10px) / 1056));
+                        max-width: calc(100vw - 10px);
+                    }
+                }
+                
+                @media (max-width: 480px) {
+                    .certificate-wrapper-sig {
+                        transform: scale(calc(100vw / 1056));
+                        max-width: 100vw;
+                    }
+                    
+                    .certificate-outer-container {
+                        padding: 5px 0 !important;
                     }
                 }
             `}</style>
@@ -267,19 +275,15 @@ const AIGovernanceCertificateWithSignatures = ({
                 padding: '20px',
                 gap: '20px',
                 width: '100%',
-                maxWidth: '100vw',
+                maxWidth: '100%',
                 minHeight: '100vh',
                 overflow: 'hidden',
-                boxSizing: 'border-box',
-                position: 'relative'
+                boxSizing: 'border-box'
             }}>
                 <div
                     className="certificate-wrapper-sig"
                     style={{
-                        display: 'block',
-                        transformOrigin: 'top center',
-                        overflow: 'visible',
-                        margin: '0 auto'
+                        transformOrigin: 'top center'
                     }}>
                     <div
                         ref={certificateRef}
