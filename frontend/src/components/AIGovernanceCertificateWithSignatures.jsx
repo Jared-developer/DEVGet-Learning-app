@@ -44,7 +44,14 @@ const AIGovernanceCertificateWithSignatures = ({
         // Fetch existing signatures
         const fetchSignatures = async () => {
             try {
-                const response = await fetch(`/api/signatures/${certificateId}`);
+                const apiUrl = import.meta.env.VITE_API_URL || '';
+                const response = await fetch(`${apiUrl}/api/signatures/${certificateId}`);
+                
+                if (!response.ok) {
+                    console.error('Failed to fetch signatures:', response.status);
+                    return;
+                }
+                
                 const data = await response.json();
                 if (data.success) {
                     const signaturesMap = {};
@@ -68,7 +75,8 @@ const AIGovernanceCertificateWithSignatures = ({
 
     const handleSignatureSubmit = async (signatureData) => {
         try {
-            const response = await fetch('/api/signatures', {
+            const apiUrl = import.meta.env.VITE_API_URL || '';
+            const response = await fetch(`${apiUrl}/api/signatures`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -78,6 +86,13 @@ const AIGovernanceCertificateWithSignatures = ({
                     ...signatureData
                 })
             });
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                console.error('API Error:', errorText);
+                alert('Server error: Failed to save signature. Please try again or contact support.');
+                return;
+            }
 
             const data = await response.json();
             if (data.success) {
