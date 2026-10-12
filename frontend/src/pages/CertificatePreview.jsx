@@ -10,8 +10,9 @@ const CertificatePreview = () => {
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      overflow: 'auto',
+      overflow: 'hidden',
       width: '100%',
+      maxWidth: '100vw',
       boxSizing: 'border-box'
     }}>
       <h1 style={{ 

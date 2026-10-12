@@ -226,6 +226,8 @@ const AIGovernanceCertificateWithSignatures = ({
                 .certificate-wrapper-sig {
                     transform-origin: top center;
                     transition: transform 0.3s ease;
+                    width: 1056px;
+                    max-width: 100%;
                 }
                 
                 /* Dynamic scaling based on viewport */
@@ -241,26 +243,33 @@ const AIGovernanceCertificateWithSignatures = ({
                         transform: scale(1) !important;
                     }
                 }
+                
+                @media (max-width: 768px) {
+                    .certificate-outer-container {
+                        padding: 10px !important;
+                    }
+                }
             `}</style>
-            <div style={{
+            <div className="certificate-outer-container" style={{
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
                 padding: '20px',
                 gap: '20px',
                 width: '100%',
+                maxWidth: '100vw',
                 minHeight: '100vh',
-                overflow: 'visible',
+                overflow: 'hidden',
                 boxSizing: 'border-box'
             }}>
-                <div style={{
-                    width: '1056px',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    transformOrigin: 'top center',
-                    overflow: 'visible'
-                }}
-                    className="certificate-wrapper-sig">
+                <div
+                    className="certificate-wrapper-sig"
+                    style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        transformOrigin: 'top center',
+                        overflow: 'visible'
+                    }}>
                     <div
                         ref={certificateRef}
                         style={{
