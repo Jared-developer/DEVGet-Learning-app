@@ -222,19 +222,40 @@ const AIGovernanceCertificateWithSignatures = ({
 
     return (
         <>
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '10px', gap: '20px', width: '100%' }}>
-                <div ref={certificateRef} style={{
-                    position: 'relative',
+            <div style={{ 
+                display: 'flex', 
+                flexDirection: 'column', 
+                alignItems: 'center', 
+                padding: '10px', 
+                gap: '20px', 
+                width: '100%',
+                minHeight: '100vh',
+                overflow: 'hidden'
+            }}>
+                <div style={{
                     width: '100%',
                     maxWidth: '1056px',
-                    aspectRatio: '1056 / 720',
-                    background: 'linear-gradient(to right, #0f4c5c 0%, #0f4c5c 4.5%, #fafafa 4.5%, #fafafa 100%)',
-                    boxShadow: '0 10px 40px rgba(0, 0, 0, 0.15)',
-                    overflow: 'hidden',
-                    backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'100\' height=\'100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cdefs%3E%3Cpattern id=\'grid\' width=\'40\' height=\'40\' patternUnits=\'userSpaceOnUse\'%3E%3Cpath d=\'M 40 0 L 0 0 0 40\' fill=\'none\' stroke=\'%23e0e0e0\' stroke-width=\'0.5\'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width=\'100\' height=\'100\' fill=\'url(%23grid)\' opacity=\'0.3\'/%3E%3C/svg%3E")',
-                    backgroundBlendMode: 'overlay'
-                }}>                    {/* Left teal border */}
-                    <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: '48px', background: '#0f4c5c' }} />
+                    display: 'flex',
+                    justifyContent: 'center',
+                    transform: 'scale(1)',
+                    transformOrigin: 'top center'
+                }}
+                className="certificate-wrapper-sig">
+                    <div 
+                        ref={certificateRef} 
+                        style={{
+                            position: 'relative',
+                            width: '1056px',
+                            height: '720px',
+                            background: 'linear-gradient(to right, #0f4c5c 0%, #0f4c5c 4.5%, #fafafa 4.5%, #fafafa 100%)',
+                            boxShadow: '0 10px 40px rgba(0, 0, 0, 0.15)',
+                            overflow: 'hidden',
+                            backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'100\' height=\'100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cdefs%3E%3Cpattern id=\'grid\' width=\'40\' height=\'40\' patternUnits=\'userSpaceOnUse\'%3E%3Cpath d=\'M 40 0 L 0 0 0 40\' fill=\'none\' stroke=\'%23e0e0e0\' stroke-width=\'0.5\'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width=\'100\' height=\'100\' fill=\'url(%23grid)\' opacity=\'0.3\'/%3E%3C/svg%3E")',
+                            backgroundBlendMode: 'overlay'
+                        }}
+                    >
+                        {/* Left teal border */}
+                        <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: '48px', background: '#0f4c5c' }} />
 
                     {/* Top circuit pattern */}
                     <div style={{ position: 'absolute', top: 0, left: '48px', right: 0, height: '150px' }}>
@@ -411,6 +432,50 @@ const AIGovernanceCertificateWithSignatures = ({
                         </div>
                     </div>
                 </div>
+                </div>
+
+                <style>{`
+                    @media (max-width: 1076px) {
+                        .certificate-wrapper-sig {
+                            transform: scale(0.92) !important;
+                        }
+                    }
+                    @media (max-width: 992px) {
+                        .certificate-wrapper-sig {
+                            transform: scale(0.85) !important;
+                        }
+                    }
+                    @media (max-width: 900px) {
+                        .certificate-wrapper-sig {
+                            transform: scale(0.75) !important;
+                        }
+                    }
+                    @media (max-width: 800px) {
+                        .certificate-wrapper-sig {
+                            transform: scale(0.65) !important;
+                        }
+                    }
+                    @media (max-width: 688px) {
+                        .certificate-wrapper-sig {
+                            transform: scale(0.55) !important;
+                        }
+                    }
+                    @media (max-width: 580px) {
+                        .certificate-wrapper-sig {
+                            transform: scale(0.45) !important;
+                        }
+                    }
+                    @media (max-width: 476px) {
+                        .certificate-wrapper-sig {
+                            transform: scale(0.38) !important;
+                        }
+                    }
+                    @media (max-width: 402px) {
+                        .certificate-wrapper-sig {
+                            transform: scale(0.33) !important;
+                        }
+                    }
+                `}</style>
 
                 <button onClick={downloadPDF} style={{
                     padding: '12px 32px',

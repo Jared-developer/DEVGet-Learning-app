@@ -74,7 +74,7 @@ const AIGovernanceCertificate = ({
             minHeight: '100vh',
             overflow: 'visible'
         }}>
-            <div 
+            <div
                 className="certificate-wrapper"
                 style={{
                     width: '100%',
@@ -339,54 +339,74 @@ const AIGovernanceCertificate = ({
                     margin-bottom: 20px;
                 }
                 
-                @media (max-width: 1076px) {
+                /* Tablet and smaller desktops */
+                @media (max-width: 1100px) {
                     .certificate-wrapper {
-                        transform: scale(0.92) !important;
+                        transform: scale(0.95) !important;
                     }
                 }
-                @media (max-width: 992px) {
+                
+                @media (max-width: 1056px) {
                     .certificate-wrapper {
-                        transform: scale(0.85) !important;
+                        transform: scale(0.90) !important;
                     }
                 }
-                @media (max-width: 900px) {
+                
+                /* Tablets portrait */
+                @media (max-width: 950px) {
                     .certificate-wrapper {
-                        transform: scale(0.75) !important;
+                        transform: scale(0.80) !important;
                     }
                 }
-                @media (max-width: 800px) {
+                
+                @media (max-width: 850px) {
                     .certificate-wrapper {
-                        transform: scale(0.65) !important;
+                        transform: scale(0.70) !important;
                     }
                 }
-                @media (max-width: 688px) {
+                
+                /* Mobile landscape and small tablets */
+                @media (max-width: 750px) {
                     .certificate-wrapper {
-                        transform: scale(0.55) !important;
+                        transform: scale(0.60) !important;
                         margin-bottom: 30px;
                     }
                 }
-                @media (max-width: 580px) {
+                
+                @media (max-width: 650px) {
                     .certificate-wrapper {
-                        transform: scale(0.45) !important;
+                        transform: scale(0.52) !important;
                         margin-bottom: 40px;
                     }
                 }
-                @media (max-width: 476px) {
+                
+                /* Mobile portrait */
+                @media (max-width: 550px) {
                     .certificate-wrapper {
-                        transform: scale(0.38) !important;
+                        transform: scale(0.44) !important;
                         margin-bottom: 50px;
                     }
                 }
-                @media (max-width: 402px) {
+                
+                @media (max-width: 470px) {
                     .certificate-wrapper {
-                        transform: scale(0.33) !important;
+                        transform: scale(0.38) !important;
                         margin-bottom: 60px;
                     }
                 }
+                
+                /* Small mobile devices */
+                @media (max-width: 400px) {
+                    .certificate-wrapper {
+                        transform: scale(0.34) !important;
+                        margin-bottom: 70px;
+                    }
+                }
+                
                 @media (max-width: 360px) {
                     .certificate-wrapper {
-                        transform: scale(0.30) !important;
-                        margin-bottom: 70px;
+                        transform: scale(0.31) !important;
+                        margin-bottom: 80px;
                     }
                 }
             `}</style>
