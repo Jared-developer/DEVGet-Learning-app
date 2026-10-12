@@ -12,6 +12,7 @@ const AIGovernanceCertificate = ({
 }) => {
     const certificateRef = useRef(null);
     const [qrCodeUrl, setQrCodeUrl] = useState('');
+    const [scale, setScale] = useState(1);
 
     useEffect(() => {
         const generateQR = async () => {
@@ -27,13 +28,38 @@ const AIGovernanceCertificate = ({
                 setQrCodeUrl(url);
             } catch (err) {
                 console.error('QR Code generation error:', err);
-                // Set a placeholder or empty state
                 setQrCodeUrl('');
             }
         };
 
         generateQR();
     }, [certificateId, verificationUrl]);
+
+    useEffect(() => {
+        const handleResize = () => {
+            const width = window.innerWidth;
+            let newScale = 1;
+
+            if (width <= 320) newScale = 0.29;
+            else if (width <= 360) newScale = 0.33;
+            else if (width <= 400) newScale = 0.36;
+            else if (width <= 470) newScale = 0.43;
+            else if (width <= 550) newScale = 0.50;
+            else if (width <= 650) newScale = 0.58;
+            else if (width <= 750) newScale = 0.68;
+            else if (width <= 850) newScale = 0.78;
+            else if (width <= 950) newScale = 0.88;
+            else if (width <= 1056) newScale = 0.93;
+            else if (width <= 1100) newScale = 0.96;
+            else newScale = 1;
+
+            setScale(newScale);
+        };
+
+        handleResize();
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     const downloadPDF = async () => {
         if (!certificateRef.current) return;
@@ -81,9 +107,10 @@ const AIGovernanceCertificate = ({
                     maxWidth: '1056px',
                     display: 'flex',
                     justifyContent: 'center',
-                    transform: 'scale(1)',
+                    transform: `scale(${scale})`,
                     transformOrigin: 'top center',
-                    overflow: 'visible'
+                    overflow: 'visible',
+                    transition: 'transform 0.3s ease'
                 }}
             >
                 <div
@@ -333,86 +360,6 @@ const AIGovernanceCertificate = ({
                     </div>
                 </div>
             </div>
-
-            <style>{`
-                .certificate-wrapper {
-                    margin-bottom: 20px;
-                }
-                
-                /* Large tablets and smaller desktops */
-                @media (max-width: 1100px) {
-                    .certificate-wrapper {
-                        transform: scale(0.96) !important;
-                    }
-                }
-                
-                @media (max-width: 1056px) {
-                    .certificate-wrapper {
-                        transform: scale(0.93) !important;
-                    }
-                }
-                
-                /* Tablets portrait */
-                @media (max-width: 950px) {
-                    .certificate-wrapper {
-                        transform: scale(0.88) !important;
-                    }
-                }
-                
-                @media (max-width: 850px) {
-                    .certificate-wrapper {
-                        transform: scale(0.78) !important;
-                    }
-                }
-                
-                /* Small tablets */
-                @media (max-width: 750px) {
-                    .certificate-wrapper {
-                        transform: scale(0.68) !important;
-                    }
-                }
-                
-                /* Large mobile landscape */
-                @media (max-width: 650px) {
-                    .certificate-wrapper {
-                        transform: scale(0.58) !important;
-                    }
-                }
-                
-                /* Mobile landscape / small tablets portrait */
-                @media (max-width: 550px) {
-                    .certificate-wrapper {
-                        transform: scale(0.50) !important;
-                    }
-                }
-                
-                /* Mobile portrait - standard */
-                @media (max-width: 470px) {
-                    .certificate-wrapper {
-                        transform: scale(0.43) !important;
-                    }
-                }
-                
-                /* Smaller mobile devices */
-                @media (max-width: 400px) {
-                    .certificate-wrapper {
-                        transform: scale(0.36) !important;
-                    }
-                }
-                
-                /* Very small mobile screens */
-                @media (max-width: 360px) {
-                    .certificate-wrapper {
-                        transform: scale(0.33) !important;
-                    }
-                }
-                
-                @media (max-width: 320px) {
-                    .certificate-wrapper {
-                        transform: scale(0.29) !important;
-                    }
-                }
-            `}</style>
 
             <button onClick={downloadPDF} style={{
                 padding: '12px 32px',
