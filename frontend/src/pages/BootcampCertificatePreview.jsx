@@ -15,6 +15,7 @@ const BootcampCertificatePreview = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [downloading, setDownloading] = useState(false);
+    const [showDownloadMenu, setShowDownloadMenu] = useState(false);
     const certificateRef = useRef(null);
 
     useEffect(() => {
@@ -65,51 +66,51 @@ const BootcampCertificatePreview = () => {
         }
     };
 
+    const captureCanvas = async () => {
+        const certificateElement = certificateRef.current.querySelector('[style*="width: 1056px"]');
+        
+        if (!certificateElement) {
+            throw new Error('Certificate not ready');
+        }
+
+        // Store and remove any parent transforms
+        const wrapper = certificateElement.closest('.certificate-wrapper-sig');
+        const savedWrapperTransform = wrapper ? wrapper.style.transform : null;
+        const savedWrapperTransformOrigin = wrapper ? wrapper.style.transformOrigin : null;
+        
+        if (wrapper) {
+            wrapper.style.transform = 'none';
+            wrapper.style.transformOrigin = 'initial';
+        }
+
+        // Wait for styles to apply
+        await new Promise(resolve => setTimeout(resolve, 100));
+
+        const canvas = await html2canvas(certificateElement, {
+            scale: 3, // High resolution for images
+            backgroundColor: '#ffffff',
+            useCORS: true,
+            allowTaint: true,
+            logging: false,
+            width: 1056,
+            height: 720
+        });
+
+        // Restore original transforms
+        if (wrapper) {
+            wrapper.style.transform = savedWrapperTransform || '';
+            wrapper.style.transformOrigin = savedWrapperTransformOrigin || '';
+        }
+
+        return canvas;
+    };
+
     const handleDownloadPDF = async () => {
         if (!certificateRef.current || downloading) return;
 
         setDownloading(true);
         try {
-            // Find the inner certificate div with the fixed dimensions
-            const certificateElement = certificateRef.current.querySelector('[style*="width: 1056px"]');
-            
-            if (!certificateElement) {
-                alert('Certificate not ready for download');
-                setDownloading(false);
-                return;
-            }
-
-            // Store and remove any parent transforms
-            const wrapper = certificateElement.closest('.certificate-wrapper-sig');
-            const outerContainer = certificateElement.closest('.certificate-outer-container');
-            
-            const savedWrapperTransform = wrapper ? wrapper.style.transform : null;
-            const savedWrapperTransformOrigin = wrapper ? wrapper.style.transformOrigin : null;
-            
-            if (wrapper) {
-                wrapper.style.transform = 'none';
-                wrapper.style.transformOrigin = 'initial';
-            }
-
-            // Wait for styles to apply
-            await new Promise(resolve => setTimeout(resolve, 100));
-
-            const canvas = await html2canvas(certificateElement, {
-                scale: 2,
-                backgroundColor: '#ffffff',
-                useCORS: true,
-                allowTaint: true,
-                logging: false,
-                width: 1056,
-                height: 720
-            });
-
-            // Restore original transforms
-            if (wrapper) {
-                wrapper.style.transform = savedWrapperTransform || '';
-                wrapper.style.transformOrigin = savedWrapperTransformOrigin || '';
-            }
-
+            const canvas = await captureCanvas();
             const imgData = canvas.toDataURL('image/png', 1.0);
             const pdf = new jsPDF({
                 orientation: 'landscape',
@@ -123,6 +124,50 @@ const BootcampCertificatePreview = () => {
         } catch (error) {
             console.error('Error generating PDF:', error);
             alert('Failed to generate PDF. Please try again.');
+        } finally {
+            setDownloading(false);
+        }
+    };
+
+    const handleDownloadPNG = async () => {
+        if (!certificateRef.current || downloading) return;
+
+        setDownloading(true);
+        try {
+            const canvas = await captureCanvas();
+            const imgData = canvas.toDataURL('image/png', 1.0);
+            
+            // Create download link
+            const link = document.createElement('a');
+            link.download = `${certificate.recipient_name.replace(/\s+/g, '_')}_${certificateId}_Certificate.png`;
+            link.href = imgData;
+            link.click();
+
+        } catch (error) {
+            console.error('Error generating PNG:', error);
+            alert('Failed to generate PNG. Please try again.');
+        } finally {
+            setDownloading(false);
+        }
+    };
+
+    const handleDownloadJPEG = async () => {
+        if (!certificateRef.current || downloading) return;
+
+        setDownloading(true);
+        try {
+            const canvas = await captureCanvas();
+            const imgData = canvas.toDataURL('image/jpeg', 1.0);
+            
+            // Create download link
+            const link = document.createElement('a');
+            link.download = `${certificate.recipient_name.replace(/\s+/g, '_')}_${certificateId}_Certificate.jpg`;
+            link.href = imgData;
+            link.click();
+
+        } catch (error) {
+            console.error('Error generating JPEG:', error);
+            alert('Failed to generate JPEG. Please try again.');
         } finally {
             setDownloading(false);
         }
@@ -194,14 +239,55 @@ const BootcampCertificatePreview = () => {
                         </button>
                         
                         <div className="flex items-center gap-3">
-                            <button
-                                onClick={handleDownloadPDF}
-                                disabled={downloading}
-                                className="flex items-center gap-2 px-4 py-2 bg-accent-600 text-white rounded-lg hover:bg-accent-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                            >
-                                <Download className="h-4 w-4" />
-                                <span>{downloading ? 'Downloading...' : 'Download PDF'}</span>
-                            </button>
+                            {/* Download Menu */}
+                            <div className="relative">
+                                <button
+                                    onClick={() => setShowDownloadMenu(!showDownloadMenu)}
+                                    disabled={downloading}
+                                    className="flex items-center gap-2 px-4 py-2 bg-accent-600 text-white rounded-lg hover:bg-accent-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                                >
+                                    <Download className="h-4 w-4" />
+                                    <span>{downloading ? 'Downloading...' : 'Download'}</span>
+                                    <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                </button>
+                                
+                                {showDownloadMenu && !downloading && (
+                                    <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-20">
+                                        <button
+                                            onClick={() => {
+                                                handleDownloadPDF();
+                                                setShowDownloadMenu(false);
+                                            }}
+                                            className="w-full text-left px-4 py-2 hover:bg-gray-100 transition-colors flex items-center gap-2"
+                                        >
+                                            <Download className="h-4 w-4" />
+                                            Download as PDF
+                                        </button>
+                                        <button
+                                            onClick={() => {
+                                                handleDownloadPNG();
+                                                setShowDownloadMenu(false);
+                                            }}
+                                            className="w-full text-left px-4 py-2 hover:bg-gray-100 transition-colors flex items-center gap-2"
+                                        >
+                                            <Download className="h-4 w-4" />
+                                            Download as PNG
+                                        </button>
+                                        <button
+                                            onClick={() => {
+                                                handleDownloadJPEG();
+                                                setShowDownloadMenu(false);
+                                            }}
+                                            className="w-full text-left px-4 py-2 hover:bg-gray-100 transition-colors flex items-center gap-2"
+                                        >
+                                            <Download className="h-4 w-4" />
+                                            Download as JPEG
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
                             
                             <button
                                 onClick={handleShareLinkedIn}
