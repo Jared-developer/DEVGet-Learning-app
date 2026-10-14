@@ -358,12 +358,12 @@ const AIGovernanceCertificateWithSignatures = ({
 
                         {/* Top circuit pattern */}
                         <div style={{ position: 'absolute', top: 0, left: '48px', right: 0, height: '150px' }}>
-                            <img src="/Bootcamp_Certificates_Elements/png_topbacground.png" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.15 }} />
+                            <img src="/Bootcamp_Certificates_Elements/png_topbacground.png" alt="" crossOrigin="anonymous" style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.15 }} />
                         </div>
 
                         {/* Bottom circuit pattern */}
                         <div style={{ position: 'absolute', bottom: 0, right: 0, width: '300px', height: '150px' }}>
-                            <img src="/Bootcamp_Certificates_Elements/png_Footerbackground.png" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.15 }} />
+                            <img src="/Bootcamp_Certificates_Elements/png_Footerbackground.png" alt="" crossOrigin="anonymous" style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.15 }} />
                         </div>
 
                         {/* Badge with seal in top right corner */}
@@ -386,7 +386,8 @@ const AIGovernanceCertificateWithSignatures = ({
                             }}>
                                 <img 
                                     src="/Bootcamp_Certificates_Elements/TopRightConnerBadge.png" 
-                                    alt="Badge" 
+                                    alt="Badge"
+                                    crossOrigin="anonymous"
                                     style={{ 
                                         width: '100%', 
                                         height: '100%', 
@@ -408,7 +409,8 @@ const AIGovernanceCertificateWithSignatures = ({
                             }}>
                                 <img 
                                     src="/Bootcamp_Certificates_Elements/Official_seal.png" 
-                                    alt="Official Seal" 
+                                    alt="Official Seal"
+                                    crossOrigin="anonymous"
                                     style={{ 
                                         width: '100%', 
                                         height: '100%', 
@@ -434,10 +436,10 @@ const AIGovernanceCertificateWithSignatures = ({
                                 gap: '25px',
                                 alignItems: 'center'
                             }}>
-                                <img src="/images/Partiner-logos/AI_&_STEM_Logo.jpeg" alt="AI & STEM" style={{ height: '40px', width: 'auto' }} />
-                                <img src="/images/Partiner-logos/Space_Shift_logo.png" alt="SpaceShift" style={{ height: '40px', width: 'auto' }} />
-                                <img src="/images/Partiner-logos/Women_IN_STEM_LOGO.jpeg" alt="Women in STEM" style={{ height: '40px', width: 'auto' }} />
-                                <img src="/images/logos/updatedLogo.jpg" alt="DEVGet Learning" style={{ height: '70px', width: 'auto' }} />
+                                <img src="/images/Partiner-logos/AI_&_STEM_Logo.jpeg" alt="AI & STEM" crossOrigin="anonymous" style={{ height: '40px', width: 'auto' }} />
+                                <img src="/images/Partiner-logos/Space_Shift_logo.png" alt="SpaceShift" crossOrigin="anonymous" style={{ height: '40px', width: 'auto' }} />
+                                <img src="/images/Partiner-logos/Women_IN_STEM_LOGO.jpeg" alt="Women in STEM" crossOrigin="anonymous" style={{ height: '40px', width: 'auto' }} />
+                                <img src="/images/logos/updatedLogo.jpg" alt="DEVGet Learning" crossOrigin="anonymous" style={{ height: '70px', width: 'auto' }} />
                             </div>
                         </div>
 

@@ -84,16 +84,18 @@ const BootcampCertificatePreview = () => {
         }
 
         // Wait for styles to apply
-        await new Promise(resolve => setTimeout(resolve, 100));
+        await new Promise(resolve => setTimeout(resolve, 200));
 
         const canvas = await html2canvas(certificateElement, {
-            scale: 3, // High resolution for images
+            scale: 4, // Very high resolution
             backgroundColor: '#ffffff',
             useCORS: true,
-            allowTaint: true,
-            logging: false,
+            allowTaint: false,
+            logging: true,
             width: 1056,
-            height: 720
+            height: 720,
+            imageTimeout: 15000,
+            removeContainer: false
         });
 
         // Restore original transforms
