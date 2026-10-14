@@ -73,16 +73,36 @@ const BootcampCertificatePreview = () => {
             const element = certificateRef.current.querySelector('.certificate-wrapper-sig');
             if (!element) {
                 alert('Certificate not ready for download');
+                setDownloading(false);
                 return;
             }
 
-            const canvas = await html2canvas(element, {
-                scale: 3,
+            // Get the actual certificate div (not the wrapper)
+            const certificateDiv = element.querySelector('[style*="width: 1056px"]');
+            if (!certificateDiv) {
+                alert('Certificate element not found');
+                setDownloading(false);
+                return;
+            }
+
+            // Temporarily remove transform from wrapper
+            const originalTransform = element.style.transform;
+            element.style.transform = 'none';
+
+            const canvas = await html2canvas(certificateDiv, {
+                scale: 2,
                 backgroundColor: '#ffffff',
                 useCORS: true,
                 allowTaint: true,
-                logging: false
+                logging: false,
+                width: 1056,
+                height: 720,
+                windowWidth: 1056,
+                windowHeight: 720
             });
+
+            // Restore transform
+            element.style.transform = originalTransform;
 
             const imgData = canvas.toDataURL('image/png');
             const pdf = new jsPDF({

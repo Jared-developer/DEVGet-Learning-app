@@ -134,12 +134,31 @@ const AIGovernanceCertificateWithSignatures = ({
         if (!certificateRef.current) return;
 
         try {
-            const canvas = await html2canvas(certificateRef.current, {
-                scale: 3,
+            // Find the actual certificate element (not the wrapper with transform)
+            const certificateElement = certificateRef.current;
+            
+            // Temporarily remove any transform styles
+            const wrapper = certificateElement.closest('.certificate-wrapper-sig');
+            const originalTransform = wrapper ? wrapper.style.transform : null;
+            if (wrapper) {
+                wrapper.style.transform = 'none';
+            }
+
+            const canvas = await html2canvas(certificateElement, {
+                scale: 2, // Reduced scale for better performance
                 backgroundColor: '#ffffff',
                 useCORS: true,
-                allowTaint: true
+                allowTaint: true,
+                width: 1056, // Fixed width
+                height: 720, // Fixed height
+                windowWidth: 1056,
+                windowHeight: 720
             });
+
+            // Restore original transform
+            if (wrapper && originalTransform) {
+                wrapper.style.transform = originalTransform;
+            }
 
             const imgData = canvas.toDataURL('image/png');
             const pdf = new jsPDF({
