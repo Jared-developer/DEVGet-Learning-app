@@ -13,6 +13,7 @@ import RoleProtectedRoute from './components/RoleProtectedRoute'
 import InstructorDashboard from './components/InstructorDashboard'
 import CertificatePreview from './pages/CertificatePreview'
 import SignatoryPage from './pages/SignatoryPage'
+import BootcampCertificatePreview from './pages/BootcampCertificatePreview'
 
 function App() {
     return (
@@ -28,6 +29,14 @@ function App() {
                             <Route path="/signin" element={<SignIn />} />
                             <Route path="/certificate-preview" element={<CertificatePreview />} />
                             <Route path="/signatory/:certificateId" element={<SignatoryPage />} />
+                            <Route
+                                path="/certificate/:certificateId"
+                                element={
+                                    <RoleProtectedRoute requiredRole="student" redirectTo="/signin">
+                                        <BootcampCertificatePreview />
+                                    </RoleProtectedRoute>
+                                }
+                            />
                             <Route
                                 path="/dashboard"
                                 element={
