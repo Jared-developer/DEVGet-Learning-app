@@ -152,9 +152,9 @@ const AIGovernanceCertificateWithSignatures = ({
         
         // First signature is larger
         const isFirstSlot = slotNumber === 1;
-        const signatureHeight = isFirstSlot ? '45px' : '35px';
-        const signatureMaxWidth = isFirstSlot ? '150px' : '120px';
-        const containerMinWidth = isFirstSlot ? '150px' : '120px';
+        const signatureHeight = isFirstSlot ? '50px' : '35px';
+        const signatureMaxWidth = isFirstSlot ? '160px' : '120px';
+        const containerMinWidth = isFirstSlot ? '160px' : '120px';
 
         if (sig) {
             return (
@@ -166,7 +166,8 @@ const AIGovernanceCertificateWithSignatures = ({
                             height: signatureHeight,
                             width: 'auto',
                             maxWidth: signatureMaxWidth,
-                            marginBottom: '5px'
+                            marginBottom: '5px',
+                            objectFit: 'contain'
                         }}
                     />
                     <div style={{ height: '1.5px', background: '#0f4c5c', marginBottom: '3px' }} />
@@ -333,10 +334,10 @@ const AIGovernanceCertificateWithSignatures = ({
                         {/* Badge with seal in top right corner */}
                         <div style={{ 
                             position: 'absolute', 
-                            top: '15px', 
-                            right: '30px', 
-                            width: '160px', 
-                            height: '200px', 
+                            top: '20px', 
+                            right: '35px', 
+                            width: '140px', 
+                            height: '180px', 
                             zIndex: 4
                         }}>
                             {/* Badge background */}
@@ -359,14 +360,14 @@ const AIGovernanceCertificateWithSignatures = ({
                                 />
                             </div>
                             
-                            {/* Official Gold Seal on badge - centered on circular part */}
+                            {/* Official Gold Seal on badge - centered on circular medal */}
                             <div style={{ 
                                 position: 'absolute',
-                                top: '50%',
+                                bottom: '15px',
                                 left: '50%',
-                                transform: 'translate(-50%, 10%)',
-                                width: '105px', 
-                                height: '105px', 
+                                transform: 'translateX(-50%)',
+                                width: '95px', 
+                                height: '95px', 
                                 zIndex: 2,
                                 filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.15))'
                             }}>

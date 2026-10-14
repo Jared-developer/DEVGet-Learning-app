@@ -150,10 +150,10 @@ const AIGovernanceCertificate = ({
                         {/* Badge with seal in top right corner */}
                         <div style={{
                             position: 'absolute',
-                            top: '15px',
-                            right: '30px',
-                            width: '160px',
-                            height: '200px',
+                            top: '20px',
+                            right: '35px',
+                            width: '140px',
+                            height: '180px',
                             zIndex: 4
                         }}>
                             {/* Badge background */}
@@ -176,14 +176,14 @@ const AIGovernanceCertificate = ({
                                 />
                             </div>
 
-                            {/* Official Gold Seal on badge - centered on circular part */}
+                            {/* Official Gold Seal on badge - centered on circular medal */}
                             <div style={{
                                 position: 'absolute',
-                                top: '50%',
+                                bottom: '15px',
                                 left: '50%',
-                                transform: 'translate(-50%, 10%)',
-                                width: '105px',
-                                height: '105px',
+                                transform: 'translateX(-50%)',
+                                width: '95px',
+                                height: '95px',
                                 zIndex: 2,
                                 filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.15))'
                             }}>
