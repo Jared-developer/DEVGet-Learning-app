@@ -45,27 +45,37 @@ const AIGovernanceCertificateWithSignatures = ({
         const fetchSignatures = async () => {
             try {
                 const apiUrl = import.meta.env.VITE_API_URL || '';
-                const response = await fetch(`${apiUrl}/api/signatures/${certificateId}`);
+                const url = `${apiUrl}/api/signatures/${certificateId}`;
+                console.log('🔍 Fetching signatures from:', url);
+                
+                const response = await fetch(url);
                 
                 if (!response.ok) {
-                    console.error('Failed to fetch signatures:', response.status);
+                    console.error('❌ Failed to fetch signatures:', response.status, response.statusText);
                     return;
                 }
                 
                 const data = await response.json();
+                console.log('📝 Signatures response:', data);
+                
                 if (data.success) {
                     const signaturesMap = {};
                     data.signatures.forEach(sig => {
                         signaturesMap[sig.slot_number] = sig;
                     });
+                    console.log('✅ Loaded signatures:', signaturesMap);
                     setSignatures(signaturesMap);
+                } else {
+                    console.warn('⚠️ No signatures found for certificate:', certificateId);
                 }
             } catch (error) {
-                console.error('Error fetching signatures:', error);
+                console.error('❌ Error fetching signatures:', error);
             }
         };
 
-        fetchSignatures();
+        if (certificateId) {
+            fetchSignatures();
+        }
     }, [certificateId]);
 
     const handleAddSignature = (slotNumber) => {
