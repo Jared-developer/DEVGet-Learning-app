@@ -11,7 +11,8 @@ const AIGovernanceCertificateWithSignatures = ({
     certificateId = "CERT-2026-001",
     verificationUrl = "https://devget.com/verify",
     editable = false,
-    allowedSlot = null // Only this slot can be edited
+    allowedSlot = null, // Only this slot can be edited
+    useDefaultSignatures = true // Use signatures from CERT-2026-001 for all certificates
 }) => {
     const certificateRef = useRef(null);
     const [qrCodeUrl, setQrCodeUrl] = useState('');
@@ -41,12 +42,14 @@ const AIGovernanceCertificateWithSignatures = ({
     }, [certificateId, verificationUrl]);
 
     useEffect(() => {
-        // Fetch existing signatures
+        // Fetch signatures from CERT-2026-001 (master certificate) for all certificates
         const fetchSignatures = async () => {
             try {
                 const apiUrl = import.meta.env.VITE_API_URL || '';
-                const url = `${apiUrl}/api/signatures/${certificateId}`;
-                console.log('🔍 Fetching signatures from:', url);
+                // Always fetch from CERT-2026-001 regardless of current certificate ID
+                const masterCertId = 'CERT-2026-001';
+                const url = `${apiUrl}/api/signatures/${masterCertId}`;
+                console.log('🔍 Fetching master signatures from:', url);
                 
                 const response = await fetch(url);
                 
@@ -58,25 +61,25 @@ const AIGovernanceCertificateWithSignatures = ({
                 const data = await response.json();
                 console.log('📝 Signatures response:', data);
                 
-                if (data.success) {
+                if (data.success && data.signatures.length > 0) {
                     const signaturesMap = {};
                     data.signatures.forEach(sig => {
                         signaturesMap[sig.slot_number] = sig;
                     });
-                    console.log('✅ Loaded signatures:', signaturesMap);
+                    console.log('✅ Loaded master signatures for all certificates:', signaturesMap);
                     setSignatures(signaturesMap);
                 } else {
-                    console.warn('⚠️ No signatures found for certificate:', certificateId);
+                    console.warn('⚠️ No signatures found in master certificate:', masterCertId);
                 }
             } catch (error) {
                 console.error('❌ Error fetching signatures:', error);
             }
         };
 
-        if (certificateId) {
+        if (useDefaultSignatures) {
             fetchSignatures();
         }
-    }, [certificateId]);
+    }, [useDefaultSignatures]);
 
     const handleAddSignature = (slotNumber) => {
         setCurrentSlot(slotNumber);
