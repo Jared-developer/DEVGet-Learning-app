@@ -159,7 +159,7 @@ const AIGovernanceCertificateWithSignatures = ({
 
         if (sig) {
             return (
-                <div style={{ textAlign: 'center', minWidth: containerMinWidth, position: 'relative' }}>
+                <div style={{ textAlign: 'center', minWidth: containerMinWidth, position: 'relative', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
                     <img
                         src={sig.signature}
                         alt="Signature"
@@ -167,13 +167,13 @@ const AIGovernanceCertificateWithSignatures = ({
                             height: signatureHeight,
                             width: 'auto',
                             maxWidth: signatureMaxWidth,
-                            marginBottom: marginBottom,
+                            marginBottom: '0',
                             objectFit: 'contain',
                             display: 'block',
-                            margin: `0 auto ${marginBottom}`
+                            margin: '0 auto'
                         }}
                     />
-                    <div style={{ height: '1.5px', background: '#0f4c5c', marginBottom: '3px' }} />
+                    <div style={{ height: '1.5px', background: '#0f4c5c', marginTop: '2px', marginBottom: '3px' }} />
                     <p style={{ fontSize: '9px', color: '#666', margin: 0, fontWeight: '600' }}>
                         {sig.name}
                     </p>
