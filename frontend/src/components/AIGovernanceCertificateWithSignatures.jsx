@@ -324,9 +324,48 @@ const AIGovernanceCertificateWithSignatures = ({
                             <img src="/Bootcamp_Certificates_Elements/png_Footerbackground.png" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.15 }} />
                         </div>
 
-                        {/* Official Gold Seal */}
-                        <div style={{ position: 'absolute', top: '20px', right: '40px', width: '140px', height: '140px', zIndex: 3 }}>
-                            <img src="/Bootcamp_Certificates_Elements/Official_seal.png" alt="Official Seal" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                        {/* Badge with seal in top right corner */}
+                        <div style={{ 
+                            position: 'absolute', 
+                            top: '15px', 
+                            right: '30px', 
+                            width: '160px', 
+                            height: '200px', 
+                            zIndex: 4,
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center'
+                        }}>
+                            {/* Ribbon */}
+                            <div style={{
+                                width: '60px',
+                                height: '80px',
+                                background: 'linear-gradient(135deg, #0f4c5c 0%, #0a3540 100%)',
+                                clipPath: 'polygon(0 0, 100% 0, 100% 85%, 50% 70%, 0 85%)',
+                                position: 'relative',
+                                zIndex: 1,
+                                boxShadow: '0 4px 8px rgba(0,0,0,0.2)'
+                            }} />
+                            
+                            {/* Official Gold Seal on badge */}
+                            <div style={{ 
+                                position: 'absolute',
+                                top: '50px',
+                                width: '140px', 
+                                height: '140px', 
+                                zIndex: 2,
+                                filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.15))'
+                            }}>
+                                <img 
+                                    src="/Bootcamp_Certificates_Elements/Official_seal.png" 
+                                    alt="Official Seal" 
+                                    style={{ 
+                                        width: '100%', 
+                                        height: '100%', 
+                                        objectFit: 'contain' 
+                                    }} 
+                                />
+                            </div>
                         </div>
 
                         {/* Partner logos */}
