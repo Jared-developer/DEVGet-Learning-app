@@ -358,7 +358,7 @@ const AIGovernanceCertificateWithSignatures = ({
                                 position: 'absolute',
                                 top: '50%',
                                 left: '50%',
-                                transform: 'translate(-50%, -10%)',
+                                transform: 'translate(-50%, 10%)',
                                 width: '105px', 
                                 height: '105px', 
                                 zIndex: 2,
