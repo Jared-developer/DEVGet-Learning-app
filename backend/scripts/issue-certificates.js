@@ -7,11 +7,12 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-dotenv.config();
+// Load .env from backend directory (parent of scripts)
+dotenv.config({ path: path.join(__dirname, '..', '.env') });
 
 const supabase = createClient(
     process.env.SUPABASE_URL,
-    process.env.SUPABASE_SERVICE_KEY
+    process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY
 );
 
 /**
@@ -70,13 +71,33 @@ const issueCertificates = async (csvFilePath, bootcampId) => {
         process.exit(1);
     }
 
+    // Get existing certificates to find the next available index
+    const { data: existingCerts } = await supabase
+        .from('certificate_recipients')
+        .select('certificate_id')
+        .like('certificate_id', `${generateCertificateId(bootcampId, 1).split('-').slice(0, 2).join('-')}%`)
+        .order('certificate_id', { ascending: false });
+
+    let certIndex = 1;
+    if (existingCerts && existingCerts.length > 0) {
+        // Extract the highest number from existing certificates
+        const numbers = existingCerts.map(cert => {
+            const parts = cert.certificate_id.split('-');
+            return parseInt(parts[parts.length - 1]);
+        }).filter(n => !isNaN(n));
+        
+        if (numbers.length > 0) {
+            certIndex = Math.max(...numbers) + 1;
+        }
+    }
+
+    console.log(`📊 Starting certificate index: ${certIndex}\n`);
+
     const results = {
         success: [],
         errors: [],
         skipped: []
     };
-
-    let certIndex = 1;
 
     // Process each recipient
     for (const recipient of recipients) {
@@ -94,14 +115,31 @@ const issueCertificates = async (csvFilePath, bootcampId) => {
         console.log(`Processing: ${recipientName} (${email})`);
 
         try {
-            // Find user by email
-            const { data: userData, error: userError } = await supabase.auth.admin.listUsers();
-            
-            if (userError) {
-                throw new Error(`Failed to fetch users: ${userError.message}`);
+            // Find user by email - fetch ALL users with pagination
+            let allUsers = [];
+            let page = 1;
+            const perPage = 1000;
+            let hasMore = true;
+
+            while (hasMore) {
+                const { data: userData, error: userError } = await supabase.auth.admin.listUsers({
+                    page,
+                    perPage
+                });
+                
+                if (userError) {
+                    throw new Error(`Failed to fetch users: ${userError.message}`);
+                }
+
+                allUsers = allUsers.concat(userData.users);
+                hasMore = userData.users.length === perPage;
+                page++;
             }
 
-            const user = userData.users.find(u => u.email === email);
+            console.log(`   📊 Total users fetched: ${allUsers.length}`);
+            console.log(`   🔍 Looking for email: ${email}`);
+            
+            const user = allUsers.find(u => u.email?.toLowerCase() === email.toLowerCase());
 
             if (!user) {
                 results.skipped.push({
@@ -113,11 +151,13 @@ const issueCertificates = async (csvFilePath, bootcampId) => {
                 continue;
             }
 
+            const foundUser = user;
+
             // Check if certificate already exists
             const { data: existing } = await supabase
                 .from('certificate_recipients')
                 .select('certificate_id')
-                .eq('user_id', user.id)
+                .eq('user_id', foundUser.id)
                 .eq('bootcamp_id', bootcampId)
                 .single();
 
@@ -144,7 +184,7 @@ const issueCertificates = async (csvFilePath, bootcampId) => {
             const { data: certificate, error: insertError } = await supabase
                 .from('certificate_recipients')
                 .insert({
-                    user_id: user.id,
+                    user_id: foundUser.id,
                     bootcamp_id: bootcampId,
                     certificate_id: certificateId,
                     recipient_email: email,
