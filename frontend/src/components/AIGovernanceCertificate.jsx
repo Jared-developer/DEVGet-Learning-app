@@ -159,23 +159,31 @@ const AIGovernanceCertificate = ({
                             flexDirection: 'column',
                             alignItems: 'center'
                         }}>
-                            {/* Ribbon */}
+                            {/* Badge background */}
                             <div style={{
-                                width: '60px',
-                                height: '80px',
-                                background: 'linear-gradient(135deg, #0f4c5c 0%, #0a3540 100%)',
-                                clipPath: 'polygon(0 0, 100% 0, 100% 85%, 50% 70%, 0 85%)',
-                                position: 'relative',
-                                zIndex: 1,
-                                boxShadow: '0 4px 8px rgba(0,0,0,0.2)'
-                            }} />
+                                position: 'absolute',
+                                top: '0',
+                                width: '160px',
+                                height: '200px',
+                                zIndex: 1
+                            }}>
+                                <img
+                                    src="/Bootcamp_Certificates_Elements/TopRightConnerBadge.png"
+                                    alt="Badge"
+                                    style={{
+                                        width: '100%',
+                                        height: '100%',
+                                        objectFit: 'contain'
+                                    }}
+                                />
+                            </div>
 
                             {/* Official Gold Seal on badge */}
                             <div style={{
                                 position: 'absolute',
-                                top: '50px',
-                                width: '140px',
-                                height: '140px',
+                                top: '65px',
+                                width: '110px',
+                                height: '110px',
                                 zIndex: 2,
                                 filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.15))'
                             }}>
