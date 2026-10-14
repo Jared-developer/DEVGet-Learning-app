@@ -149,17 +149,23 @@ const AIGovernanceCertificateWithSignatures = ({
         const sig = signatures[slotNumber];
         // Only allow editing if editable is true AND this is the allowed slot (or no slot restriction)
         const canEdit = editable && (!sig || !sig.confirmed) && (allowedSlot === null || allowedSlot === slotNumber);
+        
+        // First signature is larger
+        const isFirstSlot = slotNumber === 1;
+        const signatureHeight = isFirstSlot ? '45px' : '35px';
+        const signatureMaxWidth = isFirstSlot ? '150px' : '120px';
+        const containerMinWidth = isFirstSlot ? '150px' : '120px';
 
         if (sig) {
             return (
-                <div style={{ textAlign: 'center', minWidth: '120px', position: 'relative' }}>
+                <div style={{ textAlign: 'center', minWidth: containerMinWidth, position: 'relative' }}>
                     <img
                         src={sig.signature}
                         alt="Signature"
                         style={{
-                            height: '35px',
+                            height: signatureHeight,
                             width: 'auto',
-                            maxWidth: '120px',
+                            maxWidth: signatureMaxWidth,
                             marginBottom: '5px'
                         }}
                     />
@@ -194,7 +200,7 @@ const AIGovernanceCertificateWithSignatures = ({
         }
 
         return (
-            <div style={{ textAlign: 'center', minWidth: '120px' }}>
+            <div style={{ textAlign: 'center', minWidth: containerMinWidth }}>
                 {canEdit ? (
                     <button
                         onClick={() => handleAddSignature(slotNumber)}
@@ -220,7 +226,7 @@ const AIGovernanceCertificateWithSignatures = ({
                     </button>
                 ) : (
                     <div style={{
-                        height: '35px',
+                        height: signatureHeight,
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',

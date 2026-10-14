@@ -1,5 +1,5 @@
 import React from 'react';
-import AIGovernanceCertificate from '../components/AIGovernanceCertificate';
+import AIGovernanceCertificateWithSignatures from '../components/AIGovernanceCertificateWithSignatures';
 
 const CertificatePreview = () => {
   return (
@@ -27,10 +27,12 @@ const CertificatePreview = () => {
       }}>
         Certificate Preview
       </h1>
-      <AIGovernanceCertificate 
+      <AIGovernanceCertificateWithSignatures 
         studentName="John Doe" 
         completionDate="October 11, 2026"
         courseTitle="AI GOVERNANCE AND DIGITAL SAFETY BOOTCAMP 1.0"
+        certificateId="CERT-2026-001"
+        editable={false}
       />
     </div>
   );
