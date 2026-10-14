@@ -331,17 +331,15 @@ const AIGovernanceCertificateWithSignatures = ({
                             right: '30px', 
                             width: '160px', 
                             height: '200px', 
-                            zIndex: 4,
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center'
+                            zIndex: 4
                         }}>
                             {/* Badge background */}
                             <div style={{ 
                                 position: 'absolute',
                                 top: '0',
-                                width: '160px', 
-                                height: '200px', 
+                                left: '0',
+                                width: '100%', 
+                                height: '100%', 
                                 zIndex: 1
                             }}>
                                 <img 
@@ -355,12 +353,14 @@ const AIGovernanceCertificateWithSignatures = ({
                                 />
                             </div>
                             
-                            {/* Official Gold Seal on badge */}
+                            {/* Official Gold Seal on badge - centered */}
                             <div style={{ 
                                 position: 'absolute',
-                                top: '65px',
-                                width: '110px', 
-                                height: '110px', 
+                                top: '50%',
+                                left: '50%',
+                                transform: 'translate(-50%, -30%)',
+                                width: '105px', 
+                                height: '105px', 
                                 zIndex: 2,
                                 filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.15))'
                             }}>
