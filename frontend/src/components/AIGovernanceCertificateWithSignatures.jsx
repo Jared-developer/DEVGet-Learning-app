@@ -353,12 +353,12 @@ const AIGovernanceCertificateWithSignatures = ({
                                 />
                             </div>
                             
-                            {/* Official Gold Seal on badge - centered */}
+                            {/* Official Gold Seal on badge - centered on circular part */}
                             <div style={{ 
                                 position: 'absolute',
                                 top: '50%',
                                 left: '50%',
-                                transform: 'translate(-50%, -30%)',
+                                transform: 'translate(-50%, -10%)',
                                 width: '105px', 
                                 height: '105px', 
                                 zIndex: 2,
