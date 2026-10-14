@@ -134,46 +134,46 @@ const AIGovernanceCertificateWithSignatures = ({
         if (!certificateRef.current) return;
 
         try {
-            // Find the actual certificate element (not the wrapper with transform)
-            const certificateElement = certificateRef.current;
+            // Find the wrapper and temporarily remove transform
+            const wrapper = certificateRef.current.closest('.certificate-wrapper-sig');
+            const savedTransform = wrapper ? wrapper.style.transform : null;
+            const savedTransformOrigin = wrapper ? wrapper.style.transformOrigin : null;
             
-            // Temporarily remove any transform styles
-            const wrapper = certificateElement.closest('.certificate-wrapper-sig');
-            const originalTransform = wrapper ? wrapper.style.transform : null;
             if (wrapper) {
                 wrapper.style.transform = 'none';
+                wrapper.style.transformOrigin = 'initial';
             }
 
-            const canvas = await html2canvas(certificateElement, {
-                scale: 2, // Reduced scale for better performance
+            // Wait for DOM update
+            await new Promise(resolve => setTimeout(resolve, 100));
+
+            const canvas = await html2canvas(certificateRef.current, {
+                scale: 2,
                 backgroundColor: '#ffffff',
                 useCORS: true,
                 allowTaint: true,
-                width: 1056, // Fixed width
-                height: 720, // Fixed height
-                windowWidth: 1056,
-                windowHeight: 720
+                width: 1056,
+                height: 720
             });
 
-            // Restore original transform
-            if (wrapper && originalTransform) {
-                wrapper.style.transform = originalTransform;
+            // Restore transforms
+            if (wrapper) {
+                wrapper.style.transform = savedTransform || '';
+                wrapper.style.transformOrigin = savedTransformOrigin || '';
             }
 
-            const imgData = canvas.toDataURL('image/png');
+            const imgData = canvas.toDataURL('image/png', 1.0);
             const pdf = new jsPDF({
                 orientation: 'landscape',
-                unit: 'mm',
-                format: 'a4'
+                unit: 'px',
+                format: [1056, 720]
             });
 
-            const pdfWidth = pdf.internal.pageSize.getWidth();
-            const pdfHeight = pdf.internal.pageSize.getHeight();
-
-            pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+            pdf.addImage(imgData, 'PNG', 0, 0, 1056, 720);
             pdf.save(`${studentName.replace(/\s+/g, '_')}_Certificate.pdf`);
         } catch (error) {
             console.error('Error generating PDF:', error);
+            alert('Failed to generate PDF. Please try again.');
         }
     };
 

@@ -70,51 +70,54 @@ const BootcampCertificatePreview = () => {
 
         setDownloading(true);
         try {
-            const element = certificateRef.current.querySelector('.certificate-wrapper-sig');
-            if (!element) {
+            // Find the inner certificate div with the fixed dimensions
+            const certificateElement = certificateRef.current.querySelector('[style*="width: 1056px"]');
+            
+            if (!certificateElement) {
                 alert('Certificate not ready for download');
                 setDownloading(false);
                 return;
             }
 
-            // Get the actual certificate div (not the wrapper)
-            const certificateDiv = element.querySelector('[style*="width: 1056px"]');
-            if (!certificateDiv) {
-                alert('Certificate element not found');
-                setDownloading(false);
-                return;
+            // Store and remove any parent transforms
+            const wrapper = certificateElement.closest('.certificate-wrapper-sig');
+            const outerContainer = certificateElement.closest('.certificate-outer-container');
+            
+            const savedWrapperTransform = wrapper ? wrapper.style.transform : null;
+            const savedWrapperTransformOrigin = wrapper ? wrapper.style.transformOrigin : null;
+            
+            if (wrapper) {
+                wrapper.style.transform = 'none';
+                wrapper.style.transformOrigin = 'initial';
             }
 
-            // Temporarily remove transform from wrapper
-            const originalTransform = element.style.transform;
-            element.style.transform = 'none';
+            // Wait for styles to apply
+            await new Promise(resolve => setTimeout(resolve, 100));
 
-            const canvas = await html2canvas(certificateDiv, {
+            const canvas = await html2canvas(certificateElement, {
                 scale: 2,
                 backgroundColor: '#ffffff',
                 useCORS: true,
                 allowTaint: true,
                 logging: false,
                 width: 1056,
-                height: 720,
-                windowWidth: 1056,
-                windowHeight: 720
+                height: 720
             });
 
-            // Restore transform
-            element.style.transform = originalTransform;
+            // Restore original transforms
+            if (wrapper) {
+                wrapper.style.transform = savedWrapperTransform || '';
+                wrapper.style.transformOrigin = savedWrapperTransformOrigin || '';
+            }
 
-            const imgData = canvas.toDataURL('image/png');
+            const imgData = canvas.toDataURL('image/png', 1.0);
             const pdf = new jsPDF({
                 orientation: 'landscape',
-                unit: 'mm',
-                format: 'a4'
+                unit: 'px',
+                format: [1056, 720]
             });
 
-            const pdfWidth = pdf.internal.pageSize.getWidth();
-            const pdfHeight = pdf.internal.pageSize.getHeight();
-
-            pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+            pdf.addImage(imgData, 'PNG', 0, 0, 1056, 720);
             pdf.save(`${certificate.recipient_name.replace(/\s+/g, '_')}_${certificateId}_Certificate.pdf`);
 
         } catch (error) {
