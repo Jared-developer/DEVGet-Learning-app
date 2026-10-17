@@ -187,7 +187,7 @@ const AIGovernanceCertificate = ({
                             top: '20px',
                             right: '35px',
                             width: '140px',
-                            height: '180px',
+                            height: '170px',
                             zIndex: 4
                         }}>
                             {/* Badge background */}
@@ -195,17 +195,17 @@ const AIGovernanceCertificate = ({
                                 position: 'absolute',
                                 top: '0',
                                 left: '0',
-                                width: '100%',
-                                height: '100%',
+                                width: '140px',
+                                height: '170px',
                                 zIndex: 1
                             }}>
                                 <img
                                     src="/Bootcamp_Certificates_Elements/TopRightConnerBadge.png"
                                     alt="Badge"
                                     style={{
-                                        width: '100%',
-                                        height: '100%',
-                                        objectFit: 'contain'
+                                        width: '140px',
+                                        height: '170px',
+                                        objectFit: 'fill'
                                     }}
                                 />
                             </div>
@@ -213,7 +213,7 @@ const AIGovernanceCertificate = ({
                             {/* Official Gold Seal on badge - centered on circular medal */}
                             <div style={{
                                 position: 'absolute',
-                                bottom: '15px',
+                                bottom: '12px',
                                 left: '50%',
                                 transform: 'translateX(-50%)',
                                 width: '95px',
@@ -225,9 +225,9 @@ const AIGovernanceCertificate = ({
                                     src="/Bootcamp_Certificates_Elements/Official_seal.png"
                                     alt="Official Seal"
                                     style={{
-                                        width: '100%',
-                                        height: '100%',
-                                        objectFit: 'contain'
+                                        width: '95px',
+                                        height: '95px',
+                                        objectFit: 'cover'
                                     }}
                                 />
                             </div>
@@ -267,7 +267,8 @@ const AIGovernanceCertificate = ({
                                     color: '#0f4c5c',
                                     margin: '0',
                                     letterSpacing: '8px',
-                                    fontFamily: 'Arial, sans-serif'
+                                    fontFamily: 'Arial, sans-serif',
+                                    lineHeight: '1'
                                 }}>
                                     CERTIFICATE
                                 </h1>
@@ -275,12 +276,14 @@ const AIGovernanceCertificate = ({
                                     display: 'inline-block',
                                     background: '#20b2aa',
                                     color: '#ffffff',
-                                    padding: '6px 35px',
+                                    padding: '8px 40px',
                                     borderRadius: '25px',
-                                    fontSize: '22px',
+                                    fontSize: '20px',
                                     fontWeight: '400',
-                                    letterSpacing: '5px',
-                                    marginTop: '8px'
+                                    letterSpacing: '4px',
+                                    marginTop: '10px',
+                                    lineHeight: '1',
+                                    whiteSpace: 'nowrap'
                                 }}>
                                     OF ACHIEVEMENT
                                 </div>
