@@ -51,9 +51,9 @@ const AIGovernanceCertificate = ({
             // Wait for DOM update
             await new Promise(resolve => setTimeout(resolve, 100));
 
-            // Use higher scale for crisp, clear text and images
+            // Use very high scale (4x) for maximum quality - crisp text and clear images
             const canvas = await html2canvas(certificateRef.current, {
-                scale: 3, // High quality scale for clear text
+                scale: 4,
                 backgroundColor: '#ffffff',
                 useCORS: true,
                 allowTaint: true,
@@ -71,19 +71,24 @@ const AIGovernanceCertificate = ({
                 wrapper.style.transformOrigin = savedTransformOrigin || '';
             }
 
-            // Use maximum quality for PNG export
+            // Convert to high quality PNG
             const imgData = canvas.toDataURL('image/png', 1.0);
             
-            // Create PDF with exact certificate dimensions
+            // Create PDF with A4 landscape dimensions but high DPI
+            // A4 landscape: 297mm x 210mm = 11.69in x 8.27in
+            // At 150 DPI: 1754px x 1240px
+            const pdfWidth = 297; // mm
+            const pdfHeight = 210; // mm
+            
             const pdf = new jsPDF({
                 orientation: 'landscape',
-                unit: 'px',
-                format: [1056, 720],
-                compress: false // Disable compression for better quality
+                unit: 'mm',
+                format: 'a4',
+                compress: false
             });
 
-            // Add image with exact dimensions
-            pdf.addImage(imgData, 'PNG', 0, 0, 1056, 720, undefined, 'FAST');
+            // Add the high-resolution image to fill the entire page
+            pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight, undefined, 'FAST');
             pdf.save(`${studentName.replace(/\s+/g, '_')}_Certificate.pdf`);
         } catch (error) {
             console.error('Error generating PDF:', error);
