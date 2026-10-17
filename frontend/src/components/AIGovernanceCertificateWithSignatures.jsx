@@ -416,8 +416,7 @@ const AIGovernanceCertificateWithSignatures = ({
                                 padding: '12px 25px',
                                 display: 'flex',
                                 gap: '25px',
-                                alignItems: 'center',
-                                boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+                                alignItems: 'center'
                             }}>
                                 <img src="/images/Partiner-logos/AI_&_STEM_Logo.jpeg" alt="AI & STEM" crossOrigin="anonymous" style={{ height: '40px', width: 'auto' }} />
                                 <img src="/images/Partiner-logos/Space_Shift_logo.png" alt="SpaceShift" crossOrigin="anonymous" style={{ height: '40px', width: 'auto' }} />
