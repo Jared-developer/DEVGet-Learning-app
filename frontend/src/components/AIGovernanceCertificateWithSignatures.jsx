@@ -199,10 +199,10 @@ const AIGovernanceCertificateWithSignatures = ({
         
         // First signature is larger
         const isFirstSlot = slotNumber === 1;
-        const signatureHeight = isFirstSlot ? '55px' : '35px';
-        const signatureMaxWidth = isFirstSlot ? '180px' : '120px';
+        const signatureHeight = isFirstSlot ? '65px' : '35px';
+        const signatureMaxWidth = isFirstSlot ? '200px' : '120px';
         const containerMinWidth = isFirstSlot ? '180px' : '120px';
-        const marginBottom = isFirstSlot ? '2px' : '5px';
+        const marginBottom = isFirstSlot ? '0px' : '5px';
 
         if (sig) {
             return (
@@ -214,13 +214,13 @@ const AIGovernanceCertificateWithSignatures = ({
                             height: signatureHeight,
                             width: 'auto',
                             maxWidth: signatureMaxWidth,
-                            marginBottom: '0',
+                            marginBottom: marginBottom,
                             objectFit: 'contain',
                             display: 'block',
                             margin: '0 auto'
                         }}
                     />
-                    <div style={{ height: '1.5px', background: '#0f4c5c', marginTop: '2px', marginBottom: '3px' }} />
+                    <div style={{ height: '1.5px', background: '#0f4c5c', marginTop: '1px', marginBottom: '3px' }} />
                     <p style={{ fontSize: '9px', color: '#666', margin: 0, fontWeight: '600' }}>
                         {sig.name}
                     </p>
