@@ -361,23 +361,21 @@ const AIGovernanceCertificateWithSignatures = ({
                             position: 'relative',
                             width: '1056px',
                             height: '720px',
-                            background: 'linear-gradient(to right, #0f4c5c 0%, #0f4c5c 4.5%, #fafafa 4.5%, #fafafa 100%)',
+                            background: '#fafafa',
                             boxShadow: '0 10px 40px rgba(0, 0, 0, 0.15)',
-                            overflow: 'hidden',
-                            backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'100\' height=\'100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cdefs%3E%3Cpattern id=\'grid\' width=\'40\' height=\'40\' patternUnits=\'userSpaceOnUse\'%3E%3Cpath d=\'M 40 0 L 0 0 0 40\' fill=\'none\' stroke=\'%23e0e0e0\' stroke-width=\'0.5\'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width=\'100\' height=\'100\' fill=\'url(%23grid)\' opacity=\'0.3\'/%3E%3C/svg%3E")',
-                            backgroundBlendMode: 'overlay'
+                            overflow: 'hidden'
                         }}
                     >
                         {/* Left teal border */}
-                        <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: '48px', background: '#0f4c5c' }} />
+                        <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: '48px', background: '#0f4c5c', zIndex: 1 }} />
 
                         {/* Top circuit pattern */}
-                        <div style={{ position: 'absolute', top: 0, left: '48px', right: 0, height: '150px' }}>
+                        <div style={{ position: 'absolute', top: 0, left: '48px', right: 0, height: '150px', zIndex: 1 }}>
                             <img src="/Bootcamp_Certificates_Elements/png_topbacground.png" alt="" crossOrigin="anonymous" style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.15 }} />
                         </div>
 
                         {/* Bottom circuit pattern */}
-                        <div style={{ position: 'absolute', bottom: 0, right: 0, width: '300px', height: '150px' }}>
+                        <div style={{ position: 'absolute', bottom: 0, right: 0, width: '300px', height: '150px', zIndex: 1 }}>
                             <img src="/Bootcamp_Certificates_Elements/png_Footerbackground.png" alt="" crossOrigin="anonymous" style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.15 }} />
                         </div>
 
@@ -436,7 +434,7 @@ const AIGovernanceCertificateWithSignatures = ({
                                     margin: '0',
                                     letterSpacing: '8px',
                                     fontFamily: 'Arial, sans-serif',
-                                    lineHeight: '1'
+                                    lineHeight: '1.2'
                                 }}>
                                     CERTIFICATE
                                 </h1>
@@ -444,12 +442,12 @@ const AIGovernanceCertificateWithSignatures = ({
                                     display: 'inline-block',
                                     background: '#20b2aa',
                                     color: '#ffffff',
-                                    padding: '8px 40px',
+                                    padding: '10px 40px',
                                     borderRadius: '25px',
                                     fontSize: '20px',
                                     fontWeight: '400',
                                     letterSpacing: '4px',
-                                    marginTop: '10px',
+                                    marginTop: '12px',
                                     lineHeight: '1',
                                     whiteSpace: 'nowrap'
                                 }}>
