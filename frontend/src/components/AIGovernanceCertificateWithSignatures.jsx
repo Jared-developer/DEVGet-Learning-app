@@ -147,13 +147,18 @@ const AIGovernanceCertificateWithSignatures = ({
             // Wait for DOM update
             await new Promise(resolve => setTimeout(resolve, 100));
 
+            // Use higher scale for crisp, clear text and images
             const canvas = await html2canvas(certificateRef.current, {
-                scale: 2,
+                scale: 3, // Increased from 2 to 3 for better quality
                 backgroundColor: '#ffffff',
                 useCORS: true,
                 allowTaint: true,
                 width: 1056,
-                height: 720
+                height: 720,
+                windowWidth: 1056,
+                windowHeight: 720,
+                logging: false,
+                imageTimeout: 0
             });
 
             // Restore transforms
@@ -162,14 +167,19 @@ const AIGovernanceCertificateWithSignatures = ({
                 wrapper.style.transformOrigin = savedTransformOrigin || '';
             }
 
+            // Use maximum quality for PNG export
             const imgData = canvas.toDataURL('image/png', 1.0);
+            
+            // Create PDF with exact certificate dimensions
             const pdf = new jsPDF({
                 orientation: 'landscape',
                 unit: 'px',
-                format: [1056, 720]
+                format: [1056, 720],
+                compress: false // Disable compression for better quality
             });
 
-            pdf.addImage(imgData, 'PNG', 0, 0, 1056, 720);
+            // Add image with exact dimensions
+            pdf.addImage(imgData, 'PNG', 0, 0, 1056, 720, undefined, 'FAST');
             pdf.save(`${studentName.replace(/\s+/g, '_')}_Certificate.pdf`);
         } catch (error) {
             console.error('Error generating PDF:', error);

@@ -38,27 +38,56 @@ const AIGovernanceCertificate = ({
         if (!certificateRef.current) return;
 
         try {
+            // Find the wrapper and temporarily remove transform
+            const wrapper = certificateRef.current.closest('.certificate-wrapper');
+            const savedTransform = wrapper ? wrapper.style.transform : null;
+            const savedTransformOrigin = wrapper ? wrapper.style.transformOrigin : null;
+            
+            if (wrapper) {
+                wrapper.style.transform = 'none';
+                wrapper.style.transformOrigin = 'initial';
+            }
+
+            // Wait for DOM update
+            await new Promise(resolve => setTimeout(resolve, 100));
+
+            // Use higher scale for crisp, clear text and images
             const canvas = await html2canvas(certificateRef.current, {
-                scale: 3,
+                scale: 3, // High quality scale for clear text
                 backgroundColor: '#ffffff',
                 useCORS: true,
-                allowTaint: true
+                allowTaint: true,
+                width: 1056,
+                height: 720,
+                windowWidth: 1056,
+                windowHeight: 720,
+                logging: false,
+                imageTimeout: 0
             });
 
-            const imgData = canvas.toDataURL('image/png');
+            // Restore transforms
+            if (wrapper) {
+                wrapper.style.transform = savedTransform || '';
+                wrapper.style.transformOrigin = savedTransformOrigin || '';
+            }
+
+            // Use maximum quality for PNG export
+            const imgData = canvas.toDataURL('image/png', 1.0);
+            
+            // Create PDF with exact certificate dimensions
             const pdf = new jsPDF({
                 orientation: 'landscape',
-                unit: 'mm',
-                format: 'a4'
+                unit: 'px',
+                format: [1056, 720],
+                compress: false // Disable compression for better quality
             });
 
-            const pdfWidth = pdf.internal.pageSize.getWidth();
-            const pdfHeight = pdf.internal.pageSize.getHeight();
-
-            pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+            // Add image with exact dimensions
+            pdf.addImage(imgData, 'PNG', 0, 0, 1056, 720, undefined, 'FAST');
             pdf.save(`${studentName.replace(/\s+/g, '_')}_Certificate.pdf`);
         } catch (error) {
             console.error('Error generating PDF:', error);
+            alert('Failed to generate PDF. Please try again.');
         }
     };
 
