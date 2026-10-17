@@ -370,7 +370,7 @@ const AIGovernanceCertificate = ({
                                     {/* Official Gold Seal */}
                                     <div style={{ 
                                         textAlign: 'center',
-                                        paddingBottom: '28px'
+                                        paddingBottom: '40px'
                                     }}>
                                         <img 
                                             src="/Bootcamp_Certificates_Elements/Official_seal.png" 
