@@ -408,7 +408,7 @@ const AIGovernanceCertificateWithSignatures = ({
                             top: '20px',
                             left: '50%',
                             transform: 'translateX(-50%)',
-                            zIndex: 3
+                            zIndex: 5
                         }}>
                             <div style={{
                                 background: '#ffffff',
@@ -416,7 +416,8 @@ const AIGovernanceCertificateWithSignatures = ({
                                 padding: '12px 25px',
                                 display: 'flex',
                                 gap: '25px',
-                                alignItems: 'center'
+                                alignItems: 'center',
+                                boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
                             }}>
                                 <img src="/images/Partiner-logos/AI_&_STEM_Logo.jpeg" alt="AI & STEM" crossOrigin="anonymous" style={{ height: '40px', width: 'auto' }} />
                                 <img src="/images/Partiner-logos/Space_Shift_logo.png" alt="SpaceShift" crossOrigin="anonymous" style={{ height: '40px', width: 'auto' }} />
@@ -528,19 +529,15 @@ const AIGovernanceCertificateWithSignatures = ({
                                 <div style={{ 
                                     flex: '0 0 auto', 
                                     display: 'flex', 
-                                    alignItems: 'flex-end', 
-                                    gap: '15px',
-                                    minWidth: '220px' 
+                                    flexDirection: 'column',
+                                    alignItems: 'center',
+                                    gap: '8px',
+                                    minWidth: '100px' 
                                 }}>
                                     {/* QR Code */}
                                     <div style={{ textAlign: 'center' }}>
                                         {qrCodeUrl ? (
-                                            <>
-                                                <img src={qrCodeUrl} alt="QR Code" style={{ width: '85px', height: '85px', border: '2px solid #0f4c5c', display: 'block', margin: '0 auto 5px auto' }} />
-                                                <p style={{ fontSize: '8px', color: '#666', margin: '0', lineHeight: '1.3' }}>
-                                                    <strong>CERTIFICATE ID:</strong><br />{certificateId}<br /><strong>DATE OF ISSUE:</strong><br />{completionDate}
-                                                </p>
-                                            </>
+                                            <img src={qrCodeUrl} alt="QR Code" crossOrigin="anonymous" style={{ width: '85px', height: '85px', border: '2px solid #0f4c5c', display: 'block', margin: '0 auto' }} />
                                         ) : (
                                             <div style={{
                                                 width: '85px',
@@ -550,7 +547,7 @@ const AIGovernanceCertificateWithSignatures = ({
                                                 alignItems: 'center',
                                                 justifyContent: 'center',
                                                 background: '#f0f0f0',
-                                                margin: '0 auto 5px auto'
+                                                margin: '0 auto'
                                             }}>
                                                 <span style={{ fontSize: '9px', color: '#666' }}>QR Code</span>
                                             </div>
@@ -559,22 +556,27 @@ const AIGovernanceCertificateWithSignatures = ({
                                     
                                     {/* Official Gold Seal */}
                                     <div style={{ 
-                                        textAlign: 'center',
-                                        paddingBottom: '8px'
+                                        textAlign: 'center'
                                     }}>
                                         <img 
                                             src="/Bootcamp_Certificates_Elements/Official_seal.png" 
                                             alt="Official Seal"
                                             crossOrigin="anonymous"
                                             style={{ 
-                                                width: '80px', 
-                                                height: '80px', 
+                                                width: '75px', 
+                                                height: '75px', 
                                                 objectFit: 'contain',
                                                 filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.15))',
-                                                display: 'block'
+                                                display: 'block',
+                                                margin: '0 auto'
                                             }} 
                                         />
                                     </div>
+                                    
+                                    {/* Certificate Info */}
+                                    <p style={{ fontSize: '8px', color: '#666', margin: '5px 0 0 0', lineHeight: '1.3', textAlign: 'center' }}>
+                                        <strong>CERTIFICATE ID:</strong><br />{certificateId}<br /><strong>DATE OF ISSUE:</strong><br />{completionDate}
+                                    </p>
                                 </div>
 
                                 {/* Signatures */}
