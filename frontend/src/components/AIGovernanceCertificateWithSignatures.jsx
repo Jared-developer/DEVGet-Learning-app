@@ -385,9 +385,9 @@ const AIGovernanceCertificateWithSignatures = ({
                         <div style={{ 
                             position: 'absolute', 
                             top: '20px', 
-                            right: '35px', 
-                            width: '140px', 
-                            height: '170px', 
+                            right: '25px', 
+                            width: '170px', 
+                            height: '200px', 
                             zIndex: 4
                         }}>
                             <img 
@@ -395,8 +395,8 @@ const AIGovernanceCertificateWithSignatures = ({
                                 alt="Badge"
                                 crossOrigin="anonymous"
                                 style={{ 
-                                    width: '140px', 
-                                    height: '170px', 
+                                    width: '170px', 
+                                    height: '200px', 
                                     objectFit: 'contain'
                                 }} 
                             />
@@ -427,9 +427,9 @@ const AIGovernanceCertificateWithSignatures = ({
                         </div>
 
                         {/* Main content */}
-                        <div style={{ position: 'relative', zIndex: 2, padding: '100px 80px 40px 80px', height: '100%', display: 'flex', flexDirection: 'column' }}>
+                        <div style={{ position: 'relative', zIndex: 2, padding: '120px 80px 40px 80px', height: '100%', display: 'flex', flexDirection: 'column' }}>
                             {/* Title */}
-                            <div style={{ textAlign: 'center', marginBottom: '30px' }}>
+                            <div style={{ textAlign: 'center', marginBottom: '25px' }}>
                                 <h1 style={{
                                     fontSize: '66px',
                                     fontWeight: '700',
@@ -561,7 +561,7 @@ const AIGovernanceCertificateWithSignatures = ({
                                     {/* Official Gold Seal */}
                                     <div style={{ 
                                         textAlign: 'center',
-                                        paddingBottom: '10px'
+                                        paddingBottom: '28px'
                                     }}>
                                         <img 
                                             src="/Bootcamp_Certificates_Elements/Official_seal.png" 
