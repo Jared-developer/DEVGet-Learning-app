@@ -388,7 +388,8 @@ const AIGovernanceCertificateWithSignatures = ({
                             right: '35px', 
                             width: '140px', 
                             height: '170px', 
-                            zIndex: 4
+                            zIndex: 4,
+                            overflow: 'hidden'
                         }}>
                             {/* Badge background */}
                             <div style={{ 
@@ -414,11 +415,11 @@ const AIGovernanceCertificateWithSignatures = ({
                             {/* Official Gold Seal on badge - centered on circular medal */}
                             <div style={{ 
                                 position: 'absolute',
-                                bottom: '12px',
+                                bottom: '20px',
                                 left: '50%',
                                 transform: 'translateX(-50%)',
-                                width: '95px', 
-                                height: '95px', 
+                                width: '70px', 
+                                height: '70px', 
                                 zIndex: 2,
                                 filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.15))'
                             }}>
@@ -427,9 +428,9 @@ const AIGovernanceCertificateWithSignatures = ({
                                     alt="Official Seal"
                                     crossOrigin="anonymous"
                                     style={{ 
-                                        width: '95px', 
-                                        height: '95px', 
-                                        objectFit: 'cover' 
+                                        width: '70px', 
+                                        height: '70px', 
+                                        objectFit: 'contain' 
                                     }} 
                                 />
                             </div>
